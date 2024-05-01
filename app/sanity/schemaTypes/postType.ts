@@ -45,6 +45,13 @@ export const postType = defineType({
       },
     },
     {
+      name: 'relatedPosts',
+      title: 'Related posts',
+      options: {
+        collapsible: true,
+      },
+    },
+    {
       name: 'seo',
       title: 'SEO & social',
       options: {
@@ -75,6 +82,11 @@ export const postType = defineType({
       icon: UserIcon,
     },
     {
+      name: 'relatedPosts',
+      title: 'Related posts',
+      icon: UserIcon,
+    },
+    {
       name: 'seo',
       title: 'SEO & Social',
       icon: RocketIcon,
@@ -97,6 +109,12 @@ export const postType = defineType({
       fieldset: 'details',
     }),
     defineField({
+      name: 'description',
+      type: 'text',
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
       name: 'image',
       type: 'customImage',
       group: 'details',
@@ -115,10 +133,13 @@ export const postType = defineType({
     }),
     defineField({
       name: 'tags',
-      type: 'reference',
-      to: [{type: 'postTag'}],
+      type: 'array',
+      of: [{type: 'postTag'}],
       group: 'tags',
       fieldset: 'tags',
+      options: {
+        layout: 'tags',
+      },
     }),
     defineField({
       name: 'author',
@@ -126,6 +147,13 @@ export const postType = defineType({
       to: [{type: 'author'}],
       group: 'author',
       fieldset: 'author',
+    }),
+    defineField({
+      name: 'relatedPosts',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'post'}]}],
+      group: 'relatedPosts',
+      fieldset: 'relatedPosts',
     }),
     defineField({
       name: 'seo',

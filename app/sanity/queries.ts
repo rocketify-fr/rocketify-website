@@ -36,3 +36,58 @@ export const RECORD_QUERY = groq`*[_type == "record" && slug.current == $slug][0
     duration
   }
 }`
+
+// Rocketify Queries \\
+
+export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]]{
+    _id,
+  _type,
+  title,
+  _updatedAt,
+  content,
+  "slug": slug.current,
+  "author": author->name,
+  "authorImage": author->image,
+  image,
+  tags[]{
+    title,
+    "slug": slug.current,
+  },
+  relatedPosts[]->{
+    _id,
+    _type,
+    title,
+    description,
+    _updatedAt,
+    "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
+    "slug": slug.current,
+    "author": author->name,
+    "authorImage": author->image,
+    image,
+    tags[]{
+      title,
+      "slug": slug.current,
+    }
+      },
+  seo {
+    title,
+    description
+  },
+}`
+
+export const POSTS_QUERY = groq`*[_type == "post"][0...12]|order(title asc){
+  _id,
+  _type,
+  title,
+  description,
+  _updatedAt,
+  "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
+  "slug": slug.current,
+  "author": author->name,
+  "authorImage": author->image,
+  image,
+  tags[]{
+    title,
+    "slug": slug.current,
+  }
+} | order(_updatedAt desc)`
