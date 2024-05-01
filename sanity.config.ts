@@ -1,7 +1,9 @@
+import {codeInput} from '@sanity/code-input'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {presentationTool} from 'sanity/presentation'
 import {structureTool} from 'sanity/structure'
+import {media} from 'sanity-plugin-media'
 
 import {STUDIO_BASEPATH} from '~/sanity/constants'
 import {locate} from '~/sanity/presentation/locate'
@@ -14,6 +16,8 @@ export default defineConfig({
   name: 'sanity-remix',
   title: 'Sanity Remix',
   plugins: [
+    codeInput(),
+    media(),
     structureTool({structure, defaultDocumentNode}),
     presentationTool({
       previewUrl: {

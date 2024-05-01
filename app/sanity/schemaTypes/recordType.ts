@@ -62,12 +62,7 @@ export const recordType = defineType({
       readOnly: true,
       fieldset: 'rating',
     }),
-    defineField({
-      name: 'artist',
-      type: 'reference',
-      to: [{type: 'artist'}],
-      group: 'details',
-    }),
+
     defineField({
       name: 'genres',
       type: 'array',

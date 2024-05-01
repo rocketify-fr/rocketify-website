@@ -1,4 +1,12 @@
-import {Disc, Home, Tags, Users} from 'lucide-react'
+import {
+  Disc,
+  Home,
+  Newspaper,
+  NotebookText,
+  StickyNote,
+  Tags,
+  Users,
+} from 'lucide-react'
 import type {
   DefaultDocumentNodeResolver,
   StructureResolver,
@@ -25,6 +33,11 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('artist').title('Artists').icon(Users),
       S.divider(),
       S.documentTypeListItem('genre').title('Genres').icon(Tags),
+      S.divider(),
+      S.documentTypeListItem('post').title('Posts').icon(Newspaper),
+      S.documentTypeListItem('useCase').title('Use cases').icon(NotebookText),
+      S.divider(),
+      S.documentTypeListItem('page').title('Pages').icon(StickyNote),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
@@ -42,6 +55,8 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
     case `home`:
       return S.document().views([S.view.form()])
     case `record`:
+    case `post`:
+    case `useCase`:
       return S.document().views([S.view.form(), OGPreviewView])
     default:
       return S.document().views([S.view.form()])
