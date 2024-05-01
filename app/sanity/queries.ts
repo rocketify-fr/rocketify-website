@@ -68,7 +68,7 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]]{
       title,
       "slug": slug.current,
     }
-      },
+  },
   seo {
     title,
     description
