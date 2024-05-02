@@ -1,4 +1,6 @@
+import {certificationType} from '~/sanity/customSchemaTypes/certificationType'
 import {customImage} from '~/sanity/customSchemaTypes/customImage'
+import {customLink} from '~/sanity/customSchemaTypes/customLink'
 import {seo} from '~/sanity/customSchemaTypes/seo'
 import {artistType} from '~/sanity/schemaTypes/artistType'
 import {authorType} from '~/sanity/schemaTypes/authorType'
@@ -10,6 +12,8 @@ import {postType} from '~/sanity/schemaTypes/postType'
 import {recordType} from '~/sanity/schemaTypes/recordType'
 import {trackType} from '~/sanity/schemaTypes/trackType'
 import {useCaseType} from '~/sanity/schemaTypes/useCaseType'
+import {footer} from '~/sanity/singletons/footer'
+import {header} from '~/sanity/singletons/header'
 
 export default [
   artistType,
@@ -24,4 +28,8 @@ export default [
   seo,
   authorType,
   postTagType,
+  customLink,
+  header,
+  certificationType,
+  footer,
 ]

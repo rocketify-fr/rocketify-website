@@ -3,6 +3,7 @@ import {
   Home,
   Newspaper,
   NotebookText,
+  SettingsIcon,
   StickyNote,
   Tags,
   Users,
@@ -38,6 +39,36 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('useCase').title('Use cases').icon(NotebookText),
       S.divider(),
       S.documentTypeListItem('page').title('Pages').icon(StickyNote),
+      S.divider(),
+      S.listItem()
+        .title('Settings')
+        .id('settings')
+        .icon(SettingsIcon)
+        .child(
+          S.list()
+            .title('Site Settings')
+            .items([
+              S.listItem()
+                .title('Header Settings')
+                .icon(SettingsIcon) // Optionnel: Choisissez une icône appropriée
+                .child(
+                  S.editor()
+                    .id('header')
+                    .schemaType('header')
+                    .documentId('header'),
+                ),
+              S.listItem()
+                .title('Footer Settings')
+                .icon(SettingsIcon) // Optionnel: Choisissez une icône appropriée
+                .child(
+                  S.editor()
+                    .id('footer')
+                    .schemaType('footer')
+                    .documentId('footer'),
+                ),
+              // Ajoutez d'autres documents singleton ici, si nécessaire
+            ]),
+        ),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
