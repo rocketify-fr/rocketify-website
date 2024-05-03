@@ -3,6 +3,8 @@ import {
   Home,
   Newspaper,
   NotebookText,
+  PanelBottom,
+  PanelTop,
   SettingsIcon,
   StickyNote,
   Tags,
@@ -50,7 +52,7 @@ export const structure: StructureResolver = (S) =>
             .items([
               S.listItem()
                 .title('Header Settings')
-                .icon(SettingsIcon) // Optionnel: Choisissez une icône appropriée
+                .icon(PanelTop)
                 .child(
                   S.editor()
                     .id('header')
@@ -59,14 +61,13 @@ export const structure: StructureResolver = (S) =>
                 ),
               S.listItem()
                 .title('Footer Settings')
-                .icon(SettingsIcon) // Optionnel: Choisissez une icône appropriée
+                .icon(PanelBottom)
                 .child(
                   S.editor()
                     .id('footer')
                     .schemaType('footer')
                     .documentId('footer'),
                 ),
-              // Ajoutez d'autres documents singleton ici, si nécessaire
             ]),
         ),
     ])

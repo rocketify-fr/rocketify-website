@@ -19,7 +19,7 @@ export const certificationType = defineType({
     }),
     defineField({
       name: 'issueDate',
-      type: 'text',
+      type: 'string',
     }),
   ],
 })
