@@ -70,6 +70,9 @@ export const structure: StructureResolver = (S) =>
                 ),
             ]),
         ),
+      S.divider(),
+      S.divider(),
+      S.documentTypeListItem('heroSection').title('Hero').icon(StickyNote),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
