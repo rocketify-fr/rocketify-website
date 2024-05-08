@@ -8,12 +8,12 @@ import type {POST_QUERYResult} from '~/types/sanity.types'
 import {RecordCover} from './RecordCover'
 
 type PostProps = {
-  post: POST_QUERYResult[]
+  post: POST_QUERYResult
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
 export function Post(props: PostProps) {
-  const {post = [], encodeDataAttribute} = props
+  const {post, encodeDataAttribute} = props
 
   return (
     <div>
