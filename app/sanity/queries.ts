@@ -37,6 +37,10 @@ export const RECORD_QUERY = groq`*[_type == "record" && slug.current == $slug][0
 
 const logo = '"logo": logo{"url": asset->url, alt}'
 
+const image = '"image": image{"url": asset->url, alt}'
+
+const getImage = (name) => `"${name}": ${name}{"url": asset->url, alt}`
+
 const link = `
   "external": {
     blank,
@@ -91,12 +95,14 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
   _type,
   title,
+  _createdAt,
   _updatedAt,
   content,
   "slug": slug.current,
   "author": author->name,
   "authorImage": author->image,
-  image,
+  "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
+  ${image},
   tags[]{
     title,
     "slug": slug.current,
@@ -107,11 +113,14 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
     title,
     description,
     _updatedAt,
+    _createdAt,
     "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
     "slug": slug.current,
-    "author": author->name,
-    "authorImage": author->image,
-    image,
+    author-> {
+      name,
+      ${image}
+    },
+    ${image},
     tags[]{
       title,
       "slug": slug.current,

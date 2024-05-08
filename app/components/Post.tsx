@@ -1,74 +1,134 @@
-import {Link} from '@remix-run/react'
-import urlBuilder from '@sanity/image-url'
-import type {EncodeDataAttributeCallback} from '@sanity/react-loader'
+import { PortableText } from '@portabletext/react'
+import { Link } from '@remix-run/react'
+import queryString from 'query-string'
 
-import {dataset, projectId} from '~/sanity/projectDetails'
-import type {POST_QUERYResult} from '~/types/sanity.types'
+import Container from './Container'
 
-import {RecordCover} from './RecordCover'
-
-type PostProps = {
-  post: POST_QUERYResult
-  encodeDataAttribute?: EncodeDataAttributeCallback
+const Tags = ({ tags }) => {
+  return (
+    <div className='flex gap-x-4'>
+      {tags.map((tag) => (
+        <Link
+          key={tag.slug}
+          to={`/blog?${queryString.stringify({ tag: tag.slug })}`}
+          className='flex items-center justify-center rounded-3xl border border-black px-4 py-2'
+        >
+          <span>{tag.title}</span>
+        </Link>
+      ))}
+    </div>
+  )
+}
+const Share = ({ url }) => {
+  return (
+    <div className='flex gap-x-2'>
+      {['link', 'linkedin', 'x', 'facebook'].map((name) => (
+        <div className='flex size-[64px] items-center justify-center rounded-full bg-gray-100 font-bai text-3xl font-bold'>
+          {name[0]}
+        </div>
+      ))}
+    </div>
+  )
+}
+const Breadcrumbs = () => {
+  return (
+    <div className='flex flex-col py-8'>
+      <Link className='flex gap-x-4' to='/blog'>
+        <span>{'<'}</span>
+        <span>All Posts</span>
+      </Link>
+    </div>
+  )
 }
 
-export function Post(props: PostProps) {
-  const {post, encodeDataAttribute} = props
-
+export function Post ({ post: postData, encodeDataAttribute }) {
+  const {
+    title,
+    tags,
+    estimatedReadingTime,
+    image,
+    _createdAt,
+    slug,
+    content,
+    relatedPosts,
+    ...post
+  } = postData
   return (
-    <div>
-      <div className="relative overflow-hidden transition-all duration-200 ease-in-out group-hover:scale-105 group-hover:opacity-90">
-        <div className="absolute z-0 h-48 w-[200%] translate-x-20 translate-y-20 -rotate-45 bg-gradient-to-b from-white to-transparent opacity-25 mix-blend-overlay transition-transform duration-500 ease-in-out group-hover:translate-x-10 group-hover:translate-y-10 group-hover:opacity-75" />
-      </div>
-      {post?.slug ? (
-        <Link prefetch="intent" to={post?.slug}>
-          <RecordCover image={post.image} />
-        </Link>
-      ) : (
-        <RecordCover image={post.image} />
-      )}
-      <div className="flex flex-col">
-        {post?.slug ? (
-          <Link
-            prefetch="intent"
-            to={post?.slug}
-            className="text-bold pt-4 text-xl font-bold tracking-tighter transition-colors duration-100 ease-in-out hover:bg-cyan-400 hover:text-white lg:text-3xl"
-          >
-            {post.title}
-          </Link>
-        ) : (
-          <span className="pt-4 text-xl font-bold tracking-tighter">
-            {post.title}
-          </span>
-        )}
-        {post?.author ? (
-          <span className="bg-black font-bold leading-none tracking-tighter text-white dark:bg-white dark:text-black">
-            {post.author}
-          </span>
-        ) : null}
-      </div>
-      {post?.authorImage ? (
-        <img
-          className="h-auto w-full object-cover shadow-black transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-cyan-200"
-          src={urlBuilder({projectId, dataset})
-            .image(post?.authorImage)
-            .height(800)
-            .width(800)
-            .fit('max')
-            .auto('format')
-            .url()}
-          alt={post?.authorImage?.alt ?? ``}
-          loading="lazy"
-        />
-      ) : (
-        <div className="flex aspect-square w-full items-center justify-center bg-gray-100 text-gray-500">
-          Missing Author image
+    <>
+      <Container className='flex flex-col'>
+        <Breadcrumbs></Breadcrumbs>
+        <div className='flex items-center space-x-4'>
+          <Tags tags={tags}></Tags>
+          <p className='text-xs font-bold'>{estimatedReadingTime} min read</p>
         </div>
-      )}
-      <div>Temps de lecture: {post?.estimatedReadingTime} minutes</div>
-      <div>Date: {post?._updatedAt} </div>
-      <div>Description: {post?.description} </div>
-      <div>Catégorie: {post?.tags[0].title} </div>
-    </div>
+        <h1 className='py-2 font-bai text-6xl'>{title}</h1>
+        <div className='flex w-full flex-col py-4'>
+          <img
+            src={image.url}
+            alt={image.alt}
+            className='my-4 aspect-video rounded-3xl border border-black object-cover'
+          />
+          <div className='flex justify-between py-4'>
+            <div className='flex flex-col'>
+              <span className='text-sm'>Published on</span>
+              <span className='text-sm font-[500]'>
+                {new Date(_createdAt).toLocaleDateString()}
+              </span>
+            </div>
+            <Share url={`/blog/${slug}`}></Share>
+          </div>
+        </div>
+        <div className='post-content mx-auto max-w-[870px] py-8'>
+          <PortableText value={content}></PortableText>
+        </div>
+      </Container>
+      <div className='my-16 h-px w-full bg-black'></div>
+      <Container className='flex flex-col'>
+        <h2 className='font-bai text-5xl'>Related posts</h2>
+        <div className='flex items-end justify-between'>
+          <div>hardcoded lorem ipsum lol</div>
+          <Link
+            to='/blog'
+            className='rounded-3xl border border-black bg-rGreen px-4 py-2'
+          >
+            Voir tous les articles
+          </Link>
+        </div>
+        <div className='grid grid-cols-3 gap-x-4 pt-16'>
+          {relatedPosts.map((related) => (
+            <div className='flex flex-col overflow-hidden rounded-3xl border border-black'>
+              <img
+                src={related.image.url}
+                alt={related.image.alt}
+                className='aspect-video w-full border-b border-black object-cover'
+              />
+              <div className='flex flex-col gap-y-4 p-4'>
+                <div className='flex items-center space-x-4'>
+                  <Tags tags={related.tags}></Tags>
+                  <p className='text-xs'>
+                    {related.estimatedReadingTime} min read
+                  </p>
+                </div>
+                <h3 className='font-bai text-[26px]'>{related.title}</h3>
+                <p className='text-sm'>{related.description}</p>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-x-4'>
+                    <img
+                      width={40}
+                      height={40}
+                      src={related.author.image.url}
+                      alt={related.author.image.alt}
+                      className='size-[40px] rounded-full'
+                    />
+                    <p>{related.author.name}</p>
+                  </div>
+                  <div>{new Date(related._createdAt).toLocaleDateString()}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </>
   )
 }

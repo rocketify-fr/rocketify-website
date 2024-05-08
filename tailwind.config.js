@@ -19,7 +19,8 @@ module.exports = {
         work: ['Work Sans', 'sans-serif'], // font-work
       },
       fontSize: {
-        '6xl': ['83px', { lineHeight: '120%', fontFamily: 'bai' }], // text-h1
+        '7xl': ['83px', { lineHeight: '120%', fontFamily: 'bai' }], // text-h1
+        '6xl': ['72px', { lineHeight: '120%', fontFamily: 'bai' }], // text-h1
         '5xl': ['67px', { lineHeight: '120%', fontFamily: 'bai' }],
         '4xl': ['51px', { lineHeight: '120%', fontFamily: 'bai' }],
         '3xl': ['40px', { lineHeight: '120%', fontFamily: 'bai' }],

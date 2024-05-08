@@ -48,7 +48,7 @@ export default function Website() {
   return (
     <>
       <Header theme={theme} data={header} />
-      <div className='container mx-auto grid grid-cols-1 gap-4 p-4 lg:gap-12 lg:p-12'>
+      <div className=''>
         {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
         <Outlet />
       </div>

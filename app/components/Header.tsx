@@ -25,21 +25,21 @@ export function Header({ theme, data }) {
 
   return (
     <header className='border-b border-black transition-colors duration-1000 ease-in-out dark:border-gray-900'>
-      <div className='container mx-auto flex items-center justify-between h-[80px] my-auto'>
+      <div className='container m-auto flex h-[80px] items-center justify-between'>
         <Logo />
-        <div className='flex space-x-16 items-center text-buttonLabelNav'>
+        <div className='text-buttonLabelNav flex items-center space-x-16'>
           {data.menu.map((menu, i) => {
             const { slug, title } = menu.internal
             const active =
-              menu.linkType === 'internal' && slug === current.internal.slug
+              menu.linkType === 'internal' && slug === current?.internal?.slug
             const isLast = i === data.menu.length - 1
 
             return (
               <Link
                 link={menu}
                 className={clsx(
-                  isLast && 'border border-black rounded-3xl bg-rGreen px-4',
-                  `py-2 flex items-center justify-center space-x-2 relative`
+                  isLast && 'rounded-3xl border border-black bg-rGreen px-4',
+                  'relative flex items-center justify-center space-x-2 py-2'
                 )}
               >
                 {active && (
@@ -53,7 +53,7 @@ export function Header({ theme, data }) {
                 <span
                   className={clsx(
                     active && 'font-bold',
-                    `before:font-bold before:content-['${title}'] before:block before:h-0 before:overflow-hidden before:invisible`
+                    `before:content-[' before:font-bold${title}'] before:invisible before:block before:h-0 before:overflow-hidden`
                   )}
                 >
                   {title}
