@@ -48,18 +48,17 @@ export default function Website() {
   return (
     <>
       <Header theme={theme} data={header} />
-      <pre>{JSON.stringify({ footer }, null, 2)}</pre>
-      <div className='container mx-auto p-4 lg:p-12 grid grid-cols-1 gap-4 lg:gap-12'>
-        {/*home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null*/}
+      <div className='container mx-auto grid grid-cols-1 gap-4 p-4 lg:gap-12 lg:p-12'>
+        {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
         <Outlet />
       </div>
-      <Footer footer={footer} />
+      <Footer data={footer} />
       {sanity.preview ? (
         <>
           <VisualEditing />
           <ExitPreview />
         </>
-      ) : null}
+          ) : null}
     </>
   )
 }

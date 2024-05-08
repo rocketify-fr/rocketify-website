@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from '@remix-run/react'
+import clsx from 'clsx'
 
-export function Logo() {
+export function Logo({ className = null }) {
   const {
     initial: {
       data: {
@@ -9,10 +10,8 @@ export function Logo() {
     }
   } = useLoaderData()
   return (
-    <p className='text-lg font-bold tracking-tighter text-black dark:text-white lg:text-2xl'>
-      <Link to='/'>
-        <img src={logo.url} alt={logo.alt} height={42} width={167} />
-      </Link>
-    </p>
+    <Link to='/' className={clsx(className)}>
+      <img src={logo.url} alt={logo.alt} height={42} width={167} />
+    </Link>
   )
 }

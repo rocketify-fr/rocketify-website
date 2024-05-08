@@ -1,6 +1,5 @@
 import groq from 'groq'
 
-
 export const RECORDS_QUERY = groq`*[_type == "record"][0...12]|order(title asc){
     _id,
     _type,
@@ -36,7 +35,7 @@ export const RECORD_QUERY = groq`*[_type == "record" && slug.current == $slug][0
   }
 }`
 
-const logo = `"logo": logo{"url": asset->url, alt}`
+const logo = '"logo": logo{"url": asset->url, alt}'
 
 const link = `
   "external": {
@@ -76,7 +75,7 @@ export const FOOTER_QUERY = `*[_type == "footer" ]{
   },
   contactTitle,
   contactMenu[]{
-    style, children
+    ...
   },
   menuSubFooter[]{
     ${link}
@@ -87,7 +86,6 @@ export const HOME_QUERY = groq`{
   "header": ${HEADER_QUERY},
   "footer": ${FOOTER_QUERY},
 }`
-
 
 export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
