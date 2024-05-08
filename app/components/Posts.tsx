@@ -1,7 +1,7 @@
 import { redirect, useLocation, useNavigate } from '@remix-run/react'
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 import queryString from 'query-string'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import type { POSTS_QUERYResult } from '~/types/sanity.types'
 import { updateQuery } from '~/utils/location'
@@ -56,9 +56,9 @@ export function Posts(props: PostsProps) {
 
   const handleSort = useCallback(
     (e) => {
-      const [sortBy, sortDirection] = e.target.value.split('.')
+      const [sortBy, sortOrder] = e.target.value.split('.')
 
-      navigate(`/blog?${updateQuery(location, { sortBy, sortDirection })}`)
+      navigate(`/blog?${updateQuery(location, { sortBy, sortOrder })}`)
     },
     [location.search]
   )
@@ -75,6 +75,10 @@ export function Posts(props: PostsProps) {
     }
   }, [location.search])
 
+  const sortFilter = useMemo(() => {
+    const { sortBy, sortOrder } = queryString.parse(location.search)
+    return { sortBy, sortOrder }
+  }, [location.search])
   return (
     <Page>
       <Container>
@@ -94,6 +98,7 @@ export function Posts(props: PostsProps) {
               name='sort'
               onChange={handleSort}
               className='border-none bg-white text-xs'
+              value={`${sortFilter.sortBy || 'date'}.${sortFilter.sortOrder || 'desc'}`}
             >
               <option value='date.desc'>Date décroissante</option>
               <option value='date.asc'>Date croissante</option>

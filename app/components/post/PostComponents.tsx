@@ -14,8 +14,9 @@ export const Tags = ({ tags, className = '' }) => {
         <Link
           key={tag.slug}
           to={
-            location.pathname === '/blog'
-              ? `/blog?${updateQuery(location, { tag: tag.title })}`
+            location.pathname === '/blog' &&
+            queryString.parse(location.search).tag === tag.title
+              ? '/blog'
               : `/blog?${queryString.stringify({ tag: tag.title })}`
           }
         >
