@@ -19,11 +19,11 @@ module.exports = {
         work: ['Work Sans', 'sans-serif'], // font-work
       },
       fontSize: {
-        h1: ['83px', {lineHeight: '120%', fontFamily: 'bai'}], // text-h1
-        h2: ['67px', {lineHeight: '120%', fontFamily: 'bai'}],
-        h3: ['51px', {lineHeight: '120%', fontFamily: 'bai'}],
-        h4: ['40px', {lineHeight: '120%', fontFamily: 'bai'}],
-        h5: ['28px', {lineHeight: '120%', fontFamily: 'bai'}],
+        '5xl': ['83px', {lineHeight: '120%', fontFamily: 'bai'}], // text-h1
+        '4xl': ['67px', {lineHeight: '120%', fontFamily: 'bai'}],
+        '3xl': ['51px', {lineHeight: '120%', fontFamily: 'bai'}],
+        '2xl': ['40px', {lineHeight: '120%', fontFamily: 'bai'}],
+        xl: ['28px', {lineHeight: '120%', fontFamily: 'bai'}],
         baseline: ['22px', {lineHeight: '150%', fontFamily: 'bai'}],
         cardTitle: ['28px', {lineHeight: '150%', fontFamily: 'bai'}],
         paragraph: ['18px', {lineHeight: '150%', fontFamily: 'work'}],
