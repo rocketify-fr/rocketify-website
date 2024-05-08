@@ -19,16 +19,17 @@ module.exports = {
         work: ['Work Sans', 'sans-serif'], // font-work
       },
       fontSize: {
-        h1: ['83px', {lineHeight: '99.6px', fontFamily: 'bai'}], // text-h1
-        h2: ['67px', {lineHeight: '80.4px', fontFamily: 'bai'}],
-        h3: ['51px', {lineHeight: '61.2px', fontFamily: 'bai'}],
-        h4: ['40px', {lineHeight: '48px', fontFamily: 'bai'}],
-        h5: ['28px', {lineHeight: '33.6px', fontFamily: 'bai'}],
-        cardTitle: ['28px', {lineHeight: '42px', fontFamily: 'bai'}],
-        paragraph: ['18px', {lineHeight: '27px', fontFamily: 'work'}],
-        buttonLabelBody: ['18px', {lineHeight: '27px', fontFamily: 'work'}],
-        buttonLabelNav: ['16px', {lineHeight: '24px', fontFamily: 'work'}],
-        smallText: ['14px', {lineHeight: '18.2px', fontFamily: 'work'}],
+        h1: ['83px', {lineHeight: '120%', fontFamily: 'bai'}], // text-h1
+        h2: ['67px', {lineHeight: '120%', fontFamily: 'bai'}],
+        h3: ['51px', {lineHeight: '120%', fontFamily: 'bai'}],
+        h4: ['40px', {lineHeight: '120%', fontFamily: 'bai'}],
+        h5: ['28px', {lineHeight: '120%', fontFamily: 'bai'}],
+        baseline: ['22px', {lineHeight: '150%', fontFamily: 'bai'}],
+        cardTitle: ['28px', {lineHeight: '150%', fontFamily: 'bai'}],
+        paragraph: ['18px', {lineHeight: '150%', fontFamily: 'work'}],
+        buttonLabelBody: ['18px', {lineHeight: '150%', fontFamily: 'work'}],
+        buttonLabelNav: ['16px', {lineHeight: '150%', fontFamily: 'work'}],
+        smallText: ['14px', {lineHeight: '130%', fontFamily: 'work'}],
       },
     },
   },
