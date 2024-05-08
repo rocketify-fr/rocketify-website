@@ -1,6 +1,5 @@
 import groq from 'groq'
 
-export const HOME_QUERY = groq`*[_id == "home"][0]{ title, siteTitle }`
 
 export const RECORDS_QUERY = groq`*[_type == "record"][0...12]|order(title asc){
     _id,
@@ -37,23 +36,58 @@ export const RECORD_QUERY = groq`*[_type == "record" && slug.current == $slug][0
   }
 }`
 
-// Rocketify Queries \\
-export const HEADER_QUERY = groq`*[_type == "header" ]{
-  logo,
-  menu[]  
-}`
+const logo = `"logo": logo{"url": asset->url, alt}`
 
-export const FOOTER_QUERY = groq`*[_type == "footer" ]{
-  logo,
+const link = `
+  "external": {
+    blank,
+    href,
+    title
+  },
+  "internal": internalLink-> {
+    title,
+    "slug": slug.current,
+    "type": _type
+  },
+  linkType
+`
+
+// Rocketify Queries \\
+export const HEADER_QUERY = `*[_type == "header" ]{
+  ${logo},
+  menu[]{
+    ${link}
+  }
+}[0]`
+
+export const FOOTER_QUERY = `*[_type == "footer" ]{
+  ${logo},
   description,
   menuTitle,
-  menu[],
+  menu[]{
+    ${link}
+  },
   certificationsTitle,
-  certifications,
+  certifications[]{
+    title, 
+    description, 
+    ${logo}, 
+    issueDate
+  },
   contactTitle,
-  contactMenu[],
-  menuSubFooter
+  contactMenu[]{
+    style, children
+  },
+  menuSubFooter[]{
+    ${link}
+  }
+}[0]`
+
+export const HOME_QUERY = groq`{
+  "header": ${HEADER_QUERY},
+  "footer": ${FOOTER_QUERY},
 }`
+
 
 export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
