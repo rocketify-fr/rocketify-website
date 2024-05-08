@@ -9,8 +9,6 @@ import type {loader as layoutLoader} from '~/routes/_website'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
 import {POST_QUERY} from '~/sanity/queries'
-import type {RecordStub} from '~/types/record'
-import {recordStubsZ} from '~/types/record'
 
 export const meta: MetaFunction<
   typeof loader,
@@ -27,27 +25,34 @@ export const meta: MetaFunction<
   return [{title}]
 }
 
-export const loader = async ({request}: LoaderFunctionArgs) => {
+// Load the `record` document with this slug
+export const loader = async ({params, request}: LoaderFunctionArgs) => {
   const {options} = await loadQueryOptions(request.headers)
-  const query = POST_QUERY
-  const queryParams = {}
-  const initial = await loadQuery(query, queryParams, options).then((res) => ({
-    ...res,
-    data: res.data ? res.data : null,
-  }))
 
+  const query = POST_QUERY
+  const initial = await loadQuery(
+    query,
+    // $slug.tsx has the params { slug: 'hello-world' }
+    params,
+    options,
+  ).then((res) => ({...res, data: res.data ? res.data : null}))
   if (!initial.data) {
     throw new Response('Not found', {status: 404})
   }
 
-  return json({
+  // Create social share image url
+  const {origin} = new URL(request.url)
+  const ogImageUrl = `${origin}/resource/og?id=${initial.data._id}`
+
+  return {
     initial,
     query,
-    params: queryParams,
-  })
+    params,
+    ogImageUrl,
+  }
 }
 
-export default function Index() {
+export default function PostPage() {
   const {initial, query, params} = useLoaderData<typeof loader>()
   const {data, loading, encodeDataAttribute} = useQuery<typeof initial.data>(
     query,
