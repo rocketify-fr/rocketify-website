@@ -1,14 +1,12 @@
 import {
-  CodeBlockIcon,
   ComposeIcon,
-  ImageIcon,
   RocketIcon,
   TagIcon,
   ThListIcon,
   UserIcon,
 } from '@sanity/icons'
 import {Newspaper} from 'lucide-react'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 export const useCaseType = defineType({
   name: 'useCase',
