@@ -41,5 +41,10 @@ export const footer = defineType({
       type: 'array',
       of: [{type: 'certificationType'}],
     }),
+    defineField({
+      name: 'menuSubFooter',
+      type: 'array',
+      of: [{type: 'customLink'}],
+    }),
   ],
 })

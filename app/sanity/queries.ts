@@ -51,7 +51,8 @@ export const FOOTER_QUERY = groq`*[_type == "footer" ]{
   certificationsTitle,
   certifications,
   contactTitle,
-  contactMenu[]
+  contactMenu[],
+  menuSubFooter
 }`
 
 export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
