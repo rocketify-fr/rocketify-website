@@ -2,13 +2,17 @@
   "extends": [
     "@remix-run/eslint-config",
     "@remix-run/eslint-config/node",
-    "prettier"
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "standard",
+    "plugin:tailwindcss/recommended"
   ],
   "ignorePatterns": ["node_modules", "build", ".cache"],
-  "plugins": ["prettier", "simple-import-sort"],
+  "plugins": ["prettier", "simple-import-sort", "react", "react-hooks"],
   "overrides": [
     {
-      "files": ["*.ts", "*.js"],
+      "files": ["*.ts", "*.js", ".tsx", ".jsx"],
       "parser": "@typescript-eslint/parser"
     },
     {
@@ -23,6 +27,7 @@
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": 0
   }
 }
