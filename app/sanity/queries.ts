@@ -39,8 +39,8 @@ export const RECORD_QUERY = groq`*[_type == "record" && slug.current == $slug][0
 
 // Rocketify Queries \\
 
-export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]]{
-    _id,
+export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
+  _id,
   _type,
   title,
   _updatedAt,
