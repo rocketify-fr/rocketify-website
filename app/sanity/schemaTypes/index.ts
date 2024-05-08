@@ -10,7 +10,9 @@ import {postTagType} from '~/sanity/schemaTypes/postTagType'
 import {postType} from '~/sanity/schemaTypes/postType'
 import {recordType} from '~/sanity/schemaTypes/recordType'
 import {trackType} from '~/sanity/schemaTypes/trackType'
+import {useCaseTagType} from '~/sanity/schemaTypes/useCaseTagType'
 import {useCaseType} from '~/sanity/schemaTypes/useCaseType'
+import {sections} from '~/sanity/sections' // sections
 import {singletons} from '~/sanity/singletons'
 
 export default [
@@ -24,8 +26,10 @@ export default [
   useCaseType,
   authorType,
   postTagType,
+  useCaseTagType,
   ...objects,
   ...documents,
   ...customSchemaTypes,
   ...singletons,
+  ...sections,
 ]

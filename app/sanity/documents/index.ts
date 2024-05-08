@@ -1,3 +1,3 @@
 import {heroSection} from './heroSection'
-
-export const documents = [heroSection]
+import {testimonial} from './testimonial'
+export const documents = [heroSection, testimonial]

@@ -1,2 +1,3 @@
-import {ctaButton} from './cta'
-export const objects = [ctaButton]
+import {ctaButton} from './ctaButton'
+import {summaryItem} from './summaryItem'
+export const objects = [ctaButton, summaryItem]
