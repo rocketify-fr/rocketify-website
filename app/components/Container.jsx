@@ -7,3 +7,7 @@ export default function Container({ children, className = null }) {
     </div>
   )
 }
+
+export const Page = ({ children }) => {
+  return <div className='pb-32 pt-8'>{children}</div>
+}

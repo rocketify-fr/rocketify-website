@@ -8,9 +8,7 @@ import { Posts } from '~/components/Posts'
 import type { loader as layoutLoader } from '~/routes/_website'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
-import { POSTS_QUERY, RECORDS_QUERY } from '~/sanity/queries'
-import type { RecordStub } from '~/types/record'
-import { recordStubsZ } from '~/types/record'
+import { POSTS_QUERY } from '~/sanity/queries'
 
 export const meta: MetaFunction<
   typeof loader,

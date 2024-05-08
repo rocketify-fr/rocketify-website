@@ -3,13 +3,18 @@ import clsx from 'clsx'
 
 import { PreHeader } from './PostComponents'
 
-export default function PostCard({ post, horizontal = false }) {
+export default function PostCard({
+  post,
+  horizontal = false,
+  className = null
+}) {
   return (
     <Link
       to={`/blog/${post.slug}`}
       className={clsx(
         'flex overflow-hidden rounded-3xl border border-black',
-        !horizontal && 'flex-col '
+        !horizontal && 'flex-col',
+        className
       )}
     >
       <img
@@ -17,13 +22,13 @@ export default function PostCard({ post, horizontal = false }) {
         alt={post.image.alt}
         className={clsx(
           'w-full border-b border-black object-cover',
-          horizontal ? 'aspect-[11/10] flex-[2]' : 'aspec-video'
+          horizontal ? 'lg:aspect-[11/10] lg:flex-[2]' : 'aspec-video'
         )}
       />
       <div
         className={clsx(
           'flex flex-col p-4',
-          horizontal && 'my-auto flex-[1] px-6'
+          horizontal && 'lg:my-auto lg:flex-[1] lg:px-6'
         )}
       >
         <PreHeader

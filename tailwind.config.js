@@ -1,6 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+const gaps = [0, 4, 8, 12, 16]
+
+const safelist = gaps.flatMap(size => ([
+  `gap-${size}`,
+  `gap-y-${size}`,
+  `gap-x-${size}`,
+]))
+
+console.log({ safelist });
+
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
+  safelist,
   darkMode: 'class',
   theme: {
     extend: {

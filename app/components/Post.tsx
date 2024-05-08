@@ -1,12 +1,11 @@
 import { PortableText } from '@portabletext/react'
 import { Link } from '@remix-run/react'
-import queryString from 'query-string'
 
-import Container from './Container'
+import Container, { Page } from './Container'
 import PostCard from './post/PostCard'
 import { Breadcrumbs, PreHeader, Share } from './post/PostComponents'
 
-export function Post ({ post: postData, encodeDataAttribute }) {
+export function Post ({ post: postData }) {
   const {
     title,
     tags,
@@ -16,10 +15,9 @@ export function Post ({ post: postData, encodeDataAttribute }) {
     slug,
     content,
     relatedPosts,
-    ...post
   } = postData
   return (
-    <div className='pb-32 pt-8'>
+    <Page>
       <Container className='flex flex-col'>
         <Breadcrumbs></Breadcrumbs>
         <PreHeader
@@ -65,6 +63,6 @@ export function Post ({ post: postData, encodeDataAttribute }) {
           ))}
         </div>
       </Container>
-    </div>
+    </Page>
   )
 }
