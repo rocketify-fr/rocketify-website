@@ -75,9 +75,9 @@ export function Posts(props: PostsProps) {
     }
   }, [location.search])
 
-  const sortFilter = useMemo(() => {
-    const { sortBy, sortOrder } = queryString.parse(location.search)
-    return { sortBy, sortOrder }
+  const filters = useMemo(() => {
+    const { sortBy, sortOrder, page } = queryString.parse(location.search)
+    return { sortBy, sortOrder, page: +page }
   }, [location.search])
   return (
     <Page>
@@ -98,7 +98,7 @@ export function Posts(props: PostsProps) {
               name='sort'
               onChange={handleSort}
               className='border-none bg-white text-xs'
-              value={`${sortFilter.sortBy || 'date'}.${sortFilter.sortOrder || 'desc'}`}
+              value={`${filters.sortBy || 'date'}.${filters.sortOrder || 'desc'}`}
             >
               <option value='date.desc'>Date décroissante</option>
               <option value='date.asc'>Date croissante</option>
@@ -113,6 +113,19 @@ export function Posts(props: PostsProps) {
             <PostCard post={post}></PostCard>
           ))}
         </ResponsiveGrid>
+        <div className='flex items-center justify-end gap-2 py-8'>
+          <Button
+            className='mr-4 cursor-pointer'
+            disabled={filters.page === 1 || !filters.page}
+          >
+            Précédent
+          </Button>
+          <Button className='cursor-pointer bg-rGreen'>1</Button>
+          <Button className='cursor-pointer '>2</Button>
+          <Button className='cursor-pointer '>3</Button>
+          <Button className='cursor-pointer '>4</Button>
+          <Button className='ml-4 cursor-pointer bg-rGreen'>Suivant</Button>
+        </div>
       </Container>
     </Page>
   )
