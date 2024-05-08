@@ -1,16 +1,30 @@
-import { Link } from '@remix-run/react'
+import { Link, useLocation } from '@remix-run/react'
+import clsx from 'clsx'
 import queryString from 'query-string'
 
-export const Tags = ({ tags }) => {
+import { updateQuery } from '~/utils/location'
+
+import Button from '../layout/Button'
+
+export const Tags = ({ tags, className = '' }) => {
+  const location = useLocation()
   return (
-    <div className='flex gap-x-4'>
-      {tags.map((tag) => (
+    <div className={clsx('flex cursor-pointer gap-x-4', className)}>
+      {tags.map((tag, i) => (
         <Link
           key={tag.slug}
-          to={`/blog?${queryString.stringify({ tag: tag.slug })}`}
-          className='flex items-center justify-center rounded-3xl border border-black px-4 py-2'
+          to={
+            location.pathname === '/blog'
+              ? `/blog?${updateQuery(location, { tag: tag.title })}`
+              : `/blog?${queryString.stringify({ tag: tag.title })}`
+          }
         >
-          <span>{tag.title}</span>
+          <Button
+            key={tag.slug}
+            className={clsx('font-work text-xs', tag.active && 'bg-rGreen')}
+          >
+            <span>{tag.title}</span>
+          </Button>
         </Link>
       ))}
     </div>

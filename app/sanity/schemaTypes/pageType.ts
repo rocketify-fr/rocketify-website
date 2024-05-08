@@ -1,5 +1,5 @@
-import {StickyNote} from 'lucide-react'
-import {defineField, defineType} from 'sanity'
+import { StickyNote } from 'lucide-react'
+import { defineField, defineType } from 'sanity'
 
 export const pageType = defineType({
   name: 'page',
@@ -16,7 +16,7 @@ export const pageType = defineType({
       type: 'slug',
       options: {
         source: 'title',
-      },
+      }
     }),
-  ],
+  ]
 })
