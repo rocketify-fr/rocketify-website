@@ -38,6 +38,21 @@ export const RECORD_QUERY = groq`*[_type == "record" && slug.current == $slug][0
 }`
 
 // Rocketify Queries \\
+export const HEADER_QUERY = groq`*[_type == "header" ]{
+  logo,
+  menu[]  
+}`
+
+export const FOOTER_QUERY = groq`*[_type == "footer" ]{
+  logo,
+  description,
+  menuTitle,
+  menu[],
+  certificationsTitle,
+  certifications,
+  contactTitle,
+  contactMenu[]
+}`
 
 export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
