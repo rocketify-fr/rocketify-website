@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const customLink = defineType({
   name: 'customLink',
@@ -13,8 +13,8 @@ export const customLink = defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'External', value: 'external'},
-          {title: 'Internal', value: 'internal'},
+          { title: 'External', value: 'external' },
+          { title: 'Internal', value: 'internal' },
         ],
         layout: 'radio',
       },
@@ -23,7 +23,7 @@ export const customLink = defineType({
       title: 'URL',
       name: 'href',
       type: 'url',
-      hidden: ({parent}) => parent?.linkType !== 'external', // hidden if link type is not external
+      hidden: ({ parent }) => parent?.linkType !== 'external', // hidden if link type is not external
       validation: (Rule) =>
         Rule.uri({
           allowRelative: true,
@@ -31,20 +31,26 @@ export const customLink = defineType({
         }),
     }),
     defineField({
+      title: "title",
+      name: 'title',
+      type: 'string',
+      hidden: ({ parent }) => parent?.linkType !== 'external', // hidden if link type is not external
+    }),
+    defineField({
       title: 'Open in new tab?',
       name: 'blank',
       description: 'Read https://css-tricks.com/use-target_blank/',
       type: 'boolean',
-      hidden: ({parent}) => parent?.linkType !== 'external', // hidden if link type is not external
+      hidden: ({ parent }) => parent?.linkType !== 'external', // hidden if link type is not external
     }),
     defineField({
       name: 'internalLink',
       type: 'reference',
       title: 'Internal Link',
-      hidden: ({parent}) => parent?.linkType !== 'internal', // hidden if link type is not internal
+      hidden: ({ parent }) => parent?.linkType !== 'internal', // hidden if link type is not internal
       to: [
-        {type: 'post'},
-        {type: 'page'},
+        { type: 'post' },
+        { type: 'page' },
         // other types you may want to link to
       ],
     }),
@@ -55,7 +61,7 @@ export const customLink = defineType({
       href: 'href', // sélectionne l'URL de l'objet parent pour un lien externe
       internalLinkName: 'internalLink.title', // sélectionne le nom de l'objet référencé pour un lien interne
     },
-    prepare({linkType, href, internalLinkName}) {
+    prepare({ linkType, href, internalLinkName }) {
       console.log(linkType)
       // Retourne le nom pour un lien interne ou l'URL pour un lien externe
       const title =

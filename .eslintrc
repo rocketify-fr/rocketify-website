@@ -8,6 +8,10 @@
   "plugins": ["prettier", "simple-import-sort"],
   "overrides": [
     {
+      "files": ["*.ts", "*.js"],
+      "parser": "@typescript-eslint/parser"
+    },
+    {
       // No default exports other than in root files and routes
       "files": ["./app/*/*.{js,jsx,ts,tsx}"],
       "excludedFiles": ["./app/routes/**"],
@@ -19,14 +23,6 @@
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "prettier/prettier": [
-      "error",
-      {
-        "semi": false,
-        "printWidth": 80,
-        "bracketSpacing": false,
-        "singleQuote": true
-      }
-    ]
+    "prettier/prettier": "error"
   }
 }
