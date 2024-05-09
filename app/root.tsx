@@ -1,5 +1,5 @@
-import type {LinksFunction, LoaderFunctionArgs} from '@remix-run/node'
-import {json} from '@remix-run/node'
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Links,
   Meta,
@@ -7,13 +7,14 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useLocation,
 } from '@remix-run/react'
 import { loadQuery, useQuery } from '@sanity/react-loader'
 
-import {themePreferenceCookie} from '~/cookies'
-import {getBodyClassNames} from '~/lib/getBodyClassNames'
+import { themePreferenceCookie } from '~/cookies'
+import { getBodyClassNames } from '~/lib/getBodyClassNames'
 import styles from '~/tailwind.css?url'
-import {themePreference} from '~/types/themePreference'
+import { themePreference } from '~/types/themePreference'
 import { loadQueryOptions } from './sanity/loadQueryOptions.server'
 import { LAYOUT_QUERY } from './sanity/queries'
 import { Header } from './components/Header'
@@ -24,8 +25,8 @@ import { ExitPreview } from './components/ExitPreview'
 
 export const links: LinksFunction = () => {
   return [
-    {rel: 'stylesheet', href: styles},
-    {rel: 'preconnect', href: 'https://cdn.sanity.io'},
+    { rel: 'stylesheet', href: styles },
+    { rel: 'preconnect', href: 'https://cdn.sanity.io' },
     {
       rel: 'preconnect',
       href: 'https://fonts.gstatic.com',
@@ -43,7 +44,7 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader = async ({request}: LoaderFunctionArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)
   const cookieHeader = request.headers.get('Cookie')
@@ -71,7 +72,9 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
 }
 
 export default function App() {
-  const {theme, bodyClassNames, ENV} = useLoaderData<typeof loader>()
+  const { theme, bodyClassNames, ENV } = useLoaderData<typeof loader>()
+  const location = useLocation()
+  const isStudio = location.pathname.startsWith('/studio')
   const { initial, query, params, sanity } = useLoaderData<typeof loader>()
   const {
     data: { footer, header },
@@ -91,20 +94,24 @@ export default function App() {
         <Links />
       </head>
       <body className={bodyClassNames}>
-    <div className="min-h-dvh flex flex-col justify-between">
-      <Header theme={theme} data={header} />
-      <Page>
-        {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
-        <Outlet />
-      </Page>
-      <Footer data={footer} />
-      {sanity.preview ? (
-        <>
-          <VisualEditing />
-          <ExitPreview />
-        </>
-          ) : null}
-    </div>
+        {isStudio ? (
+          <Outlet></Outlet>
+        ) : (
+          <div className="min-h-dvh flex flex-col justify-between">
+            <Header theme={theme} data={header} />
+            <Page>
+              {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
+              <Outlet />
+            </Page>
+            <Footer data={footer} />
+            {sanity.preview ? (
+              <>
+                <VisualEditing />
+                <ExitPreview />
+              </>
+            ) : null}
+          </div>
+        )}
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{

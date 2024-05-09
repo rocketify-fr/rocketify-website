@@ -335,16 +335,30 @@ export const POSTS_QUERY = groq`*[_type == "post"][0...12]|order(title asc){
 } | order(_updatedAt desc)`
 
 export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug][0]{
-  ...,
   _id,
   _type,
   title,
+  url,
   description,
   _createdAt,
   _updatedAt,
-  content,
+  content[] {
+    _type,
+    ${image},
+    description,
+    gallery[] {
+      "url": asset-> url,
+      alt
+    },
+  },
   "slug": slug.current,
   ${image},
+  intro {
+    summary,
+    ${image},
+    description,
+    title
+  },
   tags[]{
     title,
     "slug": slug.current,

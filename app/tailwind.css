@@ -13,10 +13,19 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-bai py-8;
+  @apply font-bai;
 }
 
 .post-content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply py-8;
+  }
+
   h1 {
     @apply text-[56px];
   }
@@ -28,5 +37,21 @@ h6 {
   }
   h4 {
     @apply text-[28px];
+  }
+}
+
+.use-item-content {
+  h1,
+  h2,
+  h3 {
+    @apply text-[48px] leading-[58px] pb-8;
+  }
+  ul {
+    list-style: none;
+    li {
+      background: url('/img/bullet-green.svg') no-repeat left center;
+      background-size: 22px;
+      padding: 10px 0 10px 32px;
+    }
   }
 }

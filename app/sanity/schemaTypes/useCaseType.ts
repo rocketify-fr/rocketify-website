@@ -5,8 +5,8 @@ import {
   ThListIcon,
   UserIcon,
 } from '@sanity/icons'
-import {Newspaper} from 'lucide-react'
-import {defineField, defineType} from 'sanity'
+import { Newspaper } from 'lucide-react'
+import { defineField, defineType } from 'sanity'
 
 export const useCaseType = defineType({
   name: 'useCase',
@@ -131,6 +131,12 @@ export const useCaseType = defineType({
       fieldset: 'details',
     }),
     defineField({
+      name: 'url',
+      type: 'string',
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
       name: 'description',
       type: 'text',
       group: 'details',
@@ -152,21 +158,21 @@ export const useCaseType = defineType({
     defineField({
       name: 'content',
       type: 'array',
-      of: [{type: 'useCaseItem'}, {type: 'useCaseGallery'}],
+      of: [{ type: 'useCaseItem' }, { type: 'useCaseGallery' }],
       group: 'editorial',
       fieldset: 'editorial',
     }),
     defineField({
       name: 'testimonial',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'testimonial'}]}],
+      of: [{ type: 'reference', to: [{ type: 'testimonial' }] }],
       group: 'testimonial',
       fieldset: 'testimonial',
     }),
     defineField({
       name: 'tags',
       type: 'array',
-      of: [{type: 'useCaseTag'}],
+      of: [{ type: 'useCaseTag' }],
       group: 'tags',
       fieldset: 'tags',
       options: {
@@ -176,14 +182,14 @@ export const useCaseType = defineType({
     defineField({
       name: 'moreDetailsPosts',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'post'}]}],
+      of: [{ type: 'reference', to: [{ type: 'post' }] }],
       group: 'moreDetailsPosts',
       fieldset: 'moreDetailsPosts',
     }),
     defineField({
       name: 'similarProjectPosts',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'useCase'}]}],
+      of: [{ type: 'reference', to: [{ type: 'useCase' }] }],
       group: 'similarProjectPosts',
       fieldset: 'similarProjectPosts',
     }),
@@ -191,7 +197,7 @@ export const useCaseType = defineType({
       name: 'heroSection',
       title: 'Hero',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'heroSection'}]}],
+      of: [{ type: 'reference', to: [{ type: 'heroSection' }] }],
       group: 'hero',
       fieldset: 'hero',
     }),

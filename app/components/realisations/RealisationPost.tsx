@@ -1,5 +1,6 @@
 import { PortableText } from '@portabletext/react'
 import { Link } from '@remix-run/react'
+import clsx from 'clsx'
 
 import Container, { Page } from '~/components/Container'
 import PostCard from '~/components/post/PostCard'
@@ -10,6 +11,7 @@ import {
   Tags,
 } from '~/components/post/PostComponents'
 
+import { PostContent } from '../content/PostContent'
 import Button from '../layout/Button'
 
 const RealisationPost = ({ post: postData }) => {
@@ -17,8 +19,10 @@ const RealisationPost = ({ post: postData }) => {
   const {
     title,
     tags,
+    url,
     description,
     image,
+    intro,
     _createdAt,
     slug,
     content,
@@ -36,30 +40,49 @@ const RealisationPost = ({ post: postData }) => {
           </div>
           <div className='flex w-1/2 flex-col items-start'>
             <p className='py-2 text-lg'>{description}</p>
-            <Button></Button>
+            <Button className='bg-rPurple'>
+              <a target='_blank' href={url} rel='noreferrer'>
+                Visiter le site
+              </a>
+            </Button>
           </div>
         </div>
-        <div className='flex w-full flex-col py-4'>
+        <img
+          src={image.url}
+          alt={image.alt}
+          className='my-16 aspect-[21/9] rounded-3xl border border-black object-cover'
+        />
+        <div className='my-16 grid w-full grid-cols-2 items-center gap-16'>
+          <h2 className='font-bai text-[56px] leading-[67px]'>{intro.title}</h2>
+          <PortableText value={intro.description}></PortableText>
+        </div>
+        <div className='my-16 grid grid-cols-2 gap-16'>
           <img
-            src={image.url}
-            alt={image.alt}
-            className='my-4 aspect-[21/9] rounded-3xl border border-black object-cover'
+            src={intro.image.url}
+            className='aspect-square size-full rounded-3xl border border-black bg-gray-50 object-cover'
+            alt={intro.image.alt}
           />
-          <div className='flex justify-between py-4'>
-            <div className='flex flex-col'>
-              <span className='text-sm'>Published on</span>
-              <span className='text-sm font-[500]'>
-                {new Date(_createdAt).toLocaleDateString()}
-              </span>
-            </div>
-            <Share url={`/blog/${slug}`}></Share>
+          <div className='my-auto flex flex-col gap-8'>
+            {intro.summary.map((item) => (
+              <div className='flex items-start gap-4'>
+                <img
+                  src='/img/rocket-green.svg'
+                  width='auto'
+                  height={32}
+                  alt=''
+                />
+                <div className='flex flex-col gap-2'>
+                  <h3 className='text-2xl leading-none'>{item.title}</h3>
+                  <p className='text-md'>{item.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-        <pre>{JSON.stringify(rest, null, 2)}</pre>
-        <div className='post-content mx-auto max-w-[870px] py-8'>
-          <PortableText value={content}></PortableText>
         </div>
       </Container>
+      <div className='my-16 flex flex-col gap-16'>
+        <PostContent content={content}></PostContent>
+      </div>
       {relatedPosts?.length > 0 && (
         <>
           <div className='my-16 h-px w-full bg-black'></div>
