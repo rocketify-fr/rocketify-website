@@ -1,60 +1,52 @@
-import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { useQuery } from '@sanity/react-loader'
+import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
+import {json} from '@remix-run/node'
+import {useLoaderData} from '@remix-run/react'
+import {useQuery} from '@sanity/react-loader'
 
-import { Loading } from '~/components/Loading'
-import { Posts } from '~/components/Posts'
-import type { loader as layoutLoader } from '~/routes/_website'
-import { loadQuery } from '~/sanity/loader.server'
-import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
-import { POSTS_QUERY, USE_CASE_QUERY } from '~/sanity/queries'
+import {Loading} from '~/components/Loading'
+import {Post} from '~/components/Post'
+import RealisationPost from '~/components/realisations/RealisationPost'
+import {loadQuery} from '~/sanity/loader.server'
+import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
+import {POST_QUERY, USE_CASE_QUERY} from '~/sanity/queries'
 
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    'routes/_website': typeof layoutLoader
-  }
-> = ({ matches }) => {
-  const layoutData = matches.find(
-    (match) => match.id === 'routes/_website'
-  )?.data
-  const home = layoutData ? layoutData.initial.data : null
-  const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
+// Load the `record` document with this slug
+export const loader = async ({params, request}: LoaderFunctionArgs) => {
+  const {options} = await loadQueryOptions(request.headers)
 
-  return [{ title }]
-}
-
-export const loader = async ({ request, params, context }: LoaderFunctionArgs) => {
-  const { options } = await loadQueryOptions(request.headers)
   const query = USE_CASE_QUERY
-  const queryParams = {}
-  const initial = await loadQuery(query, {slug: params.slug}, options).then((res) => ({
-    ...res,
-    data: res.data ? res.data : null,
-  }))
-
+  const initial = await loadQuery(
+    query,
+    // $slug.tsx has the params { slug: 'hello-world' }
+    params,
+    options,
+  ).then((res) => ({...res, data: res.data ? res.data : null}))
   if (!initial.data) {
-    throw new Response('Not found', { status: 404 })
+    throw new Response('Not found', {status: 404})
   }
 
-  return json({
+  // Create social share image url
+  const {origin} = new URL(request.url)
+  const ogImageUrl = `${origin}/resource/og?id=${initial.data._id}`
+
+  return {
     initial,
     query,
-    params: queryParams,
-  })
+    params,
+    ogImageUrl,
+  }
 }
 
-export default function Index() {
-  const { initial, query, params } = useLoaderData<typeof loader>()
-  const { data, loading, encodeDataAttribute } = useQuery<typeof initial.data>(
+export default function PostPage() {
+  const {initial, query, params} = useLoaderData<typeof loader>()
+  const {data, loading, encodeDataAttribute} = useQuery<typeof initial.data>(
     query,
     params,
     {
       // There's a TS issue with how initial comes over the wire
       // @ts-expect-error
       initial,
-    }
+    },
   )
 
   if (loading && !data) {
@@ -64,9 +56,8 @@ export default function Index() {
   }
 
   return (
-    <Posts
-      posts={data || initial.data}
-      encodeDataAttribute={encodeDataAttribute}
+    <RealisationPost
+      post={data || initial.data}
     />
   )
 }

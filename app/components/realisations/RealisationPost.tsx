@@ -1,35 +1,49 @@
 import { PortableText } from '@portabletext/react'
 import { Link } from '@remix-run/react'
 
-import Container, { Page } from './Container'
-import PostCard from './post/PostCard'
-import { Breadcrumbs, PreHeader, Share } from './post/PostComponents'
+import Container, { Page } from '~/components/Container'
+import PostCard from '~/components/post/PostCard'
+import {
+  Breadcrumbs,
+  PreHeader,
+  Share,
+  Tags,
+} from '~/components/post/PostComponents'
+
+import Button from '../layout/Button'
 
 const RealisationPost = ({ post: postData }) => {
+  console.log({ postData })
   const {
     title,
     tags,
-    estimatedReadingTime,
+    description,
     image,
     _createdAt,
     slug,
     content,
     relatedPosts,
+    ...rest
   } = postData
   return (
     <>
       <Container className='flex flex-col'>
         <Breadcrumbs></Breadcrumbs>
-        <PreHeader
-          tags={tags}
-          estimatedReadingTime={estimatedReadingTime}
-        ></PreHeader>
-        <h1 className='py-2 font-bai text-6xl'>{title}</h1>
+        <div className='flex w-full items-end'>
+          <div className='w-1/2'>
+            <h1 className='py-2 font-bai text-6xl'>{title}</h1>
+            <Tags tags={tags} />
+          </div>
+          <div className='flex w-1/2 flex-col items-start'>
+            <p className='py-2 text-lg'>{description}</p>
+            <Button></Button>
+          </div>
+        </div>
         <div className='flex w-full flex-col py-4'>
           <img
             src={image.url}
             alt={image.alt}
-            className='my-4 aspect-video rounded-3xl border border-black object-cover'
+            className='my-4 aspect-[21/9] rounded-3xl border border-black object-cover'
           />
           <div className='flex justify-between py-4'>
             <div className='flex flex-col'>
@@ -41,6 +55,7 @@ const RealisationPost = ({ post: postData }) => {
             <Share url={`/blog/${slug}`}></Share>
           </div>
         </div>
+        <pre>{JSON.stringify(rest, null, 2)}</pre>
         <div className='post-content mx-auto max-w-[870px] py-8'>
           <PortableText value={content}></PortableText>
         </div>

@@ -73,7 +73,6 @@ export default function PostPage() {
   return (
     <Post
       post={data || initial.data}
-      encodeDataAttribute={encodeDataAttribute}
     />
   )
 }

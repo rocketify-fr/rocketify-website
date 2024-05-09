@@ -5,7 +5,7 @@ import { useQuery } from '@sanity/react-loader'
 
 import { Loading } from '~/components/Loading'
 import { Posts } from '~/components/Posts'
-import type { loader as layoutLoader } from '~/routes/_website'
+import type { loader as layoutLoader } from '~/root'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { POSTS_QUERY } from '~/sanity/queries'
@@ -13,11 +13,11 @@ import { POSTS_QUERY } from '~/sanity/queries'
 export const meta: MetaFunction<
   typeof loader,
   {
-    'routes/_website': typeof layoutLoader
+    'root': typeof layoutLoader
   }
 > = ({ matches }) => {
   const layoutData = matches.find(
-    (match) => match.id === 'routes/_website'
+    (match) => match.id === 'root'
   )?.data
   const home = layoutData ? layoutData.initial.data : null
   const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
