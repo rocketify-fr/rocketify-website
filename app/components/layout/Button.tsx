@@ -14,7 +14,6 @@ export default function Button({
         disabled ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer',
         className
       )}
-      disabled={disabled}
       onClick={!disabled ? onClick : undefined}
       {...props}
     >
