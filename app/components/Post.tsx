@@ -17,7 +17,7 @@ export function Post ({ post: postData }) {
     relatedPosts,
   } = postData
   return (
-    <Page>
+    <>
       <Container className='flex flex-col'>
         <Breadcrumbs></Breadcrumbs>
         <PreHeader
@@ -67,6 +67,6 @@ export function Post ({ post: postData }) {
           </Container>
         </>
       )}
-    </Page>
+    </>
   )
 }

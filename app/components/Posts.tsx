@@ -81,7 +81,6 @@ export function Posts(props: PostsProps) {
   }, [location.search])
 
   return (
-    <Page>
       <Container>
         <h1 className='font-bai text-6xl lg:w-1/2'>
           Contenu codé en dur pour tester les vues
@@ -131,6 +130,5 @@ export function Posts(props: PostsProps) {
           <Button className='ml-4 cursor-pointer bg-rGreen'>Suivant</Button>
         </div>
       </Container>
-    </Page>
   )
 }
