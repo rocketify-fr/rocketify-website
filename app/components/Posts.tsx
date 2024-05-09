@@ -1,4 +1,4 @@
-import { redirect, useLocation, useNavigate } from '@remix-run/react'
+import { Link, redirect, useLocation, useNavigate } from '@remix-run/react'
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 import queryString from 'query-string'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -79,6 +79,7 @@ export function Posts(props: PostsProps) {
     const { sortBy, sortOrder, page } = queryString.parse(location.search)
     return { sortBy, sortOrder, page: +page }
   }, [location.search])
+
   return (
     <Page>
       <Container>
@@ -114,11 +115,14 @@ export function Posts(props: PostsProps) {
           ))}
         </ResponsiveGrid>
         <div className='flex items-center justify-end gap-2 py-8'>
+
           <Button
             className='mr-4 cursor-pointer'
             disabled={filters.page === 1 || !filters.page}
           >
+            <Link to={`/blog?${updateQuery(location, {page: filters.page - 1})}`}>
             Précédent
+            </Link>
           </Button>
           <Button className='cursor-pointer bg-rGreen'>1</Button>
           <Button className='cursor-pointer '>2</Button>

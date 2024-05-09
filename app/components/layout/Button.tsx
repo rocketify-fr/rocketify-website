@@ -11,7 +11,9 @@ export default function Button({
     <div
       className={clsx(
         'flex items-center justify-center rounded-3xl border border-black px-4 py-2',
-        disabled ? 'cursor-not-allowed bg-gray-100' : 'cursor-pointer',
+        disabled
+          ? 'pointer-events-none cursor-not-allowed bg-gray-100'
+          : 'cursor-pointer',
         className
       )}
       onClick={!disabled ? onClick : undefined}

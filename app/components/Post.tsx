@@ -45,24 +45,28 @@ export function Post ({ post: postData }) {
           <PortableText value={content}></PortableText>
         </div>
       </Container>
-      <div className='my-16 h-px w-full bg-black'></div>
-      <Container className='flex flex-col'>
-        <h2 className='font-bai text-5xl'>Related posts</h2>
-        <div className='flex items-end justify-between'>
-          <div>hardcoded lorem ipsum lol</div>
-          <Link
-            to='/blog'
-            className='rounded-3xl border border-black bg-rGreen px-4 py-2'
-          >
-            Voir tous les articles
-          </Link>
-        </div>
-        <div className='grid grid-cols-3 gap-4 pt-16'>
-          {relatedPosts.map((related) => (
-            <PostCard post={related}></PostCard>
-          ))}
-        </div>
-      </Container>
+      {relatedPosts?.length > 0 && (
+        <>
+          <div className='my-16 h-px w-full bg-black'></div>
+          <Container className='flex flex-col'>
+            <h2 className='font-bai text-5xl'>Related posts</h2>
+            <div className='flex items-end justify-between'>
+              <div>hardcoded lorem ipsum lol</div>
+              <Link
+                to='/blog'
+                className='rounded-3xl border border-black bg-rGreen px-4 py-2'
+              >
+                Voir tous les articles
+              </Link>
+            </div>
+            <div className='grid grid-cols-3 gap-4 pt-16'>
+              {relatedPosts.map((related) => (
+                <PostCard post={related}></PostCard>
+              ))}
+            </div>
+          </Container>
+        </>
+      )}
     </Page>
   )
 }
