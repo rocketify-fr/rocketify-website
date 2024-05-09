@@ -1,7 +1,7 @@
 {
   "extends": [
-    "@remix-run/eslint-config",
-    "@remix-run/eslint-config/node",
+    // "@remix-run/eslint-config",
+    // "@remix-run/eslint-config/node",
     "prettier",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
@@ -25,9 +25,10 @@
     }
   ],
   "rules": {
+    "prettier/prettier": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "prettier/prettier": "error",
-    "react/react-in-jsx-scope": 0
+    "react/react-in-jsx-scope": 0,
+    "comma-dangle": 0
   }
 }

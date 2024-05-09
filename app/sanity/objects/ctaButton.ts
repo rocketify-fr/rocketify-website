@@ -22,9 +22,9 @@ export const ctaButton = defineType({
           { title: 'Purple Hover (Mauve hover)', value: 'rPurpleHover' },
           { title: 'Turquoise', value: 'rTurquoise' },
           { title: 'Azure', value: 'rAzure' },
-          { title: 'Deep Blue (Sombre)', value: 'rDeepBlue' }
-        ]
-      }
+          { title: 'Deep Blue (Sombre)', value: 'rDeepBlue' },
+        ],
+      },
     },
-  ]
+  ],
 })
