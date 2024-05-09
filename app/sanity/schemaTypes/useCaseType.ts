@@ -29,13 +29,6 @@ export const useCaseType = defineType({
       },
     },
     {
-      name: 'author',
-      title: 'Author',
-      options: {
-        collapsible: true,
-      },
-    },
-    {
       name: 'tags',
       title: 'Tags',
       options: {
@@ -59,6 +52,13 @@ export const useCaseType = defineType({
     {
       name: 'similarProjectPosts',
       title: 'Similar project posts',
+      options: {
+        collapsible: true,
+      },
+    },
+    {
+      name: 'hero',
+      title: 'Hero',
       options: {
         collapsible: true,
       },
@@ -89,11 +89,6 @@ export const useCaseType = defineType({
       icon: TagIcon,
     },
     {
-      name: 'author',
-      title: 'Author',
-      icon: UserIcon,
-    },
-    {
       name: 'testimonial',
       title: 'Testimonial',
       icon: UserIcon,
@@ -106,6 +101,11 @@ export const useCaseType = defineType({
     {
       name: 'similarProjectPosts',
       title: 'Similar project posts',
+      icon: UserIcon,
+    },
+    {
+      name: 'hero',
+      title: 'Hero',
       icon: UserIcon,
     },
     {
@@ -159,7 +159,7 @@ export const useCaseType = defineType({
     defineField({
       name: 'testimonial',
       type: 'array',
-      of: [{type: 'testimonial'}],
+      of: [{type: 'reference', to: [{type: 'testimonial'}]}],
       group: 'testimonial',
       fieldset: 'testimonial',
     }),
@@ -172,13 +172,6 @@ export const useCaseType = defineType({
       options: {
         layout: 'tags',
       },
-    }),
-    defineField({
-      name: 'author',
-      type: 'reference',
-      to: [{type: 'author'}],
-      group: 'author',
-      fieldset: 'author',
     }),
     defineField({
       name: 'moreDetailsPosts',
@@ -195,18 +188,12 @@ export const useCaseType = defineType({
       fieldset: 'similarProjectPosts',
     }),
     defineField({
-      name: 'hero',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'isHero',
-          type: 'boolean',
-        }),
-        defineField({
-          name: 'heroSection',
-          type: 'hero',
-        }),
-      ],
+      name: 'heroSection',
+      title: 'Hero',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'heroSection'}]}],
+      group: 'hero',
+      fieldset: 'hero',
     }),
     defineField({
       name: 'seo',

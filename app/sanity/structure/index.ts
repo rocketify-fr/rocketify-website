@@ -16,7 +16,7 @@ import type {
 } from 'sanity/structure'
 
 import OGPreview from '~/sanity/components/OGPreview'
-import {resolveOGUrl} from '~/sanity/structure/resolveOGUrl'
+import { resolveOGUrl } from '~/sanity/structure/resolveOGUrl'
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -57,7 +57,7 @@ export const structure: StructureResolver = (S) =>
                   S.editor()
                     .id('header')
                     .schemaType('header')
-                    .documentId('header'),
+                    .documentId('header')
                 ),
               S.listItem()
                 .title('Footer Settings')
@@ -66,18 +66,21 @@ export const structure: StructureResolver = (S) =>
                   S.editor()
                     .id('footer')
                     .schemaType('footer')
-                    .documentId('footer'),
-                ),
-            ]),
+                    .documentId('footer')
+                )
+            ])
         ),
       S.divider(),
       S.divider(),
       S.documentTypeListItem('heroSection').title('Hero').icon(StickyNote),
+      S.documentTypeListItem('testimonial')
+        .title('Testimonial')
+        .icon(StickyNote)
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
-  {schemaType, documentId},
+  { schemaType, documentId }
 ) => {
   const OGPreviewView = S.view
     .component(OGPreview)
@@ -87,11 +90,11 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
     .title('OG Preview')
 
   switch (schemaType) {
-    case `home`:
+    case 'home':
       return S.document().views([S.view.form()])
-    case `record`:
-    case `post`:
-    case `useCase`:
+    case 'record':
+    case 'post':
+    case 'useCase':
       return S.document().views([S.view.form(), OGPreviewView])
     default:
       return S.document().views([S.view.form()])

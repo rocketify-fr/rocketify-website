@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 export const testimonial = defineType({
   name: 'testimonial',
   title: 'Testimonial',
@@ -23,6 +23,6 @@ export const testimonial = defineType({
     defineField({
       name: 'avatar',
       type: 'customImage',
-    }),
-  ],
+    })
+  ]
 })

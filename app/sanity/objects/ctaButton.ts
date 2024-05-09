@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 export const ctaButton = defineType({
   name: 'ctaButton',
   title: 'CTA button',
@@ -15,16 +15,16 @@ export const ctaButton = defineType({
       description: 'Name of the Tailwind CSS color class',
       options: {
         list: [
-          {title: 'Dark (Noir)', value: 'rDark'},
-          {title: 'Green (Vert)', value: 'rGreen'},
-          {title: 'Green Hover (Vert hover)', value: 'rGreenHover'},
-          {title: 'Purple (Mauve base)', value: 'rPurple'},
-          {title: 'Purple Hover (Mauve hover)', value: 'rPurpleHover'},
-          {title: 'Turquoise', value: 'rTurquoise'},
-          {title: 'Azure', value: 'rAzure'},
-          {title: 'Deep Blue (Sombre)', value: 'rDeepBlue'},
-        ],
-      },
+          { title: 'Dark (Noir)', value: 'rDark' },
+          { title: 'Green (Vert)', value: 'rGreen' },
+          { title: 'Green Hover (Vert hover)', value: 'rGreenHover' },
+          { title: 'Purple (Mauve base)', value: 'rPurple' },
+          { title: 'Purple Hover (Mauve hover)', value: 'rPurpleHover' },
+          { title: 'Turquoise', value: 'rTurquoise' },
+          { title: 'Azure', value: 'rAzure' },
+          { title: 'Deep Blue (Sombre)', value: 'rDeepBlue' }
+        ]
+      }
     },
-  ],
+  ]
 })

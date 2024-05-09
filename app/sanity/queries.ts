@@ -54,7 +54,37 @@ const link = `
   },
   linkType
 `
-
+const testimonial = `
+  testimonial[]->{
+    _id,
+    _type,
+    name,
+    description,
+    job,
+    ${logo},
+    avatar{
+      alt,
+      "url": asset->url, alt
+    }
+  }
+`
+const ctaButton = `
+  cta {
+    _type,
+    colorName,
+    ${link}
+  }
+`
+const heroSection = `
+heroSection[]->{
+    _id,
+    _type,
+    title,
+    description,
+    ${image},
+    ${ctaButton}
+  }
+`
 // Rocketify Queries \\
 export const HEADER_QUERY = `*[_type == "header" ]{
   ${logo},
@@ -124,6 +154,7 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
     tags[]{
       title,
       "slug": slug.current,
+      _type
     }
   },
   seo {
@@ -149,5 +180,72 @@ export const POSTS_QUERY = groq`*[_type == "post"][0...12]|order(title asc){
     tags[]{
       title,
       "slug": slug.current,
+      _type
     }
+} | order(_updatedAt desc)`
+
+export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug][0]{
+  _id,
+  _type,
+  title,
+  _createdAt,
+  _updatedAt,
+  content,
+  "slug": slug.current,
+  ${image},
+  tags[]{
+    title,
+    "slug": slug.current,
+  },
+  ${testimonial},
+  moreDetailsPosts[]->{
+    _id,
+    _type,
+    title,
+    description,
+    _updatedAt,
+    _createdAt,
+    "slug": slug.current,
+    ${image},
+    tags[]{
+      title,
+      "slug": slug.current,
+      _type
+    }
+  },
+  similarProjectPosts[]->{
+    _id,
+    _type,
+    title,
+    description,
+    _updatedAt,
+    _createdAt,
+    "slug": slug.current,
+    ${image},
+    tags[]{
+      title,
+      "slug": slug.current,
+      _type
+    }
+  },
+  ${heroSection},
+  seo {
+    title,
+    description
+  },
+}`
+
+export const USE_CASES_QUERY = groq`*[_type == "useCase"][0...12]|order(title asc){
+  _id,
+  _type,
+  title,
+  description,
+  _updatedAt,
+  _createdAt,
+  "slug": slug.current,
+  ${image},
+  tags[]{
+    title,
+    "slug": slug.current,
+  }
 } | order(_updatedAt desc)`

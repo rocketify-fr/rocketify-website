@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 export const heroSection = defineType({
   name: 'heroSection',
   title: 'Hero section',
@@ -11,16 +11,15 @@ export const heroSection = defineType({
     defineField({
       name: 'description',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{ type: 'block' }],
     }),
     defineField({
       name: 'image',
       type: 'customImage',
     }),
     defineField({
-      name: 'menu',
-      type: 'array',
-      of: [{type: 'customLink'}],
+      name: 'cta',
+      type: 'ctaButton'
     }),
   ],
 })
