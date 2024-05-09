@@ -6,7 +6,7 @@ import { PreHeader } from './PostComponents'
 export default function PostCard({
   post,
   horizontal = false,
-  className = null
+  className = null,
 }) {
   return (
     <Link

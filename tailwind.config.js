@@ -7,7 +7,6 @@ const safelist = gaps.flatMap(size => ([
   `gap-x-${size}`,
 ]))
 
-console.log({ safelist });
 
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
