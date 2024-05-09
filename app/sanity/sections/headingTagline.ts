@@ -1,8 +1,9 @@
 import { defineField, defineType } from 'sanity'
-export const summaryItem = defineType({
-  name: 'summaryItem',
-  title: 'Summary Item',
-  type: 'document',
+
+export const headingTagline = defineType({
+  name: 'headingTagline',
+  title: 'Heading & tagline',
+  type: 'object',
   fields: [
     defineField({
       name: 'title',

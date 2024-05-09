@@ -42,6 +42,8 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem('page').title('Pages').icon(StickyNote),
       S.divider(),
+      S.documentTypeListItem('service').title('Services').icon(StickyNote),
+      S.divider(),
       S.listItem()
         .title('Settings')
         .id('settings')
@@ -67,7 +69,7 @@ export const structure: StructureResolver = (S) =>
                     .id('footer')
                     .schemaType('footer')
                     .documentId('footer')
-                )
+                ),
             ])
         ),
       S.divider(),
@@ -75,7 +77,7 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('heroSection').title('Hero').icon(StickyNote),
       S.documentTypeListItem('testimonial')
         .title('Testimonial')
-        .icon(StickyNote)
+        .icon(StickyNote),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
