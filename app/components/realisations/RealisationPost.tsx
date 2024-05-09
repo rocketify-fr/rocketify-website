@@ -13,6 +13,7 @@ import {
 
 import { PostContent } from '../content/PostContent'
 import Button from '../layout/Button'
+import { UseCaseIntro } from './RealisationUseCase'
 
 const RealisationPost = ({ post: postData }) => {
   console.log({ postData })
@@ -52,37 +53,12 @@ const RealisationPost = ({ post: postData }) => {
           alt={image.alt}
           className='my-16 aspect-[21/9] rounded-3xl border border-black object-cover'
         />
-        <div className='my-16 grid w-full grid-cols-2 items-center gap-16'>
-          <h2 className='font-bai text-[56px] leading-[67px]'>{intro.title}</h2>
-          <PortableText value={intro.description}></PortableText>
-        </div>
-        <div className='my-16 grid grid-cols-2 gap-16'>
-          <img
-            src={intro.image.url}
-            className='aspect-square size-full rounded-3xl border border-black bg-gray-50 object-cover'
-            alt={intro.image.alt}
-          />
-          <div className='my-auto flex flex-col gap-8'>
-            {intro.summary.map((item) => (
-              <div className='flex items-start gap-4'>
-                <img
-                  src='/img/rocket-green.svg'
-                  width='auto'
-                  height={32}
-                  alt=''
-                />
-                <div className='flex flex-col gap-2'>
-                  <h3 className='text-2xl leading-none'>{item.title}</h3>
-                  <p className='text-md'>{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </Container>
+      <UseCaseIntro {...intro} />
       <div className='my-16 flex flex-col gap-16'>
         <PostContent content={content}></PostContent>
       </div>
+      <pre>{JSON.stringify({ rest, postData }, null, 2)}</pre>
       {relatedPosts?.length > 0 && (
         <>
           <div className='my-16 h-px w-full bg-black'></div>
