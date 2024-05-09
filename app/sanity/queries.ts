@@ -54,6 +54,13 @@ const link = `
   },
   linkType
 `
+
+const seo = `
+seo {
+  title,
+  description
+}
+`
 const testimonial = `
   testimonial[]->{
     _id,
@@ -129,6 +136,30 @@ const projectShowcase = `
     }
   }
 `
+const painPoints = `
+  title,
+  colorName,
+  painPoints[]
+`
+const headingTagline = `
+  title,
+  description
+`
+
+const textAndImage = `
+  title,
+  description,
+  ${image}
+`
+
+const faq = `
+  title,
+  description,
+  faqItems[]{
+    title,
+    description
+  }
+`
 
 const hero = `
   title,
@@ -140,6 +171,24 @@ const hero = `
 const headbang = `
   title,
   ${ctaButton}
+`
+
+const pageAndServiceContent = `
+  _type == "reference" => {
+    "_refDetails": @-> {
+      _id,
+      _type,
+      _type == "headband" => {${headbang}},
+      _type == "heroSection" => {${hero}},
+    }
+  },
+  _type == "serviceHighlights" => {${serviceHighlights}},
+  _type == "methodology" => {${methodology}},
+  _type == "projectShowcase" => {${projectShowcase}},
+  _type == "painPoints" => {${painPoints}},
+  _type == "headingTagline" => {${headingTagline}},
+  _type == "textAndImage" => {${textAndImage}},
+  _type == "faq" => {${faq}},
 `
 // Rocketify Queries \\
 export const HEADER_QUERY = `*[_type == "header" ]{
@@ -190,20 +239,37 @@ export const HOMEPAGE_QUERY = groq`
     description
   },
   content[]{
-    _type == "reference" => {
-      "_refDetails": @-> {
-        _id,
-        _type,
-        _type == "headband" => {${headbang}},
-        _type == "heroSection" => {${hero}},
-      }
-    },
-    _type == "serviceHighlights" => {${serviceHighlights}},
-    _type == "methodology" => {${methodology}},
-    _type == "projectShowcase" => {${projectShowcase}},
+    ${pageAndServiceContent}
   }
 }
 `
+
+export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug][0]{
+  _id,
+  _type,
+  _createdAt,
+  _updatedAt,
+  title,
+  description,
+  ${image},
+  ${seo},
+  content[]{
+    ${pageAndServiceContent}
+  }
+}`
+
+export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
+  _id,
+  _type,
+  _createdAt,
+  _updatedAt,
+  title,
+  "slug": slug.current,
+  ${seo},
+  content[]{
+    ${pageAndServiceContent}
+  }
+}`
 
 export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
