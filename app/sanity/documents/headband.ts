@@ -11,7 +11,7 @@ export const headband = defineType({
     }),
     defineField({
       name: 'cta',
-      type: 'ctaButton'
+      type: 'ctaButton',
     }),
   ],
 })

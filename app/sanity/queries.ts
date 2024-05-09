@@ -85,6 +85,62 @@ heroSection[]->{
     ${ctaButton}
   }
 `
+
+const serviceHighlights = `
+  title,
+  description,
+  services[] {
+    title,
+    description,
+    "icon": ${getImage('icon')}
+    "link": ${link}
+  }
+`
+
+const methodology = `
+  title,
+  description,
+  image {
+    "imageUrl": asset->url,
+    alt
+  },
+  summary[] {
+    title,
+    description
+  }
+`
+
+const projectShowcase = `
+  title,
+  description,
+  projects[]-> {
+    _id,
+    _type,
+    title,
+    description,
+    _updatedAt,
+    _createdAt,
+    "slug": slug.current,
+    ${image},
+    tags[]{
+      title,
+      "slug": slug.current,
+      _type
+    }
+  }
+`
+
+const hero = `
+  title,
+  description[],
+  ${image},
+  ${ctaButton}
+`
+
+const headbang = `
+  title,
+  ${ctaButton}
+`
 // Rocketify Queries \\
 export const HEADER_QUERY = `*[_type == "header" ]{
   ${logo},
@@ -120,6 +176,34 @@ export const HOME_QUERY = groq`{
   "header": ${HEADER_QUERY},
   "footer": ${FOOTER_QUERY},
 }`
+
+export const HOMEPAGE_QUERY = groq`
+*[_type == "page" && title == 'Accueil'] {
+  _id,
+  _type,
+  title,
+  _createdAt,
+  _updatedAt,
+  "slug": slug.current,
+  seo {
+    title,
+    description
+  },
+  content[]{
+    _type == "reference" => {
+      "_refDetails": @-> {
+        _id,
+        _type,
+        _type == "headband" => {${headbang}},
+        _type == "heroSection" => {${hero}},
+      }
+    },
+    _type == "serviceHighlights" => {${serviceHighlights}},
+    _type == "methodology" => {${methodology}},
+    _type == "projectShowcase" => {${projectShowcase}},
+  }
+}
+`
 
 export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
