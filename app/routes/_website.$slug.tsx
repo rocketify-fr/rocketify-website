@@ -8,6 +8,7 @@ import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
 
 import {Loading} from '~/components/Loading'
+import NotFound from '~/components/NotFound'
 import {Record} from '~/components/Record'
 import type {loader as layoutLoader} from '~/routes/_website'
 import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/routes/resource.og'
@@ -109,7 +110,7 @@ export const loader = async ({params, request}: LoaderFunctionArgs) => {
   ).then((res) => ({...res, data: res.data ? recordZ.parse(res.data) : null}))
 
   if (!initial.data) {
-    throw new Response('Not found', {status: 404})
+    return <NotFound />
   }
 
   // Create social share image url
@@ -139,7 +140,7 @@ export default function RecordPage() {
   if (loading && !data) {
     return <Loading />
   } else if (!data || !initial.data) {
-    return <div>Not found</div>
+    return <NotFound />
   }
 
   return (
