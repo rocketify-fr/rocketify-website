@@ -172,7 +172,7 @@ export const FOOTER_QUERY = `*[_type == "footer" ]{
   }
 }[0]`
 
-export const HOME_QUERY = groq`{
+export const LAYOUT_QUERY = groq`{
   "header": ${HEADER_QUERY},
   "footer": ${FOOTER_QUERY},
 }`
