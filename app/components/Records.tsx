@@ -3,6 +3,8 @@ import type {EncodeDataAttributeCallback} from '@sanity/react-loader'
 
 import {RecordCover} from '~/components/RecordCover'
 import type {RecordStub} from '~/types/record'
+import Container from './Container'
+import ResponsiveGrid from './layout/ResponsiveGrid'
 
 type RecordsProps = {
   records: RecordStub[]
@@ -12,8 +14,11 @@ type RecordsProps = {
 export function Records(props: RecordsProps) {
   const {records = [], encodeDataAttribute} = props
 
-  return records.length > 0 ? (
-    <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:gap-12 lg:grid-cols-4">
+  return (
+<Container>
+
+  {records.length > 0 ? (
+    <ResponsiveGrid>
       {records.map((record, recordI) => (
         <li key={record._id} className="group relative flex flex-col">
           <div
@@ -51,7 +56,7 @@ export function Records(props: RecordsProps) {
           </div>
         </li>
       ))}
-    </ul>
+    </ResponsiveGrid>
   ) : (
     <div className="prose prose-xl mx-auto bg-green-50 p-4">
       <p>No records found, yet!</p>
@@ -70,5 +75,7 @@ export function Records(props: RecordsProps) {
         with content.{' '}
       </p>
     </div>
+  )}
+    </Container>
   )
 }

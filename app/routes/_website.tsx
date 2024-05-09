@@ -8,6 +8,7 @@ import {
 } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 import { VisualEditing } from '@sanity/visual-editing/remix'
+import { Page } from '~/components/Container'
 
 import { ExitPreview } from '~/components/ExitPreview'
 import { Footer } from '~/components/Footer'
@@ -46,12 +47,12 @@ export default function Website() {
   const { theme } = useOutletContext<{ theme: ThemePreference }>()
 
   return (
-    <>
+    <div className="min-h-dvh flex flex-col justify-between">
       <Header theme={theme} data={header} />
-      <div className=''>
+      <Page>
         {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
         <Outlet />
-      </div>
+      </Page>
       <Footer data={footer} />
       {sanity.preview ? (
         <>
@@ -59,6 +60,6 @@ export default function Website() {
           <ExitPreview />
         </>
           ) : null}
-    </>
+    </div>
   )
 }

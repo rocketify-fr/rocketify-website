@@ -27,7 +27,6 @@ export function Realisations(props: PostsProps) {
   console.log({realisations});
 
   return (
-    <Page>
       <Container>
         <h1 className='font-bai text-6xl lg:w-1/2'>
           Contenu codé en dur pour tester les vues
@@ -62,7 +61,6 @@ export function Realisations(props: PostsProps) {
           <Button className='ml-4 cursor-pointer bg-rGreen'>Suivant</Button>
         </div>
       </Container>
-    </Page>
   )
 }
 
