@@ -6,11 +6,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { POSTS_QUERYResult } from '~/types/sanity.types'
 import { updateQuery } from '~/utils/location'
 
-import Container, { Page } from './Container'
-import Button from './layout/Button'
-import ResponsiveGrid from './layout/ResponsiveGrid'
-import PostCard from './post/PostCard'
-import { Tags } from './post/PostComponents'
+import Container from '../Container'
+import Button from '../layout/Button'
+import ResponsiveGrid from '../layout/ResponsiveGrid'
+import PostCard from './PostCard'
+import { Tags } from './PostComponents'
 
 type PostsProps = {
   posts: POSTS_QUERYResult[]

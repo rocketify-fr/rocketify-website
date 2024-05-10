@@ -1,22 +1,15 @@
-import { PortableText } from '@portabletext/react'
-import { Link } from '@remix-run/react'
-import clsx from 'clsx'
+import Container from '~/components/Container'
+import { Breadcrumbs, Tags } from '~/components/post/PostComponents'
 
-import Container, { Page } from '~/components/Container'
-import PostCard from '~/components/post/PostCard'
-import {
-  Breadcrumbs,
-  PreHeader,
-  Share,
-  Tags,
-} from '~/components/post/PostComponents'
-
+import { Separator } from '../content/ContentBlocks'
+import HeroBlock from '../content/HeroBlock'
 import { PostContent } from '../content/PostContent'
+import Testimonials from '../content/Testimonials'
 import Button from '../layout/Button'
+import RealisationCard from './RealisationCard'
 import { UseCaseIntro } from './RealisationUseCase'
 
 const RealisationPost = ({ post: postData }) => {
-  console.log({ postData })
   const {
     title,
     tags,
@@ -24,11 +17,11 @@ const RealisationPost = ({ post: postData }) => {
     description,
     image,
     intro,
-    _createdAt,
-    slug,
+    testimonial,
     content,
-    relatedPosts,
-    ...rest
+    moreDetailsPosts,
+    similarProjectPosts,
+    heroSection,
   } = postData
   return (
     <>
@@ -58,29 +51,47 @@ const RealisationPost = ({ post: postData }) => {
       <div className='my-16 flex flex-col gap-16'>
         <PostContent content={content}></PostContent>
       </div>
-      <pre>{JSON.stringify({ rest, postData }, null, 2)}</pre>
-      {relatedPosts?.length > 0 && (
+      <div className='my-16 flex flex-col gap-16'>
+        <Testimonials
+          testimonials={testimonial}
+          title="Retour d'expérience"
+          subTitle='Lorem ipsum à la mano'
+        ></Testimonials>
+      </div>
+      {moreDetailsPosts?.length > 0 && (
         <>
-          <div className='my-16 h-px w-full bg-black'></div>
+          <Separator></Separator>
           <Container className='flex flex-col'>
-            <h2 className='font-bai text-5xl'>Related posts</h2>
+            <h2 className='font-bai text-5xl'>Plus en détail</h2>
             <div className='flex items-end justify-between'>
               <div>hardcoded lorem ipsum lol</div>
-              <Link
-                to='/blog'
-                className='rounded-3xl border border-black bg-rGreen px-4 py-2'
-              >
-                Voir tous les articles
-              </Link>
             </div>
             <div className='grid grid-cols-3 gap-4 pt-16'>
-              {relatedPosts.map((related) => (
-                <PostCard post={related}></PostCard>
+              {moreDetailsPosts.map((realisation) => (
+                <RealisationCard realisation={realisation}></RealisationCard>
               ))}
             </div>
           </Container>
         </>
       )}
+      {similarProjectPosts?.length > 0 && (
+        <>
+          <Separator></Separator>
+          <Container className='flex flex-col'>
+            <h2 className='font-bai text-5xl'>Projets similaires</h2>
+            <div className='flex items-end justify-between'>
+              <div>hardcoded lorem ipsum lol</div>
+            </div>
+            <div className='grid grid-cols-2 gap-4 pt-16'>
+              {similarProjectPosts.map((realisation) => (
+                <RealisationCard realisation={realisation}></RealisationCard>
+              ))}
+            </div>
+          </Container>
+        </>
+      )}
+      <Separator></Separator>
+      <HeroBlock {...heroSection[0]}></HeroBlock>
     </>
   )
 }

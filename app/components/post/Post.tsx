@@ -1,11 +1,11 @@
 import { PortableText } from '@portabletext/react'
 import { Link } from '@remix-run/react'
 
-import Container, { Page } from './Container'
-import PostCard from './post/PostCard'
-import { Breadcrumbs, PreHeader, Share } from './post/PostComponents'
+import Container from '../Container'
+import PostCard from './PostCard'
+import { Breadcrumbs, PreHeader, Share } from './PostComponents'
 
-export function Post ({ post: postData }) {
+export function Post({ post: postData }) {
   const {
     title,
     tags,

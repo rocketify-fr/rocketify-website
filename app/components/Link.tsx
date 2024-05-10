@@ -1,7 +1,11 @@
 import { Link as RemixLink } from '@remix-run/react'
 import clsx from 'clsx'
 
-export function Link({ children, className, link: { linkType, ...linkData } }) {
+export function Link({
+  children,
+  className = null,
+  link: { linkType, ...linkData },
+}) {
   const link = linkData[linkType]
 
   if (linkType === 'external') {

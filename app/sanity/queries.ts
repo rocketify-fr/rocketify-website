@@ -79,7 +79,9 @@ const ctaButton = `
   cta {
     _type,
     colorName,
-    ${link}
+    link {
+      ${link}
+    }
   }
 `
 const heroSection = `

@@ -4,7 +4,7 @@ import { useLoaderData } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 
 import { Loading } from '~/components/Loading'
-import { Posts } from '~/components/Posts'
+import { Posts } from '~/components/post/Posts'
 import type { loader as layoutLoader } from '~/root'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
@@ -21,6 +21,8 @@ export const meta: MetaFunction<
   )?.data
   const home = layoutData ? layoutData.initial.data : null
   const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
+
+  console.log({title});
 
   return [{ title }]
 }
