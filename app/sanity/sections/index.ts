@@ -1,3 +1,4 @@
+import { blogPostsGrid } from './blogPostsGrid'
 import { faq } from './faq'
 import { headingTagline } from './headingTagline'
 import { hero } from './hero'
@@ -8,6 +9,7 @@ import { relatedPost } from './relatedPost'
 import { serviceHighlights } from './serviceHighlights'
 import { textAndImage } from './textAndImage'
 import { useCaseGallery } from './useCaseGallery'
+import { useCaseGrid } from './useCaseGrid'
 import { useCaseIntro } from './useCaseIntro'
 import { useCaseItem } from './useCaseItem'
 
@@ -24,4 +26,6 @@ export const sections = [
   painPoints,
   headingTagline,
   textAndImage,
+  blogPostsGrid,
+  useCaseGrid,
 ]
