@@ -19,8 +19,6 @@ const safelist = gaps
     Object.keys(colors).flatMap((color) => [`bg-${color}`, `fill-${color}`])
   )
 
-console.log({ safelist })
-
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   safelist,
@@ -41,6 +39,7 @@ module.exports = {
         '2xl': ['32px', { lineHeight: '120%', fontFamily: 'bai' }],
         xl: ['28px', { lineHeight: '120%', fontFamily: 'bai' }],
         cartTitle: ['28px', { lineHeight: '150%', fontFamily: 'bai' }],
+        blockHeader: ['56px', { lineHeight: '68px' }],
         lg: ['22px', { lineHeight: '150%', fontFamily: 'bai' }],
         paragraph: ['18px', { lineHeight: '150%', fontFamily: 'work' }],
         md: ['18px', { lineHeight: '150%', fontFamily: 'work' }],

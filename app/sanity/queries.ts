@@ -99,20 +99,18 @@ const serviceHighlights = `
   title,
   description,
   services[] {
+    _type,
     title,
     description,
     ${getImage('icon')},
-    ${link}
+    link {${link}}
   }
 `
 
 const methodology = `
   title,
   description,
-  image {
-    "imageUrl": asset->url,
-    alt
-  },
+  ${image},
   summary[] {
     title,
     description

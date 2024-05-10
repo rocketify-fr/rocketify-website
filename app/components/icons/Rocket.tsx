@@ -4,7 +4,6 @@ const RocketIcon = ({ color, width, height }) => {
   const w = width || '54'
   const h = height || '22'
   const fillColor = color || 'black'
-  console.log({ color, fillColor })
   return (
     <svg
       width={w}

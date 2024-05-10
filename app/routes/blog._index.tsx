@@ -5,27 +5,9 @@ import { useQuery } from '@sanity/react-loader'
 import BlogPosts from '~/components/blog/BlogPosts'
 
 import { Loading } from '~/components/Loading'
-import type { loader as layoutLoader } from '~/root'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { POSTS_QUERY } from '~/sanity/queries'
-
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    'root': typeof layoutLoader
-  }
-> = ({ matches }) => {
-  const layoutData = matches.find(
-    (match) => match.id === 'root'
-  )?.data
-  const home = layoutData ? layoutData.initial.data : null
-  const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
-
-  console.log({title});
-
-  return [{ title }]
-}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { options } = await loadQueryOptions(request.headers)

@@ -12,13 +12,8 @@ const Rockets = ({ color }) => (
   </div>
 )
 
-const Headband = ({
-  link,
-  title = 'Démarrer un projet',
-  colorName = 'rPurple',
-  rocketColor,
-}) => {
-  const colors = ['rPurple', 'rTurquoise']
+const Headband = ({ link, title, colorName = 'rPurple', rocketColor }) => {
+  const colors = ['rPurple', 'rTurquoise', 'rGreen']
   const color = colors.find((c) => colorName.includes(c))
   return (
     <Link

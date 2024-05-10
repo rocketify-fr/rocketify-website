@@ -4,25 +4,22 @@ import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
 
 import {Loading} from '~/components/Loading'
-import {Records} from '~/components/Records'
+import PageComponent from '~/components/Page'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
-import {RECORDS_QUERY} from '~/sanity/queries'
+import {HOMEPAGE_QUERY, RECORDS_QUERY} from '~/sanity/queries'
 import type {RecordStub} from '~/types/record'
 import {recordStubsZ} from '~/types/record'
 
 export const loader = async ({request}: LoaderFunctionArgs) => {
   const {options} = await loadQueryOptions(request.headers)
-  const query = RECORDS_QUERY
+  const query = HOMEPAGE_QUERY
   const queryParams = {}
   const initial = await loadQuery<RecordStub[]>(
     query,
     queryParams,
     options,
-  ).then((res) => ({
-    ...res,
-    data: res.data ? recordStubsZ.parse(res.data) : null,
-  }))
+  )
 
   if (!initial.data) {
     throw new Response('Not found', {status: 404})
@@ -53,10 +50,11 @@ export default function Index() {
     return <div>Not found</div>
   }
 
+  const pageData = data?.[0] || initial.data[0]
+
   return (
-    <Records
-      records={data || initial.data}
-      encodeDataAttribute={encodeDataAttribute}
+    <PageComponent
+      {...pageData}
     />
   )
 }
