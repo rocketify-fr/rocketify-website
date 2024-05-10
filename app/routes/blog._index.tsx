@@ -2,9 +2,9 @@ import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
+import BlogPosts from '~/components/blog/BlogPosts'
 
 import { Loading } from '~/components/Loading'
-import { Posts } from '~/components/post/Posts'
 import type { loader as layoutLoader } from '~/root'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
@@ -66,7 +66,7 @@ export default function Index() {
   }
 
   return (
-    <Posts
+    <BlogPosts
       posts={data || initial.data}
       encodeDataAttribute={encodeDataAttribute}
     />

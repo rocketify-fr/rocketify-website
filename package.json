@@ -8,6 +8,7 @@
     "build": "remix vite:build",
     "lint": "eslint . --fix",
     "sanity": "sanity",
+    "vite": "vite",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

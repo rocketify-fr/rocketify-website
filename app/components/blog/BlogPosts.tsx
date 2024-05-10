@@ -9,15 +9,15 @@ import { updateQuery } from '~/utils/location'
 import Container from '../Container'
 import Button from '../layout/Button'
 import ResponsiveGrid from '../layout/ResponsiveGrid'
-import PostCard from './PostCard'
-import { Tags } from './PostComponents'
+import { Tags } from '../post/Tags'
+import PostCard from './BlogCard'
 
 type PostsProps = {
   posts: POSTS_QUERYResult[]
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
-export function Posts(props: PostsProps) {
+export default function BlogPosts(props: PostsProps) {
   const { posts = [] } = props
 
   const location = useLocation()

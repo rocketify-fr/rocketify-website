@@ -1,19 +1,18 @@
-import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
-import {json} from '@remix-run/node'
+import type {LoaderFunctionArgs} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
-import BlogPost from '~/components/blog/BlogPost'
 
 import {Loading} from '~/components/Loading'
+import ServicePost from '~/components/services/ServicePost'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
-import {POST_QUERY} from '~/sanity/queries'
+import {SERVICE_QUERY} from '~/sanity/queries'
 
 // Load the `record` document with this slug
 export const loader = async ({params, request}: LoaderFunctionArgs) => {
   const {options} = await loadQueryOptions(request.headers)
 
-  const query = POST_QUERY
+  const query = SERVICE_QUERY
   const initial = await loadQuery(
     query,
     // $slug.tsx has the params { slug: 'hello-world' }
@@ -36,13 +35,12 @@ export const loader = async ({params, request}: LoaderFunctionArgs) => {
   }
 }
 
-export default function PostPage() {
+export default function ServicePage() {
   const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data, loading, encodeDataAttribute} = useQuery<typeof initial.data>(
+  const {data, loading} = useQuery<typeof initial.data>(
     query,
     params,
     {
-      // There's a TS issue with how initial comes over the wire
       // @ts-expect-error
       initial,
     },
@@ -54,8 +52,9 @@ export default function PostPage() {
     return <div>Not found</div>
   }
 
+
   return (
-    <BlogPost
+    <ServicePost
       post={data || initial.data}
     />
   )

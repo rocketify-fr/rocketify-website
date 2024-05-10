@@ -1,27 +1,31 @@
 {
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
   "extends": [
     // "@remix-run/eslint-config",
     // "@remix-run/eslint-config/node",
-    "prettier",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "standard",
+    "prettier",
     "plugin:tailwindcss/recommended"
   ],
   "ignorePatterns": ["node_modules", "build", ".cache"],
   "plugins": ["prettier", "simple-import-sort", "react", "react-hooks"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.js", ".tsx", ".jsx"],
       "parser": "@typescript-eslint/parser"
-    },
-    {
-      // No default exports other than in root files and routes
-      "files": ["./app/*/*.{js,jsx,ts,tsx}"],
-      "excludedFiles": ["./app/routes/**"],
-      "rules": {
-        "import/no-default-export": "error"
-      }
     }
   ],
   "rules": {

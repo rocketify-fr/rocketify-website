@@ -1,4 +1,4 @@
-import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
+import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import {
   Links,
@@ -22,6 +22,7 @@ import { Page } from './components/Container'
 import { Footer } from './components/Footer'
 import { VisualEditing } from '@sanity/visual-editing/remix'
 import { ExitPreview } from './components/ExitPreview'
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
 
 export const links: LinksFunction = () => {
   return [
@@ -44,6 +45,29 @@ export const links: LinksFunction = () => {
   ]
 }
 
+export const meta: MetaFunction<
+  typeof loader> = ({ data, matches }) => {
+    const layoutData = matches.find(
+      (match) => match.id === `root`,
+    )?.data
+    const home = layoutData ? layoutData.initial.data : null
+    const title = [data?.initial?.data?.title, home?.siteTitle]
+      .filter(Boolean)
+      .join(' | ')
+    const ogImageUrl = data ? data.ogImageUrl : null
+
+    const value = [
+      { title },
+      { property: 'twitter:card', content: 'summary_large_image' },
+      { property: 'twitter:title', content: title },
+      { property: 'og:title', content: title },
+      { property: 'og:image:width', content: String(OG_IMAGE_WIDTH) },
+      { property: 'og:image:height', content: String(OG_IMAGE_HEIGHT) },
+      { property: 'og:image', content: ogImageUrl },
+    ]
+
+    return value
+  }
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)

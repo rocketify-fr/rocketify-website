@@ -5,27 +5,11 @@ import {useQuery} from '@sanity/react-loader'
 
 import {Loading} from '~/components/Loading'
 import {Records} from '~/components/Records'
-import type {loader as layoutLoader} from '~/routes/_website'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
 import {RECORDS_QUERY} from '~/sanity/queries'
 import type {RecordStub} from '~/types/record'
 import {recordStubsZ} from '~/types/record'
-
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    'routes/_website': typeof layoutLoader
-  }
-> = ({matches}) => {
-  const layoutData = matches.find(
-    (match) => match.id === `routes/_website`,
-  )?.data
-  const home = layoutData ? layoutData.initial.data : null
-  const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
-
-  return [{title}]
-}
 
 export const loader = async ({request}: LoaderFunctionArgs) => {
   const {options} = await loadQueryOptions(request.headers)

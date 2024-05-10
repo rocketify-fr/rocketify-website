@@ -1,14 +1,12 @@
-import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
-import {json} from '@remix-run/node'
+import type {LoaderFunctionArgs} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
 
 import {Loading} from '~/components/Loading'
-import {Post} from '~/components/Post'
 import RealisationPost from '~/components/realisations/RealisationPost'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
-import {POST_QUERY, USE_CASE_QUERY} from '~/sanity/queries'
+import {USE_CASE_QUERY} from '~/sanity/queries'
 
 // Load the `record` document with this slug
 export const loader = async ({params, request}: LoaderFunctionArgs) => {
@@ -39,7 +37,7 @@ export const loader = async ({params, request}: LoaderFunctionArgs) => {
 
 export default function PostPage() {
   const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data, loading, encodeDataAttribute} = useQuery<typeof initial.data>(
+  const {data, loading} = useQuery<typeof initial.data>(
     query,
     params,
     {

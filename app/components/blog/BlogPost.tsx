@@ -2,10 +2,12 @@ import { PortableText } from '@portabletext/react'
 import { Link } from '@remix-run/react'
 
 import Container from '../Container'
-import PostCard from './PostCard'
-import { Breadcrumbs, PreHeader, Share } from './PostComponents'
+import { PreHeader } from '../post/BlogHeader'
+import { Breadcrumbs } from '../post/Breadcrumbs'
+import { Share } from '../Share'
+import PostCard from './BlogCard'
 
-export function Post({ post: postData }) {
+const BlogPost = ({ post: postData }) => {
   const {
     title,
     tags,
@@ -70,3 +72,5 @@ export function Post({ post: postData }) {
     </>
   )
 }
+
+export default BlogPost

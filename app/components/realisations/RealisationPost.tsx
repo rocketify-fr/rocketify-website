@@ -1,11 +1,12 @@
 import Container from '~/components/Container'
-import { Breadcrumbs, Tags } from '~/components/post/PostComponents'
 
-import { Separator } from '../content/ContentBlocks'
-import HeroBlock from '../content/HeroBlock'
+import HeroSection from '../content/HeroSection'
 import { PostContent } from '../content/PostContent'
 import Testimonials from '../content/Testimonials'
 import Button from '../layout/Button'
+import { Breadcrumbs } from '../post/Breadcrumbs'
+import { Tags } from '../post/Tags'
+import Separator from '../Separator'
 import RealisationCard from './RealisationCard'
 import { UseCaseIntro } from './RealisationUseCase'
 
@@ -91,7 +92,7 @@ const RealisationPost = ({ post: postData }) => {
         </>
       )}
       <Separator></Separator>
-      <HeroBlock {...heroSection[0]}></HeroBlock>
+      <HeroSection {...heroSection[0]}></HeroSection>
     </>
   )
 }

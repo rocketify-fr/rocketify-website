@@ -14,7 +14,7 @@ export function Header({ theme, data }) {
       return false
     }
 
-    const match = menu.internal.slug === location.pathname.slice(1)
+    const match = location.pathname.slice(1).startsWith(menu.internal.slug)
 
     if (match) {
       return match

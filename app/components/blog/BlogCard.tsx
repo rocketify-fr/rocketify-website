@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react'
 import clsx from 'clsx'
 
-import { PreHeader } from './PostComponents'
+import { PreHeader } from '../post/BlogHeader'
 
 export default function PostCard({
   post,
@@ -22,7 +22,7 @@ export default function PostCard({
         alt={post.image.alt}
         className={clsx(
           'w-full border-b border-black object-cover',
-          horizontal ? 'lg:aspect-[11/10] lg:flex-[2]' : 'aspec-video'
+          horizontal ? 'lg:aspect-[11/10] lg:flex-[2]' : 'aspect-video'
         )}
       />
       <div

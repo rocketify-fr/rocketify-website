@@ -5,8 +5,7 @@ import { useLoaderData } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 
 import { Loading } from '~/components/Loading'
-import { Posts } from '~/components/Posts'
-import { Realisations } from '~/components/realisations/Realisations'
+import RealisationsGrid from '~/components/realisations/RealisationsGrid'
 import type { loader as layoutLoader } from '~/routes/_website'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
@@ -66,7 +65,7 @@ export default function Index() {
   }
 
   return (
-    <Realisations
+    <RealisationsGrid
       realisations={data || initial.data}
     />
   )

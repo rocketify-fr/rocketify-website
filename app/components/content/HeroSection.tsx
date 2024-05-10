@@ -1,14 +1,13 @@
 import { PortableText } from '@portabletext/react'
-import clsx from 'clsx'
 
 import Container from '../Container'
 import Button from '../layout/Button'
 import { Link } from '../Link'
 
-const HeroBlock = ({ title, description, image, cta }) => {
+const HeroSection = ({ title, description, image, cta }) => {
   return (
     <Container className='flex gap-16'>
-      <div className='flex w-3/5 flex-col items-start'>
+      <div className='my-auto flex w-3/5 flex-col items-start'>
         <h2 className='pb-8 font-bai text-[56px] leading-[65px]'>{title}</h2>
         <div className='pb-12 text-paragraph'>
           <PortableText value={description}></PortableText>
@@ -22,4 +21,4 @@ const HeroBlock = ({ title, description, image, cta }) => {
   )
 }
 
-export default HeroBlock
+export default HeroSection

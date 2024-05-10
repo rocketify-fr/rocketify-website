@@ -101,8 +101,8 @@ const serviceHighlights = `
   services[] {
     title,
     description,
-    "icon": ${getImage('icon')}
-    "link": ${link}
+    ${getImage('icon')},
+    ${link}
   }
 `
 
@@ -164,6 +164,7 @@ const faq = `
 `
 
 const hero = `
+  _type,
   title,
   description[],
   ${image},
@@ -172,12 +173,13 @@ const hero = `
 
 const headbang = `
   title,
-  ${ctaButton}
+  ...${ctaButton} { link, colorName }
 `
 
 const pageAndServiceContent = `
+  _type,
   _type == "reference" => {
-    "_refDetails": @-> {
+    ...@-> {
       _id,
       _type,
       _type == "headband" => {${headbang}},
@@ -230,6 +232,7 @@ export const LAYOUT_QUERY = groq`{
 
 export const HOMEPAGE_QUERY = groq`
 *[_type == "page" && title == 'Accueil'] {
+...,
   _id,
   _type,
   title,
