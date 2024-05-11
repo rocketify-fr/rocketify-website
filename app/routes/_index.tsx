@@ -1,4 +1,4 @@
-import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
+import type {LoaderFunctionArgs} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
@@ -7,9 +7,8 @@ import {Loading} from '~/components/Loading'
 import PageComponent from '~/components/Page'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
-import {HOMEPAGE_QUERY, RECORDS_QUERY} from '~/sanity/queries'
+import {HOMEPAGE_QUERY, } from '~/sanity/queries'
 import type {RecordStub} from '~/types/record'
-import {recordStubsZ} from '~/types/record'
 
 export const loader = async ({request}: LoaderFunctionArgs) => {
   const {options} = await loadQueryOptions(request.headers)

@@ -1,5 +1,6 @@
 import Container from '../Container'
 import ResponsiveGrid from '../layout/ResponsiveGrid'
+import { Link } from '../Link'
 
 const ServiceHighlights = ({ title, description, services }) => {
   return (
@@ -9,14 +10,15 @@ const ServiceHighlights = ({ title, description, services }) => {
       <ResponsiveGrid gaps={8}>
         {services.map(({ title, description, icon, link }, i) => {
           return (
-            <div
+            <Link
+              link={link}
               key={i}
               className='flex flex-col gap-4 rounded-3xl border border-black p-6'
             >
               <img src={icon.url} alt={icon.url} height={40} width={40} />
               <h3 className='text-[26px]'>{title}</h3>
               <p className='text-paragraph'>{description}</p>
-            </div>
+            </Link>
           )
         })}
       </ResponsiveGrid>
