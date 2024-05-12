@@ -1,10 +1,17 @@
 import {
+  Contact,
   Disc,
+  File,
+  FileBarChart,
+  FileCheck,
+  FileStack,
   Home,
+  MenuIcon,
   Newspaper,
   NotebookText,
   PanelBottom,
   PanelTop,
+  PanelTopDashed,
   SettingsIcon,
   StickyNote,
   Tags,
@@ -23,27 +30,19 @@ export const structure: StructureResolver = (S) =>
     .id('root')
     .title('Content')
     .items([
-      // Singleton, home page curation
-      S.listItem()
-        .icon(Home)
-        .id('home')
-        .schemaType('home')
-        .title('Home')
-        .child(S.editor().id('home').schemaType('home').documentId('home')),
-      S.divider(),
       // Document lists
-      S.documentTypeListItem('record').title('Records').icon(Disc),
-      S.documentTypeListItem('artist').title('Artists').icon(Users),
-      S.divider(),
-      S.documentTypeListItem('genre').title('Genres').icon(Tags),
+      S.documentTypeListItem('page').title('Pages').icon(FileCheck),
+      S.documentTypeListItem('service').title('Services').icon(FileBarChart),
       S.divider(),
       S.documentTypeListItem('post').title('Posts').icon(Newspaper),
       S.documentTypeListItem('useCase').title('Use cases').icon(NotebookText),
+
       S.divider(),
-      S.documentTypeListItem('page').title('Pages').icon(StickyNote),
+      S.documentTypeListItem('heroSection').title('Hero').icon(PanelTopDashed),
+      S.documentTypeListItem('testimonial').title('Testimonial').icon(Contact),
+      S.documentTypeListItem('navigation').title('Navigation').icon(MenuIcon),
       S.divider(),
-      S.documentTypeListItem('service').title('Services').icon(StickyNote),
-      S.divider(),
+
       S.listItem()
         .title('Settings')
         .id('settings')
@@ -72,12 +71,6 @@ export const structure: StructureResolver = (S) =>
                 ),
             ])
         ),
-      S.divider(),
-      S.divider(),
-      S.documentTypeListItem('heroSection').title('Hero').icon(StickyNote),
-      S.documentTypeListItem('testimonial')
-        .title('Testimonial')
-        .icon(StickyNote),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
