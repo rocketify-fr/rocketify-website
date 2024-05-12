@@ -1,17 +1,18 @@
-import { PortableText } from '@portabletext/react'
-
 import Container from '../Container'
 
 const Methodology = ({ title, description, image, summary }) => {
+  console.log({ description })
   return (
     <Container>
-      <div className='my-16 flex w-full items-center gap-16'>
-        <h2 className='w-3/5 font-bai text-[56px] leading-[67px]'>{title}</h2>
-        <div className='w-2/5'>
-          <PortableText value={description}></PortableText>
+      <div className='my-16 flex w-full flex-col items-center gap-16 sm:flex-row'>
+        <h2 className='font-bai text-[56px] leading-[67px] sm:w-3/5'>
+          {title}
+        </h2>
+        <div className='sm:w-2/5'>
+          <p>{description}</p>
         </div>
       </div>
-      <div className='my-16 grid grid-cols-2 gap-16'>
+      <div className='my-16 grid gap-16 sm:grid-cols-2'>
         <img
           src={image.url}
           className='aspect-square size-full rounded-3xl border border-black bg-gray-50 object-cover'
@@ -19,8 +20,8 @@ const Methodology = ({ title, description, image, summary }) => {
         />
         <div className='my-auto flex flex-col gap-8'>
           {summary.map((item, i) => (
-            <div className='flex py-2 lg:gap-8' key={i}>
-              <div className='hidden w-16  flex-col items-center gap-4 lg:flex'>
+            <div className='flex gap-6 py-2 lg:gap-8' key={i}>
+              <div className='flex w-16  flex-col items-center gap-4'>
                 <p className='flex size-[48px] min-h-[48px] min-w-[48px] items-center justify-center rounded-full border border-black bg-rGreen text-[24px]'>
                   {i + 1}
                 </p>

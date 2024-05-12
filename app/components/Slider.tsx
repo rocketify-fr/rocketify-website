@@ -1,5 +1,3 @@
-import '../css/swiper.css'
-
 import clsx from 'classnames'
 import { useEffect, useRef } from 'react'
 import { register } from 'swiper/element/bundle'
@@ -42,13 +40,17 @@ export const Slider = ({
   }, [effect, name, navigation, pagination, slidesPerView, spaceBetween])
 
   return (
-    <swiper-container class={clsx(className)} init='false' ref={swiperRef}>
+    <swiper-container
+      class={clsx(className, 'w-full')}
+      init='false'
+      ref={swiperRef}
+    >
       {children
         .filter((c) => !!c)
         .map((child, i) => (
           <swiper-slide
             class={clsx(
-              'w-[90%] sm:w-fit',
+              'w-fit rounded-3xl',
               'pb-0 sm:pb-0',
               separate ? 'border-r border-black' : ''
             )}

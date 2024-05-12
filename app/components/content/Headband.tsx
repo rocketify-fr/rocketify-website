@@ -20,11 +20,11 @@ const Headband = ({ link, title, colorName = 'rPurple', rocketColor }) => {
       link={link}
       className={clsx(
         `bg-${color}`,
-        'my-32 flex h-[80px] w-full items-center justify-evenly space-x-8 overflow-x-scroll border-y border-black overflow-y-hidden'
+        'my-32 flex h-[80px] w-full items-center justify-evenly space-x-8 overflow-y-hidden overflow-x-scroll text-nowrap border-y border-black text-2xl'
       )}
     >
       <Rockets color={rocketColor}></Rockets>
-      <div className='flex items-center text-2xl'>{title.replace(' ', '\ufeff')}</div>
+      <div className='flex items-center '>{title}</div>
       <Rockets color={rocketColor}></Rockets>
       <div className='flex items-center text-2xl'>{title}</div>
     </Link>
