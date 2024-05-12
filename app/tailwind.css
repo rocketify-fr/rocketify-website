@@ -4,7 +4,7 @@
 
 html,
 body {
-  @apply font-work;
+  @apply font-work w-dvw max-w-[100dvw];
 }
 
 h1,

@@ -22,13 +22,13 @@ export default function Banner({
     <div
       className={clsx(
         'bg-rPurple',
-        'align-center flex h-[80px] w-full justify-evenly space-x-8 overflow-x-hidden border-y border-black'
+        'align-center flex h-[80px] w-full justify-evenly space-x-8 overflow-x-scroll border-y border-black '
       )}
     >
       <Rockets></Rockets>
-      <div className='flex items-center text-2xl'>{text}</div>
+      <div className='flex items-center text-2xl'>{text.replace(' ', '&nbsp;')}</div>
       <Rockets></Rockets>
-      <div className='flex items-center text-2xl'>{text}</div>
+      <div className='flex items-center text-2xl'>{text.replace(' ', '&nbsp;')}</div>
     </div>
   )
 }

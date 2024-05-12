@@ -1,11 +1,10 @@
-import Container from "~/components/Container"
+import Container from '~/components/Container'
 
 const HeadingTagline = ({ title, description }) => {
   return (
-    <Container className="flex justify-between items-center gap-16">
-      <h2 className="text-[56px] w-1/2">{title}</h2>
-      <p className="w-1/2"> {description}</p>
-
+    <Container className='flex flex-col items-center justify-between gap-16 lg:flex-row'>
+      <h2 className='w-1/2 text-[56px]'>{title}</h2>
+      <p className='w-1/2'> {description}</p>
     </Container>
   )
 }

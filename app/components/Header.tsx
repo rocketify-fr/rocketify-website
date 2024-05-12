@@ -14,7 +14,7 @@ export function Header({ theme, data }) {
       return false
     }
 
-    const match = location.pathname.slice(1).startsWith(menu.internal.slug)
+    const match = menu.internal.slug === location.pathname.slice(1)
 
     if (match) {
       return match
@@ -37,9 +37,10 @@ export function Header({ theme, data }) {
             return (
               <Link
                 link={menu}
+                key={i}
                 className={clsx(
                   isLast && 'rounded-3xl border border-black bg-rGreen px-4',
-                  'relative flex items-center justify-center space-x-2 py-2'
+                  `relative flex items-center justify-center space-x-2 py-2`
                 )}
               >
                 {active && (
@@ -53,7 +54,8 @@ export function Header({ theme, data }) {
                 <span
                   className={clsx(
                     active && 'font-bold',
-                    `before:content-[' before:font-bold${title}'] before:invisible before:block before:h-0 before:overflow-hidden`
+                    `before:content-['${title}']`,
+                    `before:invisible before:block before:h-0 before:overflow-hidden before:font-bold`
                   )}
                 >
                   {title}

@@ -59,7 +59,7 @@ const ContactForm = () => {
             <option value='3'>Option 3</option>
           </Input>
           <div className='flex gap-8'>
-            <Input label='budget' label='Budget' type='select'>
+            <Input label='Budget' type='select'>
               <option value='1'>0€ - 5 000€</option>
               <option value='2'>5 000€ - 10 000€</option>
               <option value='3'>10 000€ - 20 000€</option>
