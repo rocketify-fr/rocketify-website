@@ -31,7 +31,7 @@ export const customLink = defineType({
         }),
     }),
     defineField({
-      title: "title",
+      title: 'title',
       name: 'title',
       type: 'string',
       hidden: ({ parent }) => parent?.linkType !== 'external', // hidden if link type is not external
@@ -51,6 +51,8 @@ export const customLink = defineType({
       to: [
         { type: 'post' },
         { type: 'page' },
+        { type: 'service' },
+        { type: 'useCase' },
         // other types you may want to link to
       ],
     }),

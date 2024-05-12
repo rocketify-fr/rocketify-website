@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 export const header = defineType({
   name: 'header',
   title: 'Header',
@@ -10,8 +10,8 @@ export const header = defineType({
     }),
     defineField({
       name: 'menu',
-      type: 'array',
-      of: [{type: 'customLink'}],
+      type: 'reference',
+      to: [{ type: 'nav' }],
     }),
   ],
 })

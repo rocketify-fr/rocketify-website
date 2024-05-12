@@ -1,11 +1,7 @@
 import {
   Contact,
-  Disc,
-  File,
   FileBarChart,
   FileCheck,
-  FileStack,
-  Home,
   MenuIcon,
   Newspaper,
   NotebookText,
@@ -13,9 +9,6 @@ import {
   PanelTop,
   PanelTopDashed,
   SettingsIcon,
-  StickyNote,
-  Tags,
-  Users,
 } from 'lucide-react'
 import type {
   DefaultDocumentNodeResolver,
@@ -36,13 +29,11 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem('post').title('Posts').icon(Newspaper),
       S.documentTypeListItem('useCase').title('Use cases').icon(NotebookText),
-
       S.divider(),
       S.documentTypeListItem('heroSection').title('Hero').icon(PanelTopDashed),
       S.documentTypeListItem('testimonial').title('Testimonial').icon(Contact),
-      S.documentTypeListItem('navigation').title('Navigation').icon(MenuIcon),
+      S.documentTypeListItem('nav').title('Navigation').icon(MenuIcon),
       S.divider(),
-
       S.listItem()
         .title('Settings')
         .id('settings')

@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const footer = defineType({
   name: 'footer',
@@ -19,8 +19,8 @@ export const footer = defineType({
     }),
     defineField({
       name: 'menu',
-      type: 'array',
-      of: [{type: 'customLink'}],
+      type: 'reference',
+      to: [{ type: 'nav' }],
     }),
     defineField({
       name: 'contactTitle',
@@ -29,7 +29,7 @@ export const footer = defineType({
     defineField({
       name: 'contactMenu',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{ type: 'block' }],
     }),
     // to do
     defineField({
@@ -39,12 +39,12 @@ export const footer = defineType({
     defineField({
       name: 'certifications',
       type: 'array',
-      of: [{type: 'certificationType'}],
+      of: [{ type: 'certificationType' }],
     }),
     defineField({
       name: 'menuSubFooter',
       type: 'array',
-      of: [{type: 'customLink'}],
+      of: [{ type: 'customLink' }],
     }),
   ],
 })
