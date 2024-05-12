@@ -80,6 +80,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const params = {}
   const initial = await loadQuery(query, params, options)
 
+
   return json({
     initial,
     query,
@@ -96,10 +97,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 }
 
 export default function App() {
-  const { theme, bodyClassNames, ENV } = useLoaderData<typeof loader>()
+  const { theme, bodyClassNames, ENV, initial, query, params, sanity } = useLoaderData<typeof loader>()
   const location = useLocation()
   const isStudio = location.pathname.startsWith('/studio')
-  const { initial, query, params, sanity } = useLoaderData<typeof loader>()
   const {
     data: { footer, header },
   } = useQuery<typeof initial.data>(query, params, {

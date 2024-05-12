@@ -281,26 +281,39 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   },
 }`
 
-export const POSTS_QUERY = groq`*[_type == "post"][0...12]|order(title asc){
-    _id,
-    _type,
+export const POST_CARD = `
+{
+  _id,
+  _type,
+  title,
+  description,
+  _updatedAt,
+  _createdAt,
+  "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
+  "slug": slug.current,
+  author-> {
+    name,
+    ${image}
+  },
+  ${image},
+  tags[]{
     title,
-    description,
-    _updatedAt,
-    _createdAt,
-    "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
     "slug": slug.current,
-    author-> {
-      name,
-      ${image}
-    },
-    ${image},
-    tags[]{
-      title,
-      "slug": slug.current,
-      _type
-    }
-} | order(_updatedAt desc)`
+    _type
+  }
+}
+`
+export const POSTS_QUERY_TAG = groq`*
+  [_type == "post"]
+  [$tag in tags[].slug.current]
+  ${POST_CARD}
+  | order($order) [$from...$to] 
+`
+export const POSTS_QUERY = groq`*
+  [_type == "post"]
+  ${POST_CARD}
+  | order($order) [$from...$to] 
+`
 
 export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug][0]{
 ...,

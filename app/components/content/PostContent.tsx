@@ -1,4 +1,5 @@
 import Separator from '../Separator'
+import BlogPostsGrid from './BlogPostsGrid'
 import FAQ from './FAQ'
 import Headband from './Headband'
 import HeadingTagline from './HeadingTagline'
@@ -41,6 +42,8 @@ const ContentBlock = ({ item, firstOfType, lastOfType, even }) => {
       return <HeroSection {...item} />
     case 'serviceHighlights':
       return <ServiceHighlights {...item} />
+    case 'blogPostsGrid':
+      return <BlogPostsGrid {...item} />
     default:
       return <pre>{JSON.stringify(item, null, 2)}</pre>
   }

@@ -7,8 +7,8 @@ import {
   ThListIcon,
   UserIcon,
 } from '@sanity/icons'
-import {Newspaper} from 'lucide-react'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import { Newspaper } from 'lucide-react'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const postType = defineType({
   name: 'post',
@@ -124,9 +124,9 @@ export const postType = defineType({
       name: 'content',
       type: 'array',
       of: [
-        defineArrayMember({type: 'block'}),
-        defineArrayMember({type: 'code', icon: CodeBlockIcon}),
-        defineArrayMember({type: 'image', icon: ImageIcon}),
+        defineArrayMember({ type: 'block' }),
+        defineArrayMember({ type: 'code', icon: CodeBlockIcon }),
+        defineArrayMember({ type: 'image', icon: ImageIcon }),
       ],
       group: 'editorial',
       fieldset: 'editorial',
@@ -134,7 +134,7 @@ export const postType = defineType({
     defineField({
       name: 'tags',
       type: 'array',
-      of: [{type: 'postTag'}],
+      of: [{ type: 'postTag' }],
       group: 'tags',
       fieldset: 'tags',
       options: {
@@ -144,14 +144,14 @@ export const postType = defineType({
     defineField({
       name: 'author',
       type: 'reference',
-      to: [{type: 'author'}],
+      to: [{ type: 'author' }],
       group: 'author',
       fieldset: 'author',
     }),
     defineField({
       name: 'relatedPosts',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'post'}]}],
+      of: [{ type: 'reference', to: [{ type: 'post' }] }],
       group: 'relatedPosts',
       fieldset: 'relatedPosts',
     }),
@@ -161,5 +161,41 @@ export const postType = defineType({
       group: 'seo',
       fieldset: 'seo',
     }),
+  ],
+  orderings: [
+    {
+      title: 'Most recent',
+      name: 'new',
+      by: [
+        {
+          field: '_createdAt',
+          direction: 'desc',
+        },
+      ],
+    },
+    {
+      title: 'Most ancient',
+      name: 'old',
+      by: [
+        {
+          field: '_createdAt',
+          direction: 'asc',
+        },
+      ],
+    },
+    // {
+    //   title: 'Most viewed',
+    //   name: 'mostRecent',
+    //   by: [{
+    //     field: 'views', direction: 'desc'
+    //   }]
+    // },
+    // {
+    //   title: 'Least viewed',
+    //   name: 'mostRecent',
+    //   by: [{
+    //     field: 'views', direction: 'desc'
+    //   }]
+    // },
   ],
 })
