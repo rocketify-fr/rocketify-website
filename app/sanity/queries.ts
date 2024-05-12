@@ -160,8 +160,11 @@ const pageAndServiceContent = `
 // Rocketify Queries \\
 export const HEADER_QUERY = `*[_type == "header" ]{
   ${logo},
-  menu[]{
-    ${link}
+  menu -> {
+    menu[] {
+      ...,
+      _type == "customLink" => {${link}},
+    }
   }
 }[0]`
 
