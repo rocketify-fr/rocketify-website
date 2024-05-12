@@ -40,6 +40,16 @@ h6 {
   }
 }
 
+.menu-link {
+  &:before {
+    content: attr(data-content);
+    height: 0;
+    opacity: 0;
+    display: block;
+    font-weight: bold;
+  }
+}
+
 .use-item-content {
   h1,
   h2,

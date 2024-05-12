@@ -53,9 +53,7 @@ const ctaButton = `
 const ctaButtonMenu = `
     _type,
     colorName,
-    link {
-      ${link}
-    }
+    ...link {${link}}
 `
 const heroSection = `
 heroSection[]->{
@@ -187,7 +185,7 @@ const menu = `
 // Rocketify Queries \\
 export const HEADER_QUERY = `*[_type == "header" ]{
   ${logo},
-  menu-> {${menu}} 
+  ...menu-> {${menu}} 
 }[0]`
 
 export const FOOTER_QUERY = `*[_type == "footer" ]{

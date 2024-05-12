@@ -27,6 +27,9 @@ export function Link({
   if (type === 'post') {
     prefix = '/blog/'
   }
+  if (type === 'service') {
+    prefix = '/services/'
+  }
 
   const path = `${prefix}${link.slug || ''}`
 

@@ -19,6 +19,8 @@ const safelist = gaps
     Object.keys(colors).flatMap((color) => [`bg-${color}`, `fill-${color}`])
   )
 
+console.log({ safelist })
+
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   safelist,

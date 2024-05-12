@@ -18,7 +18,6 @@ const BlogPostsGrid = () => {
   const { data: posts } = useQuery(query, params, {
     initial,
   })
-  console.log({ posts })
 
   const [tags, setTags] = useState([
     {
