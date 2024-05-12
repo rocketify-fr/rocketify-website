@@ -49,6 +49,14 @@ const ctaButton = `
     }
   }
 `
+
+const ctaButtonMenu = `
+    _type,
+    colorName,
+    link {
+      ${link}
+    }
+`
 const heroSection = `
 heroSection[]->{
     _id,
@@ -157,24 +165,36 @@ const pageAndServiceContent = `
   _type == "textAndImage" => {${textAndImage}},
   _type == "faq" => {${faq}},
 `
+const menu = `
+  menu[] {
+    _type,
+    _type == "customLink" => {${link}},
+    _type == "ctaButton" => {${ctaButtonMenu}},
+    _type == "reference" => {
+      ...@-> {
+        _id,
+        _type,
+        _type == "nav" => {
+          title,
+          menu[] {
+            _type == "customLink" => {${link}},
+            _type == "ctaButton" => {${ctaButtonMenu}},
+          }
+        }
+    }}
+  }
+`
 // Rocketify Queries \\
 export const HEADER_QUERY = `*[_type == "header" ]{
   ${logo},
-  menu -> {
-    menu[] {
-      ...,
-      _type == "customLink" => {${link}},
-    }
-  }
+  menu-> {${menu}} 
 }[0]`
 
 export const FOOTER_QUERY = `*[_type == "footer" ]{
   ${logo},
   description,
   menuTitle,
-  menu[]{
-    ${link}
-  },
+  menu-> {${menu}},
   certificationsTitle,
   certifications[]{
     title, 
@@ -186,9 +206,7 @@ export const FOOTER_QUERY = `*[_type == "footer" ]{
   contactMenu[]{
     ...
   },
-  menuSubFooter[]{
-    ${link}
-  }
+  menuSubFooter-> {${menu}},
 }[0]`
 
 export const LAYOUT_QUERY = groq`{

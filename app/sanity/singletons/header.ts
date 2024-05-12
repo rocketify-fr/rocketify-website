@@ -9,7 +9,7 @@ export const header = defineType({
       type: 'customImage',
     }),
     defineField({
-      name: 'menu',
+      name: 'menuHeader',
       type: 'reference',
       to: [{ type: 'nav' }],
     }),

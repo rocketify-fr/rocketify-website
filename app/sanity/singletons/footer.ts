@@ -43,8 +43,8 @@ export const footer = defineType({
     }),
     defineField({
       name: 'menuSubFooter',
-      type: 'array',
-      of: [{ type: 'customLink' }],
+      type: 'reference',
+      to: [{ type: 'nav' }],
     }),
   ],
 })
