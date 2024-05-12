@@ -1,8 +1,7 @@
-import { Link as RemixLink, useLoaderData, useLocation } from '@remix-run/react'
+import { Link as RemixLink, useLocation } from '@remix-run/react'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 
-import { Logo } from '~/components/Logo'
 import { ThemeToggle } from '~/components/ThemeToggle'
 
 import Container from './Container'
@@ -39,12 +38,6 @@ const NavLink = ({ menu, sub }) => {
 
   useEffect(() => {
     if (menu._type === 'nav') {
-      console.log(
-        'nav',
-        menu.menu[0].internal.type,
-        location.pathname,
-        location.pathname.includes(menu.menu[0].internal.type)
-      )
       setActive(location.pathname.includes(menu.menu[0].internal.type))
     } else if (
       location.pathname === '/' &&
@@ -67,12 +60,25 @@ const NavLink = ({ menu, sub }) => {
       />
       {menu._type === 'nav' ? (
         <div className='menu-link group relative'>
-          <span className={clsx('cursor-pointer', active && 'text-bold')}>
-            {menu.title}
+          <span
+            className={clsx('flex cursor-pointer gap-2', active && 'font-bold')}
+          >
+            <span>{menu.title}</span>
+            <img
+              src='/img/chevron-up.svg'
+              width={12}
+              className='rotate-180 transition-all group-hover:rotate-0'
+              alt=''
+            />
           </span>
-          <div className='absolute z-10 flex max-h-0 flex-col items-start overflow-y-hidden bg-white transition-all duration-1000 group-hover:max-h-dvh'>
-            {menu.menu.map((link) => (
-              <NavLink key={link.internal.slug} menu={link} sub />
+          <div className='absolute top-6 z-10 flex max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent bg-transparent p-2 transition-all duration-1000 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4'>
+            {new Array(6).fill(menu.menu[0]).map((link, i, col) => (
+              <>
+                <NavLink key={link.internal.slug} menu={link} sub />
+                {i + 1 < col.length && (
+                  <div className='my-1 h-px w-full border-b border-b-black bg-white'></div>
+                )}
+              </>
             ))}
           </div>
         </div>
