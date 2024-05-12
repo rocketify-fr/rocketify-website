@@ -22,7 +22,7 @@ const BasicLink = ({ menu, sub, active }) => {
           active && 'font-bold',
           sub ? 'w-60' : '',
           menu._type === 'ctaButton'
-            ? 'border-black bg-rGreen hover:bg-rGreenHover'
+            ? 'border-black bg-rGreen px-3 hover:bg-rGreenHover'
             : 'border-transparent bg-white'
         )}
       >
@@ -91,8 +91,13 @@ const NavLink = ({ menu, sub }) => {
 
 export function Header({ theme, data }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
   const { logo } = data
+
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location])
 
   return (
     <>
