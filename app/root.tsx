@@ -128,6 +128,7 @@ export default function App() {
               {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
               <Outlet />
             </Page>
+              <Footer data={footer}></Footer>
             {sanity.preview ? (
               <>
                 <VisualEditing />

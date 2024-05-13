@@ -7,6 +7,7 @@ import type { LogoProps } from '~/types/home'
 import Banner from './Banner'
 import { Link } from './Link'
 import Container from './Container'
+import Headband from './content/Headband'
 
 export function Footer({ data }) {
   const {
@@ -23,7 +24,7 @@ export function Footer({ data }) {
   } = data
   return (
     <footer className='flex flex-col border-t border-gray-100 transition-colors duration-1000 ease-in-out dark:border-gray-900'>
-      <Banner></Banner>
+      <Headband margin={false} to="/contact" title="Démarrer un projet" ></Headband>
       <Container className='flex items-start justify-between gap-12 pt-12'>
         <div className='flex flex-1 flex-col'>
           <Logo />
@@ -79,7 +80,7 @@ export function Footer({ data }) {
         </div>
       </Container>
       <Container className='mt-12 flex justify-between border-t border-t-black pb-12 pt-4'>
-        {menuSubFooter.map((link) => (
+        {menuSubFooter.menu.map((link) => (
           <Link className='font-work text-xs underline' link={link}>
             {link[link.linkType].title}
           </Link>

@@ -192,7 +192,7 @@ export const FOOTER_QUERY = `*[_type == "footer" ]{
   ${logo},
   description,
   menuTitle,
-  menu-> {${menu}},
+  ...menu-> {${menu}},
   certificationsTitle,
   certifications[]{
     title, 

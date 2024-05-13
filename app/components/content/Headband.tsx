@@ -1,3 +1,4 @@
+import { Link as RemixLink } from '@remix-run/react'
 import clsx from 'clsx'
 import Marquee from 'react-fast-marquee'
 
@@ -12,17 +13,30 @@ const Rockets = ({ color }) => (
   </div>
 )
 
-const Headband = ({ link, title, colorName = 'rPurple', rocketColor }) => {
+const Headband = ({
+  link = null,
+  colorName = 'rPurple',
+  rocketColor = null,
+  margin = true,
+  title = null,
+  to = null,
+}) => {
   const colors = ['rPurple', 'rTurquoise', 'rGreen']
   const color = colors.find((c) => colorName.includes(c))
-  return (
-    <Link
-      link={link}
-      className={clsx(
-        `bg-${color}`,
-        'headband w-vw my-32 flex h-[80px] items-center justify-evenly overflow-x-scroll text-nowrap border-y border-black text-2xl'
-      )}
-    >
+  const classNames = clsx(
+    `bg-${color}`,
+    margin && 'my-32',
+    'headband w-vw flex h-[80px] items-center justify-evenly gap-8 overflow-x-scroll text-nowrap border-y border-black text-2xl'
+  )
+  return title && to ? (
+    <RemixLink to={to} title={title} className={classNames}>
+      <Rockets color={rocketColor}></Rockets>
+      <div className='flex items-center '>{title}</div>
+      <Rockets color={rocketColor}></Rockets>
+      <div className='flex items-center text-2xl'>{title}</div>
+    </RemixLink>
+  ) : (
+    <Link link={link} className={classNames}>
       <Rockets color={rocketColor}></Rockets>
       <div className='flex items-center '>{title}</div>
       <Rockets color={rocketColor}></Rockets>
