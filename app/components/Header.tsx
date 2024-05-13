@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { ThemeToggle } from '~/components/ThemeToggle'
 
 import Container from './Container'
+import BulletIcon from './icons/Bullet'
+import ChevronIcon from './icons/Chevron'
 import { Link } from './Link'
 
 const BasicLink = ({ menu, sub, active }) => {
@@ -51,27 +53,26 @@ const NavLink = ({ menu, sub }) => {
   }, [location.pathname, menu])
 
   return (
-    <div className='flex gap-1'>
-      <img
-        src='/img/bullet.svg'
-        height={16}
-        alt=''
-        className={clsx('opacity-0', active && 'opacity-100', sub && 'hidden')}
+    <div className='flex items-center gap-1'>
+      <BulletIcon
+        className={clsx(
+          'z-10 opacity-0',
+          active && 'opacity-100',
+          sub && 'hidden'
+        )}
       />
       {menu._type === 'nav' ? (
         <div className='menu-link group relative'>
           <span
-            className={clsx('flex cursor-pointer gap-2', active && 'font-bold')}
+            className={clsx(
+              'flex cursor-pointer items-center gap-2',
+              active && 'font-bold'
+            )}
           >
             <span>{menu.title}</span>
-            <img
-              src='/img/chevron-up.svg'
-              width={12}
-              className='rotate-180 transition-all group-hover:rotate-0'
-              alt=''
-            />
+            <ChevronIcon className='rotate-180 transition-all group-hover:rotate-0' />
           </span>
-          <div className='absolute top-6 z-10 flex max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent bg-transparent p-2 transition-all duration-1000 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4'>
+          <div className='duration-400 absolute top-6 z-10 flex max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100'>
             {new Array(6).fill(menu.menu[0]).map((link, i, col) => (
               <>
                 <NavLink key={link.internal.slug} menu={link} sub />
