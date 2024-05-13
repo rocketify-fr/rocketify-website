@@ -26,7 +26,7 @@ const Headband = ({
   const classNames = clsx(
     `bg-${color}`,
     margin && 'my-32',
-    'headband w-vw flex h-[80px] items-center justify-evenly gap-8 overflow-x-scroll text-nowrap border-y border-black text-2xl'
+    'headband w-vw flex h-[80px] items-center justify-evenly gap-8 overflow-x-scroll text-nowrap border-y border-black pl-16 text-2xl'
   )
   return title && to ? (
     <RemixLink to={to} title={title} className={classNames}>

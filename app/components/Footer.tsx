@@ -2,12 +2,10 @@ import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
 
 import { Logo } from '~/components/Logo'
-import type { LogoProps } from '~/types/home'
 
-import Banner from './Banner'
-import { Link } from './Link'
 import Container from './Container'
 import Headband from './content/Headband'
+import { Link } from './Link'
 
 export function Footer({ data }) {
   const {
@@ -20,25 +18,28 @@ export function Footer({ data }) {
     certificationsTitle,
     certifications,
     menuSubFooter,
-    ...rest
   } = data
   return (
     <footer className='flex flex-col border-t border-gray-100 transition-colors duration-1000 ease-in-out dark:border-gray-900'>
-      <Headband margin={false} to="/contact" title="Démarrer un projet" ></Headband>
-      <Container className='flex items-start justify-between gap-12 pt-12'>
-        <div className='flex flex-1 flex-col'>
-          <Logo />
+      <Headband
+        margin={false}
+        to='/contact'
+        title='Démarrer un projet'
+      ></Headband>
+      <Container className='flex items-start justify-between pt-12'>
+        <div className='flex flex-1 flex-col gap-4'>
+          <img src={logo.url} alt={logo.alt} width={140} />
           <p className='text-md'>{description}</p>
         </div>
         <div className='flex flex-1'>
           <div className='flex flex-1 flex-col items-center'>
-            <div className="flex gap-4 flex-col">
+            <div className='flex flex-col gap-4'>
               <p className='font-bai text-xl'>{menuTitle}</p>
               {menu.map((link, i) => (
                 <Link
                   className={clsx(
                     i + 1 === menu.length &&
-                    'rounded-3xl border border-black bg-rGreen px-4 justify-center flex',
+                      'flex justify-center rounded-3xl border border-black bg-rGreen px-4',
                     'text-md'
                   )}
                   link={link}
@@ -48,7 +49,7 @@ export function Footer({ data }) {
               ))}
             </div>
           </div>
-          <div className='flex flex-1 flex-col items-start space-y-2'>
+          <div className='flex flex-1 flex-col items-end gap-4 text-md'>
             <p className='font-bai text-xl'>{contactTitle}</p>
             {contactMenu.map((text, i) => {
               return <PortableText value={text}></PortableText>
@@ -56,9 +57,9 @@ export function Footer({ data }) {
           </div>
         </div>
       </Container>
-      <Container className='flex flex-col justify-start'>
+      <Container className='flex flex-col justify-start gap-4 pt-8'>
         <p className='py-2 font-bai text-xl'>{certificationsTitle}</p>
-        <div className='flex justify-evenly gap-8'>
+        <div className='grid grid-cols-1 justify-evenly gap-8 sm:grid-cols-2 lg:grid-cols-3'>
           {certifications.map((cert) => (
             <div className='align-center flex flex-1 justify-between rounded-xl border border-black px-4 py-6'>
               <img
