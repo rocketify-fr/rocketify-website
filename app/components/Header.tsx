@@ -18,12 +18,12 @@ const BasicLink = ({ menu, sub, active }) => {
       <span
         data-content={title}
         className={clsx(
-          'menu-link rounded-3xl border py-2',
+          'menu-link border py-2',
           active && 'font-bold',
           sub ? 'w-60' : '',
           menu._type === 'ctaButton'
-            ? 'border-black bg-rGreen px-3 hover:bg-rGreenHover'
-            : 'border-transparent bg-white'
+            ? 'rounded-3xl border-black bg-rGreen px-3 hover:bg-rGreenHover '
+            : 'border-transparent'
         )}
       >
         {title}
@@ -76,7 +76,7 @@ const NavLink = ({ menu, sub }) => {
               <>
                 <NavLink key={link.internal.slug} menu={link} sub />
                 {i + 1 < col.length && (
-                  <div className='my-1 h-px w-full border-b border-b-black bg-white'></div>
+                  <div className='my-1 h-px w-full border-b border-b-black'></div>
                 )}
               </>
             ))}
