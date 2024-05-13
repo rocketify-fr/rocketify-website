@@ -15,7 +15,7 @@ const Methodology = ({ title, description, image, summary }) => {
       <div className='my-16 grid gap-16 sm:grid-cols-2'>
         <img
           src={image.url}
-          className='aspect-square size-full rounded-3xl border border-black bg-gray-50 object-cover'
+          className='aspect-square h-auto w-full rounded-3xl border border-black bg-gray-50 object-cover'
           alt={image.alt}
         />
         <div className='my-auto flex flex-col gap-8'>
