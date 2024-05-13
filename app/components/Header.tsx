@@ -101,7 +101,7 @@ export function Header({ theme, data }) {
 
   return (
     <>
-      <header className='border-b border-black transition-colors duration-1000 ease-in-out dark:border-gray-900'>
+      <header className='max-w-[100dvw] border-b border-black transition-colors duration-1000 ease-in-out dark:border-gray-900'>
         <Container className='m-auto flex h-[80px] items-center justify-between'>
           <RemixLink to='/' className={clsx('min-h-[42px] min-w-[167px]')}>
             <img src={logo.url} alt={logo.alt} height={42} width={167} />
@@ -120,16 +120,18 @@ export function Header({ theme, data }) {
           </div>
         </Container>
       </header>
-      <div
-        className={clsx(
-          menuOpen ? 'h-full' : 'h-0',
-          'absolute top-[80px] flex w-full flex-col items-end justify-start gap-4 overflow-hidden bg-white p-4 text-2xl transition-all'
-        )}
-      >
-        {data.menu.map((entry, i) => {
-          return <NavLink key={i} menu={entry} />
-        })}
-      </div>
+      {menuOpen && (
+        <div
+          className={clsx(
+            menuOpen ? 'h-full' : 'h-0',
+            'absolute top-[80px] flex w-full max-w-[100dvw] flex-col items-end justify-start gap-4 overflow-hidden bg-white p-4 text-2xl transition-all'
+          )}
+        >
+          {data.menu.map((entry, i) => {
+            return <NavLink key={i} menu={entry} />
+          })}
+        </div>
+      )}
     </>
   )
 }

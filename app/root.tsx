@@ -58,6 +58,7 @@ export const meta: MetaFunction<
 
     const value = [
       { title },
+      { name: 'viewport', content: "width=device-width, initial-scale=1.0" },
       { property: 'twitter:card', content: 'summary_large_image' },
       { property: 'twitter:title', content: title },
       { property: 'og:title', content: title },

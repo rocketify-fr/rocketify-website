@@ -4,7 +4,9 @@
 
 html,
 body {
-  @apply font-work w-dvw max-w-[100dvw];
+  @apply font-work w-dvw max-w-[100vw];
+  scrollbar-width: thin;
+  overflow-x: hidden;
 }
 
 h1,
@@ -64,4 +66,8 @@ h6 {
       padding: 10px 0 10px 32px;
     }
   }
+}
+
+.headband {
+  scrollbar-width: none;
 }

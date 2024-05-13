@@ -5,7 +5,7 @@ import RocketIcon from '../icons/Rocket'
 import { Link } from '../Link'
 
 const Rockets = ({ color }) => (
-  <div className={'flex space-x-4'}>
+  <div className={'flex gap-4'}>
     {new Array(3).fill(0).map((_, i) => (
       <RocketIcon width={52} height={21} color={color} />
     ))}
@@ -20,7 +20,7 @@ const Headband = ({ link, title, colorName = 'rPurple', rocketColor }) => {
       link={link}
       className={clsx(
         `bg-${color}`,
-        'my-32 flex h-[80px] w-full items-center justify-evenly space-x-8 overflow-y-hidden overflow-x-scroll text-nowrap border-y border-black text-2xl'
+        'headband w-vw my-32 flex h-[80px] items-center justify-evenly overflow-x-scroll text-nowrap border-y border-black text-2xl'
       )}
     >
       <Rockets color={rocketColor}></Rockets>
