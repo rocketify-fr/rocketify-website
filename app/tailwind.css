@@ -72,6 +72,22 @@ h6 {
   }
 }
 
+.headband-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .headband {
   scrollbar-width: none;
+  white-space: nowrap;
+  animation: headband 20s linear infinite;
+}
+
+@keyframes headband {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
 }

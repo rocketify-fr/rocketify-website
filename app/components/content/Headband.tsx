@@ -23,24 +23,56 @@ const Headband = ({
   const colors = ['rPurple', 'rTurquoise', 'rGreen']
   const color = colors.find((c) => colorName.includes(c))
   const classNames = clsx(
-    `bg-${color}`,
-    margin && 'my-32',
-    'headband w-vw flex h-[80px] items-center justify-evenly gap-8 overflow-x-scroll text-nowrap border-y border-black pl-16 text-2xl'
+    'headband flex size-full items-center justify-evenly gap-8 text-nowrap pl-16 text-2xl'
   )
-  return title && to ? (
-    <RemixLink to={to} title={title} className={classNames}>
-      <Rockets color={rocketColor}></Rockets>
-      <div className='flex items-center '>{title}</div>
-      <Rockets color={rocketColor}></Rockets>
-      <div className='flex items-center text-2xl'>{title}</div>
-    </RemixLink>
-  ) : (
-    <Link link={link} className={classNames}>
-      <Rockets color={rocketColor}></Rockets>
-      <div className='flex items-center '>{title}</div>
-      <Rockets color={rocketColor}></Rockets>
-      <div className='flex items-center text-2xl'>{title}</div>
-    </Link>
+  return (
+    <div
+      className={clsx(
+        `bg-${color}`,
+        margin && 'my-12 sm:my-32',
+        'flex h-[80px] w-dvw cursor-pointer border-y border-black'
+      )}
+    >
+      {title && to ? (
+        <RemixLink to={to} title={title} className={classNames}>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+        </RemixLink>
+      ) : (
+        <Link link={link} className={classNames}>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center '>{title}</div>
+          <Rockets color={rocketColor}></Rockets>
+          <div className='flex items-center text-2xl'>{title}</div>
+        </Link>
+      )}
+    </div>
   )
 }
 
