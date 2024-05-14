@@ -20,6 +20,10 @@ export const customLink = defineType({
       },
     }),
     defineField({
+      name: 'label',
+      type: 'string',
+    }),
+    defineField({
       title: 'URL',
       name: 'href',
       type: 'url',
