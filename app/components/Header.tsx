@@ -21,8 +21,8 @@ const BasicLink = ({ menu, sub, active }) => {
         data-content={title}
         className={clsx(
           'menu-link border py-2',
-          active && 'font-bold',
-          sub ? 'w-60' : '',
+          active && 'sm:font-bold',
+          sub ? 'sm:w-60' : '',
           menu._type === 'ctaButton'
             ? 'rounded-3xl border-black bg-rGreen px-3 hover:bg-rGreenHover '
             : 'border-transparent'
@@ -37,6 +37,7 @@ const BasicLink = ({ menu, sub, active }) => {
 const NavLink = ({ menu, sub }) => {
   const location = useLocation()
   const [active, setActive] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (menu._type === 'nav') {
@@ -52,23 +53,48 @@ const NavLink = ({ menu, sub }) => {
     }
   }, [location.pathname, menu])
 
+  useEffect(() => {
+    setOpen(false)
+  }, [location])
   return (
     <div className='flex items-center gap-1'>
       <BulletIcon
-        className={clsx('opacity-0', active && 'opacity-100', sub && 'hidden')}
+        className={clsx(
+          'hidden opacity-0 sm:block',
+          active && 'opacity-100',
+          sub && 'hidden'
+        )}
       />
       {menu._type === 'nav' ? (
-        <div className='menu-link group relative w-full'>
+        <div className='menu-link group relative w-full '>
           <span
+            onClick={() => setOpen(!open)}
             className={clsx(
               'flex cursor-pointer items-center justify-between gap-2',
-              active && 'font-bold'
+              active && 'sm:font-bold'
             )}
           >
             <span>{menu.title}</span>
-            <ChevronIcon className='rotate-180 transition-all group-hover:rotate-0' />
+            <ChevronIcon
+              className={clsx(
+                'transition-all sm:rotate-180 group-hover:sm:rotate-0',
+                open && 'rotate-180'
+              )}
+            />
           </span>
-          <div className='absolute top-6 z-10 flex max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all duration-500 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100'>
+          <div
+            className={clsx(
+              'max-h-0 overflow-y-hidden pl-4 transition-all sm:hidden',
+              open && 'max-h-dvh py-2'
+            )}
+          >
+            {menu.menu.map((link, i, col) => (
+              <>
+                <NavLink key={link.internal.slug} menu={link} sub />
+              </>
+            ))}
+          </div>
+          <div className='absolute top-6 z-10 hidden max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all duration-500 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100 sm:flex'>
             {menu.menu.map((link, i, col) => (
               <>
                 <NavLink key={link.internal.slug} menu={link} sub />
@@ -119,8 +145,8 @@ export function Header({ theme, data }) {
       </header>
       <div
         className={clsx(
-          menuOpen ? 'h-dvh' : 'h-0',
-          'absolute top-[81px] flex w-full max-w-[100dvw] flex-col items-start justify-start gap-4 overflow-hidden bg-white p-4 text-paragraph transition-all duration-500'
+          menuOpen ? 'h-dvh py-6' : 'h-0 py-0',
+          'absolute top-[81px] flex w-full max-w-[100dvw] flex-col items-start justify-start gap-4 overflow-hidden bg-white px-6 text-paragraph transition-all duration-500'
         )}
       >
         {data.menu.map((entry, i) => {
