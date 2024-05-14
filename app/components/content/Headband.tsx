@@ -25,6 +25,7 @@ const Headband = ({
   const classNames = clsx(
     'headband flex size-full items-center justify-evenly gap-8 text-nowrap pl-16 text-2xl'
   )
+
   return (
     <div
       className={clsx(
@@ -35,41 +36,21 @@ const Headband = ({
     >
       {title && to ? (
         <RemixLink to={to} title={title} className={classNames}>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
+          {new Array(50).fill(0).map((_, i) => (
+            <>
+              <Rockets color={rocketColor}></Rockets>
+              <div className='flex items-center text-2xl'>{title}</div>
+            </>
+          ))}
         </RemixLink>
       ) : (
         <Link link={link} className={classNames}>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center '>{title}</div>
-          <Rockets color={rocketColor}></Rockets>
-          <div className='flex items-center text-2xl'>{title}</div>
+          {new Array(50).fill(0).map((_, i) => (
+            <>
+              <Rockets color={rocketColor}></Rockets>
+              <div className='flex items-center text-2xl'>{title}</div>
+            </>
+          ))}
         </Link>
       )}
     </div>

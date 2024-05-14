@@ -80,7 +80,10 @@ h6 {
 .headband {
   scrollbar-width: none;
   white-space: nowrap;
-  animation: headband 20s linear infinite;
+  animation: headband 5000s linear infinite;
+  @media screen and (max-width: 640px) {
+    animation: headband 1000s linear infinite;
+  }
 }
 
 @keyframes headband {
@@ -88,6 +91,6 @@ h6 {
     transform: translate3d(100%, 0, 0);
   }
   100% {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-10000%, 0, 0);
   }
 }
