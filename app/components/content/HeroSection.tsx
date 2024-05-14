@@ -6,9 +6,11 @@ import { Link } from '../Link'
 
 const HeroSection = ({ title, description, image, cta }) => {
   return (
-    <Container className='flex flex-col lg:flex-row gap-16'>
-      <div className='my-auto flex lg:w-3/5 flex-col items-start'>
-        <h2 className='pb-8 font-bai text-[56px] leading-[65px]'>{title}</h2>
+    <Container className='flex flex-col gap-16 lg:flex-row'>
+      <div className='my-auto flex flex-col items-start lg:w-3/5'>
+        <h2 className='pb-8 font-bai text-2xl leading-[65px] lg:text-[56px]'>
+          {title}
+        </h2>
         <div className='pb-12 text-paragraph'>
           <PortableText value={description}></PortableText>
         </div>
@@ -16,7 +18,11 @@ const HeroSection = ({ title, description, image, cta }) => {
           <Link link={cta.link}>Prendre rendez-vous</Link>
         </Button>
       </div>
-      <img src={image.url} alt={image.alt} className='lg:w-2/5 rounded-3xl aspect-[4/3] sm:aspect-[21/9] lg:aspect-[4/3]' />
+      <img
+        src={image.url}
+        alt={image.alt}
+        className='aspect-[4/3] rounded-3xl sm:aspect-[21/9] lg:aspect-[4/3] lg:w-2/5'
+      />
     </Container>
   )
 }

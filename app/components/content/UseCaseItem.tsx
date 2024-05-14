@@ -6,17 +6,22 @@ import Separator from '../Separator'
 
 const UseCaseItem = ({ description, image, reverse, separator }) => (
   <Container>
-    <div className={clsx('flex', reverse && 'flex-row-reverse')}>
+    <div
+      className={clsx(
+        'flex flex-col sm:flex-row',
+        reverse && 'sm:flex-row-reverse'
+      )}
+    >
       <div
         className={clsx(
-          'use-item-content my-auto flex w-1/2 flex-col',
-          reverse ? 'pl-8' : 'pr-8'
+          'use-item-content my-auto flex flex-col sm:w-1/2',
+          reverse ? 'sm:pl-8' : 'sm:pr-8'
         )}
       >
         <PortableText value={description}></PortableText>
       </div>
 
-      <div className='flex w-1/2 flex-col'>
+      <div className='pt-8 sm:w-1/2 sm:pt-0'>
         <img
           src={image?.url}
           alt={image?.alt}

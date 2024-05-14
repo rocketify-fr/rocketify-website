@@ -5,8 +5,8 @@ import Container from '../Container'
 const Testimonials = ({ testimonials, title, subTitle }) => {
   return (
     <Container>
-      <h2 className='font-bai text-[56px]'>{title}</h2>
-      <p className='pb-12 text-paragraph'>{subTitle}</p>
+      <h2 className='font-bai text-2xl sm:text-[56px]'>{title}</h2>
+      <p className='pb-12 text-sm sm:text-paragraph'>{subTitle}</p>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3'>
         {testimonials.map((testimonial, index, col) => (
           <div

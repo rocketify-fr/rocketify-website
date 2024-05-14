@@ -29,10 +29,10 @@ h6 {
   }
 
   h1 {
-    @apply text-[56px];
+    @apply lg:text-[56px] text-2xl;
   }
   h2 {
-    @apply text-[44px];
+    @apply lg:text-[44px] text-xl;
   }
   h3 {
     @apply text-[32px];
@@ -53,8 +53,12 @@ h6 {
 }
 
 .use-item-content {
-  h1,
-  h2,
+  h1 {
+    @apply lg:text-[56px] text-2xl py-6;
+  }
+  h2 {
+    @apply lg:text-[44px] text-xl py-4;
+  }
   h3 {
     @apply text-[48px] leading-[58px] pb-8;
   }

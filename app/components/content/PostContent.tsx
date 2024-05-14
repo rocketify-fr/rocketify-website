@@ -69,6 +69,7 @@ export const PostContent = ({ content }) => {
 
     return (
       <>
+        <p>{lastType}</p>
         <ContentBlock {...{ item, even, firstOfType, lastOfType }} />
         {separator ? <Separator /> : null}
       </>

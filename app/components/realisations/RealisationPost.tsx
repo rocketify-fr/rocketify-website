@@ -28,12 +28,12 @@ const RealisationPost = ({ post: postData }) => {
     <>
       <Container className='flex flex-col'>
         <Breadcrumbs></Breadcrumbs>
-        <div className='flex w-full items-end'>
-          <div className='w-1/2'>
-            <h1 className='py-2 font-bai text-6xl'>{title}</h1>
+        <div className='flex w-full flex-col items-end gap-8 sm:flex-row'>
+          <div className='flex flex-col gap-4 sm:w-1/2'>
+            <h1 className='py-2 font-bai text-3xl lg:text-6xl'>{title}</h1>
             <Tags tags={tags} />
           </div>
-          <div className='flex w-1/2 flex-col items-start'>
+          <div className='flex flex-col items-start sm:w-1/2'>
             <p className='py-2 text-lg'>{description}</p>
             <Button className='bg-rPurple'>
               <a target='_blank' href={url} rel='noreferrer'>
@@ -45,7 +45,7 @@ const RealisationPost = ({ post: postData }) => {
         <img
           src={image.url}
           alt={image.alt}
-          className='my-16 aspect-[21/9] rounded-3xl border border-black object-cover'
+          className='my-16 aspect-[4/3] rounded-3xl border border-black object-cover lg:aspect-[21/9]'
         />
       </Container>
       <UseCaseIntro {...intro} />
@@ -63,13 +63,16 @@ const RealisationPost = ({ post: postData }) => {
         <>
           <Separator></Separator>
           <Container className='flex flex-col'>
-            <h2 className='font-bai text-5xl'>Plus en détail</h2>
+            <h2 className='font-bai text-2xl sm:text-5xl'>Plus en détail</h2>
             <div className='flex items-end justify-between'>
               <div>hardcoded lorem ipsum lol</div>
             </div>
-            <div className='grid grid-cols-3 gap-4 pt-16'>
-              {moreDetailsPosts.map((realisation) => (
-                <RealisationCard realisation={realisation}></RealisationCard>
+            <div className='grid grid-cols-1 gap-4 pt-16 sm:grid-cols-2 lg:grid-cols-3'>
+              {moreDetailsPosts.map((realisation, i) => (
+                <RealisationCard
+                  key={i}
+                  realisation={realisation}
+                ></RealisationCard>
               ))}
             </div>
           </Container>
@@ -79,13 +82,18 @@ const RealisationPost = ({ post: postData }) => {
         <>
           <Separator></Separator>
           <Container className='flex flex-col'>
-            <h2 className='font-bai text-5xl'>Projets similaires</h2>
+            <h2 className='font-bai text-2xl sm:text-5xl'>
+              Projets similaires
+            </h2>
             <div className='flex items-end justify-between'>
               <div>hardcoded lorem ipsum lol</div>
             </div>
-            <div className='grid grid-cols-2 gap-4 pt-16'>
-              {similarProjectPosts.map((realisation) => (
-                <RealisationCard realisation={realisation}></RealisationCard>
+            <div className='grid grid-cols-1 gap-4 pt-16 sm:grid-cols-2'>
+              {similarProjectPosts.map((realisation, i) => (
+                <RealisationCard
+                  key={i}
+                  realisation={realisation}
+                ></RealisationCard>
               ))}
             </div>
           </Container>

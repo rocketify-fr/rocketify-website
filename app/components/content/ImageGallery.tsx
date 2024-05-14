@@ -6,14 +6,14 @@ import Container from '../Container'
 const ImageGallery = ({ gallery }) => {
   return (
     <Container>
-      <div className='grid gap-6 sm:grid-cols-2'>
+      <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
         {gallery.map((image, index, col) => {
           const fullWidth = index % 3 === 0 && col.length !== 2
           return (
             <div
               className={clsx(
                 'overflow-hidden rounded-3xl border border-black',
-                fullWidth ? 'col-span-2' : 'col-span-1'
+                fullWidth ? 'sm:col-span-2' : 'sm:col-span-1'
               )}
             >
               <img
@@ -21,7 +21,9 @@ const ImageGallery = ({ gallery }) => {
                 alt={image.alt}
                 className={clsx(
                   'w-full object-cover',
-                  fullWidth ? 'aspect-video' : 'aspect-square'
+                  fullWidth
+                    ? 'aspect-[4/3] sm:aspect-video'
+                    : 'aspect-[4/3] sm:aspect-square'
                 )}
               />
             </div>
