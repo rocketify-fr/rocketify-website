@@ -54,7 +54,9 @@ const BlogPostsGrid = () => {
     (e) => {
       const sortBy = e.target.value
 
-      navigate(`/blog?${updateQuery(location, { sortBy })}`)
+      navigate(`/blog?${updateQuery(location, { sortBy })}`, {
+        preventScrollReset: true,
+      })
     },
     [location.search]
   )
@@ -96,7 +98,7 @@ const BlogPostsGrid = () => {
         <>
           <PostCard horizontal post={posts?.[0]}></PostCard>
           <ResponsiveGrid gapsX={4} gapsY={8} className='mt-8'>
-            {new Array(9).fill(posts?.[1] || posts[0]).map((post, i) => (
+            {posts.slice(1).map((post, i) => (
               <PostCard key={i} post={post}></PostCard>
             ))}
           </ResponsiveGrid>

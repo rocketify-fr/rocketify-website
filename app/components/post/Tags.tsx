@@ -11,6 +11,7 @@ export const Tags = ({ tags, className = '' }) => {
       {tags.map((tag, i) => (
         <Link
           key={tag.slug}
+          preventScrollReset
           to={
             location.pathname === '/blog' &&
             queryString.parse(location.search).tag === tag.title
