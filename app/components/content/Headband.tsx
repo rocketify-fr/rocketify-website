@@ -1,6 +1,5 @@
 import { Link as RemixLink } from '@remix-run/react'
 import clsx from 'clsx'
-import Marquee from 'react-fast-marquee'
 
 import RocketIcon from '../icons/Rocket'
 import { Link } from '../Link'

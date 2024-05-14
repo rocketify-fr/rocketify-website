@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import Marquee from 'react-fast-marquee'
 
 const Rockets = () => (
   <div className={'flex space-x-4'}>
@@ -16,7 +15,7 @@ const Rockets = () => (
 
 export default function Banner({
   text = 'Démarrer un projet',
-  color = 'rPurple'
+  color = 'rPurple',
 }) {
   return (
     <div
@@ -26,9 +25,13 @@ export default function Banner({
       )}
     >
       <Rockets></Rockets>
-      <div className='flex items-center text-2xl'>{text.replace(' ', '&nbsp;')}</div>
+      <div className='flex items-center text-2xl'>
+        {text.replace(' ', '&nbsp;')}
+      </div>
       <Rockets></Rockets>
-      <div className='flex items-center text-2xl'>{text.replace(' ', '&nbsp;')}</div>
+      <div className='flex items-center text-2xl'>
+        {text.replace(' ', '&nbsp;')}
+      </div>
     </div>
   )
 }

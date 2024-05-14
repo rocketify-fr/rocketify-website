@@ -5,18 +5,23 @@ import Separator from '../Separator'
 
 const TextAndImage = ({ title, description, image, reverse, separator }) => (
   <Container>
-    <div className={clsx('flex', reverse && 'flex-row-reverse')}>
+    <div
+      className={clsx(
+        'flex flex-col sm:flex-row',
+        reverse && 'gap-8 sm:flex-row-reverse'
+      )}
+    >
       <div
         className={clsx(
-          'use-item-content my-auto flex w-1/2 flex-col',
-          reverse ? 'pl-8' : 'pr-8'
+          'my-auto flex flex-col gap-8 sm:w-1/2',
+          reverse ? 'sm:pl-8' : 'sm:pr-8'
         )}
       >
-        <h3 className='text-[48px]'>{title}</h3>
-        <p className='text-paragraph' >{description}</p>
+        <h3 className='text-xl sm:text-[48px]'>{title}</h3>
+        <p className='text-paragraph'>{description}</p>
       </div>
 
-      <div className='flex w-1/2 flex-col'>
+      <div className='flex sm:w-1/2'>
         <img
           src={image?.url}
           alt={image?.alt}
@@ -29,4 +34,3 @@ const TextAndImage = ({ title, description, image, reverse, separator }) => (
 )
 
 export default TextAndImage
-

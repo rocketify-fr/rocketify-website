@@ -9,7 +9,7 @@ import Separator from '../Separator'
 const ProjectShowcase = ({ title, description, projects }) => {
   return (
     <Container className='py-16'>
-      <h2 className='pb-2 text-[38px] leading-[68px] sm:text-[56px] lg:w-1/2 lg:pr-8'>
+      <h2 className='pb-2 text-2xl sm:text-[38px] sm:text-[56px] sm:leading-[68px] lg:w-1/2 lg:pr-8'>
         {title}
       </h2>
       <p className='py-4 text-paragraph'>{description}</p>
@@ -24,7 +24,7 @@ const ProjectShowcase = ({ title, description, projects }) => {
               )}
             >
               <div className='flex flex-col items-start gap-4 sm:my-auto'>
-                <h3 className='text-[26px]'>{title}</h3>
+                <h3 className='sm:text-[26px] sm:leading-[120%]'>{title}</h3>
                 <p className='text-paragraph'>{description}</p>
                 <Tags tags={tags}></Tags>
                 <Button className='bg-rPurple'>

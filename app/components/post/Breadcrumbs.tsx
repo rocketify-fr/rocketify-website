@@ -1,10 +1,4 @@
-import { Link, useLocation } from '@remix-run/react'
-import clsx from 'clsx'
-import queryString from 'query-string'
-
-import { updateQuery } from '~/utils/location'
-
-import Button from '../layout/Button'
+import { Link } from '@remix-run/react'
 
 export const Breadcrumbs = () => {
   return (
