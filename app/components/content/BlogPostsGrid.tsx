@@ -14,7 +14,7 @@ import { Tags } from '../post/Tags'
 const BlogPostsGrid = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const { initial, params, pageData, query } = useLoaderData()
+  const { initial, params, pageData, query, tagsData } = useLoaderData()
   const { data: posts } = useQuery(query, params, {
     initial,
   })
@@ -23,25 +23,9 @@ const BlogPostsGrid = () => {
     (item) => item._type === 'blogPostsGrid'
   )
 
-  const [tags, setTags] = useState([
-    {
-      title: 'Shopify',
-      slug: 'shopify',
-    },
-    {
-      title: 'Sanity',
-      slug: 'sanity',
-    },
-    {
-      title: 'Gatsby',
-      slug: 'gatsby',
-    },
-    {
-      title: 'Remix',
-      slug: 'remix',
-    },
-  ])
+  const [tags, setTags] = useState(tagsData)
 
+  console.log({ tags })
   const toggleActive = useCallback(
     (index, value = null) =>
       setTags(
@@ -83,26 +67,23 @@ const BlogPostsGrid = () => {
   }, [location.search])
   return (
     <Container>
-      {gridConfig.showTags ||
-        (gridConfig.showSort && (
-          <div className='flex items-center justify-between py-8'>
-            {gridConfig.showTags && <Tags tags={tags}></Tags>}
-            {gridConfig.showSort && (
-              <Button>
-                <select
-                  id='sort'
-                  name='sort'
-                  onChange={handleSort}
-                  className='border-none bg-white text-xs'
-                  value={filters.sortBy}
-                >
-                  <option value='new'>Date décroissante</option>
-                  <option value='old'>Date croissante</option>
-                </select>
-              </Button>
-            )}
-          </div>
-        ))}
+      <div className='flex items-center justify-between py-8'>
+        <Tags tags={tags}></Tags>
+        {gridConfig.showSort && (
+          <Button>
+            <select
+              id='sort'
+              name='sort'
+              onChange={handleSort}
+              className='border-none bg-white text-xs'
+              value={filters.sortBy}
+            >
+              <option value='new'>Date décroissante</option>
+              <option value='old'>Date croissante</option>
+            </select>
+          </Button>
+        )}
+      </div>
       {posts.length > 0 ? (
         <>
           <PostCard horizontal post={posts?.[0]}></PostCard>

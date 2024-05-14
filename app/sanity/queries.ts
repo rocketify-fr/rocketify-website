@@ -231,6 +231,13 @@ export const HOMEPAGE_QUERY = groq`
 }
 `
 
+export const POST_TAGS_QUERY = groq`
+*[_type == "postTag"]{
+ title,
+ "slug": slug.current
+}
+`
+
 export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug][0]{
   _id,
   _type,
