@@ -19,6 +19,10 @@ const BlogPostsGrid = () => {
     initial,
   })
 
+  const gridConfig = pageData.content.find(
+    (item) => item._type === 'blogPostsGrid'
+  )
+
   const [tags, setTags] = useState([
     {
       title: 'Shopify',
@@ -79,21 +83,26 @@ const BlogPostsGrid = () => {
   }, [location.search])
   return (
     <Container>
-      <div className='flex items-center justify-between'>
-        <Tags className='py-8' tags={tags}></Tags>
-        <Button>
-          <select
-            id='sort'
-            name='sort'
-            onChange={handleSort}
-            className='border-none bg-white text-xs'
-            value={filters.sortBy}
-          >
-            <option value='new'>Date décroissante</option>
-            <option value='old'>Date croissante</option>
-          </select>
-        </Button>
-      </div>
+      {gridConfig.showTags ||
+        (gridConfig.showSort && (
+          <div className='flex items-center justify-between py-8'>
+            {gridConfig.showTags && <Tags tags={tags}></Tags>}
+            {gridConfig.showSort && (
+              <Button>
+                <select
+                  id='sort'
+                  name='sort'
+                  onChange={handleSort}
+                  className='border-none bg-white text-xs'
+                  value={filters.sortBy}
+                >
+                  <option value='new'>Date décroissante</option>
+                  <option value='old'>Date croissante</option>
+                </select>
+              </Button>
+            )}
+          </div>
+        ))}
       {posts.length > 0 ? (
         <>
           <PostCard horizontal post={posts?.[0]}></PostCard>
@@ -106,23 +115,25 @@ const BlogPostsGrid = () => {
       ) : (
         'Aucun post trouvé'
       )}
-      <div className='flex items-center justify-end gap-2 py-8'>
-        <Button
-          className='mr-4 cursor-pointer'
-          disabled={filters.page === 1 || !filters.page}
-        >
-          <Link
-            to={`/blog?${updateQuery(location, { page: filters.page - 1 })}`}
+      {gridConfig.showPagination && (
+        <div className='flex items-center justify-end gap-2 py-8'>
+          <Button
+            className='mr-4 cursor-pointer'
+            disabled={filters.page === 1 || !filters.page}
           >
-            Précédent
-          </Link>
-        </Button>
-        <Button className='cursor-pointer bg-rGreen'>1</Button>
-        <Button className='cursor-pointer '>2</Button>
-        <Button className='cursor-pointer '>3</Button>
-        <Button className='cursor-pointer '>4</Button>
-        <Button className='ml-4 cursor-pointer bg-rGreen'>Suivant</Button>
-      </div>
+            <Link
+              to={`/blog?${updateQuery(location, { page: filters.page - 1 })}`}
+            >
+              Précédent
+            </Link>
+          </Button>
+          <Button className='cursor-pointer bg-rGreen'>1</Button>
+          <Button className='cursor-pointer '>2</Button>
+          <Button className='cursor-pointer '>3</Button>
+          <Button className='cursor-pointer '>4</Button>
+          <Button className='ml-4 cursor-pointer bg-rGreen'>Suivant</Button>
+        </div>
+      )}
     </Container>
   )
 }

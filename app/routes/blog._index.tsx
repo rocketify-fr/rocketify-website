@@ -14,8 +14,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { options } = await loadQueryOptions(request.headers)
 
   const { data: pageData } = await loadQuery(PAGE_QUERY, { slug: 'blog' }, options)
+  const gridConfig = pageData.content.find(item => item._type === "blogPostsGrid")
 
-  const postsPerPage = pageData.content.find(item => item._type === "blogPostsGrid")?.perPage || 10
+  const postsPerPage = gridConfig?.perPage || 10
 
   const { tag, page, sortBy } = queryString.parse(new URL(request.url).search)
 
@@ -30,7 +31,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     tag
   }
 
-  console.log({ queryParams, query });
 
   const initial = await loadQuery(query, queryParams, options).then((res) => ({
     ...res,

@@ -58,17 +58,17 @@ const NavLink = ({ menu, sub }) => {
         className={clsx('opacity-0', active && 'opacity-100', sub && 'hidden')}
       />
       {menu._type === 'nav' ? (
-        <div className='menu-link group relative'>
+        <div className='menu-link group relative w-full'>
           <span
             className={clsx(
-              'flex cursor-pointer items-center gap-2',
+              'flex cursor-pointer items-center justify-between gap-2',
               active && 'font-bold'
             )}
           >
             <span>{menu.title}</span>
             <ChevronIcon className='rotate-180 transition-all group-hover:rotate-0' />
           </span>
-          <div className='duration-400 absolute top-6 z-10 flex max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100'>
+          <div className='absolute top-6 z-10 flex max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all duration-500 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100'>
             {menu.menu.map((link, i, col) => (
               <>
                 <NavLink key={link.internal.slug} menu={link} sub />
@@ -98,7 +98,7 @@ export function Header({ theme, data }) {
 
   return (
     <>
-      <header className='max-w-[100dvw] border-b border-black transition-colors duration-1000 ease-in-out dark:border-gray-900'>
+      <header className='max-w-[100dvw] border-b border-black transition-all duration-1000 ease-in-out dark:border-gray-900'>
         <Container className='m-auto flex h-[80px] items-center justify-between'>
           <RemixLink to='/' className={clsx('min-h-[42px] min-w-[167px]')}>
             <img src={logo.url} alt={logo.alt} height={42} width={167} />
@@ -117,18 +117,16 @@ export function Header({ theme, data }) {
           </div>
         </Container>
       </header>
-      {menuOpen && (
-        <div
-          className={clsx(
-            menuOpen ? 'h-full' : 'h-0',
-            'absolute top-[80px] flex w-full max-w-[100dvw] flex-col items-end justify-start gap-4 overflow-hidden bg-white p-4 text-2xl transition-all'
-          )}
-        >
-          {data.menu.map((entry, i) => {
-            return <NavLink key={i} menu={entry} />
-          })}
-        </div>
-      )}
+      <div
+        className={clsx(
+          menuOpen ? 'h-dvh' : 'h-0',
+          'absolute top-[81px] flex w-full max-w-[100dvw] flex-col items-start justify-start gap-4 overflow-hidden bg-white p-4 text-paragraph transition-all duration-500'
+        )}
+      >
+        {data.menu.map((entry, i) => {
+          return <NavLink key={i} menu={entry} />
+        })}
+      </div>
     </>
   )
 }

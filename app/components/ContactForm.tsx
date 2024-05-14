@@ -36,12 +36,12 @@ const ContactForm = () => {
 
   return (
     <Container>
-      <h1 className='mb-16 text-6xl'>Nous contacter</h1>
+      <h1 className='mb-16 text-2xl sm:text-6xl'>Nous contacter</h1>
       <p className='text-paragraph'></p>
-      <div className='flex gap-48'>
+      <div className='flex flex-col gap-8 sm:flex-row sm:gap-48'>
         <fetcher.Form
           action='/contact'
-          className='flex w-2/3 grow flex-col gap-16'
+          className='flex grow flex-col gap-16 sm:w-2/3'
           method='post'
         >
           <Input name='name' label='Nom'></Input>
@@ -89,7 +89,7 @@ const ContactForm = () => {
             </button>
           </div>
         </fetcher.Form>
-        <div className='flex w-1/3 flex-col items-stretch gap-8'>
+        <div className='flex flex-col items-stretch gap-8 sm:w-1/3'>
           {[
             {
               title: 'Par mail',
