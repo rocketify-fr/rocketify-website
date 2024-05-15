@@ -2,8 +2,6 @@ import { Link as RemixLink, useLocation } from '@remix-run/react'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 
-import { ThemeToggle } from '~/components/ThemeToggle'
-
 import Container from './Container'
 import BulletIcon from './icons/Bullet'
 import ChevronIcon from './icons/Chevron'
@@ -59,13 +57,15 @@ const NavLink = ({ menu, sub }) => {
   }, [location])
   return (
     <div className='flex items-center gap-1'>
-      <BulletIcon
-        className={clsx(
-          'hidden opacity-0 sm:block',
-          active && 'opacity-100',
-          sub && 'hidden'
-        )}
-      />
+      {menu._type !== 'ctaButton' && (
+        <BulletIcon
+          className={clsx(
+            'hidden opacity-0 sm:block',
+            active && 'opacity-100',
+            sub && 'hidden'
+          )}
+        />
+      )}
       {menu._type === 'nav' ? (
         <div className='menu-link group relative w-full '>
           <span
@@ -138,7 +138,6 @@ export function Header({ theme, data }) {
             {data.menu.map((entry, i) => {
               return <NavLink key={i} menu={entry} />
             })}
-            <ThemeToggle theme={theme} />
           </div>
         </Container>
       </header>
