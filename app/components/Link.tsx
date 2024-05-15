@@ -4,7 +4,7 @@ import clsx from 'clsx'
 export function Link({
   children,
   className = null,
-  link: { linkType, ...linkData },
+  link: { linkType, label, ...linkData },
 }) {
   const link = linkData[linkType]
 
@@ -35,7 +35,7 @@ export function Link({
 
   return (
     <RemixLink className={clsx(className)} to={path}>
-      {link.label || children}
+      {label || children}
     </RemixLink>
   )
 }
