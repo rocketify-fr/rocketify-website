@@ -6,34 +6,20 @@ import { useQuery } from '@sanity/react-loader'
 
 import { Loading } from '~/components/Loading'
 import RealisationsGrid from '~/components/realisations/RealisationsGrid'
-import type { loader as layoutLoader } from '~/routes/_website'
+import RealisationsPage from '~/components/realisations/RealisationsPage'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
-import {  USE_CASES_QUERY } from '~/sanity/queries'
-
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    'routes/_website': typeof layoutLoader
-  }
-> = ({ matches }) => {
-  const layoutData = matches.find(
-    (match) => match.id === 'routes/_website'
-  )?.data
-  const home = layoutData ? layoutData.initial.data : null
-  const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
-
-  return [{ title }]
-}
+import { PAGE_QUERY, USE_CASES_QUERY } from '~/sanity/queries'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { options } = await loadQueryOptions(request.headers)
   const query = USE_CASES_QUERY
   const queryParams = {}
-  const initial = await loadQuery(query, queryParams, options).then((res) => ({
-    ...res,
-    data: res.data ? res.data : null,
-  }))
+
+  const [initial, { data: pageData }] = await Promise.all([
+    loadQuery(query, queryParams, options),
+    loadQuery(PAGE_QUERY, { slug: 'realisations' }, options)
+  ])
 
   if (!initial.data) {
     throw new Response('Not found', { status: 404 })
@@ -41,6 +27,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   return json({
     initial,
+    pageData,
     query,
     params: queryParams,
   })
@@ -65,8 +52,6 @@ export default function Index() {
   }
 
   return (
-    <RealisationsGrid
-      realisations={data || initial.data}
-    />
+    <RealisationsPage />
   )
 }

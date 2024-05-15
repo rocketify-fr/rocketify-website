@@ -1,3 +1,4 @@
+import RealisationsGrid from '../realisations/RealisationsGrid'
 import Separator from '../Separator'
 import BlogPostsGrid from './BlogPostsGrid'
 import FAQ from './FAQ'
@@ -42,6 +43,8 @@ const ContentBlock = ({ item, firstOfType, lastOfType, even }) => {
       return <HeroSection {...item} />
     case 'serviceHighlights':
       return <ServiceHighlights {...item} />
+    case 'useCaseGrid':
+      return <RealisationsGrid {...item} />
     case 'blogPostsGrid':
       return <BlogPostsGrid {...item} />
     default:
@@ -49,7 +52,7 @@ const ContentBlock = ({ item, firstOfType, lastOfType, even }) => {
   }
 }
 
-const noSeparator = ['useCaseIntro', 'faq', 'headband']
+const noSeparator = ['useCaseIntro', 'faq', 'headband', 'headingTagline']
 
 export const PostContent = ({ content }) => {
   let lastType = null
