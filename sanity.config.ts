@@ -1,3 +1,4 @@
+import { assist } from '@sanity/assist'
 import { codeInput } from '@sanity/code-input'
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
@@ -19,6 +20,7 @@ export default defineConfig({
   plugins: [
     codeInput(),
     media(),
+    assist(),
     structureTool({ structure, defaultDocumentNode }),
     presentationTool({
       previewUrl: {
