@@ -54,7 +54,7 @@ export default function Index() {
     return <NotFound />
   }
 
-  const pageData = data?.[0] || initial.data[0]
+  const pageData = data || initial.data
 
   return (
     <PageComponent
