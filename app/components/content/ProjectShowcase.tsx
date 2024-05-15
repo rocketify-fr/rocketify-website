@@ -19,11 +19,11 @@ const ProjectShowcase = ({ title, description, projects }) => {
             <div
               key={`${slug}-${i}`}
               className={clsx(
-                'flex flex-col gap-6 sm:flex-row',
+                'flex flex-col gap-6 sm:flex-row sm:gap-12',
                 i % 2 !== 0 && 'sm:flex-row-reverse'
               )}
             >
-              <div className='flex flex-col items-start gap-4 sm:my-auto'>
+              <div className='flex flex-col items-start gap-4 sm:my-auto sm:flex-[1]'>
                 <h3 className='sm:text-[26px] sm:leading-[120%]'>{title}</h3>
                 <p className='text-paragraph'>{description}</p>
                 <Tags tags={tags}></Tags>
@@ -34,7 +34,7 @@ const ProjectShowcase = ({ title, description, projects }) => {
               <img
                 src={image.url}
                 alt={image.alt}
-                className='aspect-square w-full rounded-3xl border border-black object-cover'
+                className='aspect-square w-full rounded-3xl border border-black object-cover sm:flex-[1]'
               />
             </div>
             {i + 1 < projects.length && <Separator />}

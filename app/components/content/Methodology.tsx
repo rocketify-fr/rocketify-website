@@ -4,10 +4,10 @@ const Methodology = ({ title, description, image, summary }) => {
   return (
     <Container>
       <div className='my-16 flex w-full flex-col items-center gap-16 sm:flex-row'>
-        <h2 className='font-bai text-[56px] leading-[67px] sm:w-3/5'>
+        <h2 className='font-bai text-[56px] leading-[67px] sm:w-1/2'>
           {title}
         </h2>
-        <div className='sm:w-2/5'>
+        <div className='text-paragraph sm:w-1/2'>
           <p>{description}</p>
         </div>
       </div>
