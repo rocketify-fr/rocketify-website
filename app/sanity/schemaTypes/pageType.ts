@@ -140,6 +140,7 @@ export const pageType = defineType({
         { type: 'headingTagline' },
         { type: 'blogPostsGrid' },
         { type: 'useCaseGrid' },
+        { type: 'rawContent' },
       ],
       group: 'editorial',
       fieldset: 'editorial',
