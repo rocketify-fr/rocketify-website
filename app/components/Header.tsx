@@ -7,6 +7,7 @@ import { ThemeToggle } from '~/components/ThemeToggle'
 import Container from './Container'
 import BulletIcon from './icons/Bullet'
 import ChevronIcon from './icons/Chevron'
+import HamburgerIcon from './icons/Hamburger'
 import { Link } from './Link'
 
 const BasicLink = ({ menu, sub, active }) => {
@@ -70,7 +71,7 @@ const NavLink = ({ menu, sub }) => {
           <span
             onClick={() => setOpen(!open)}
             className={clsx(
-              'flex cursor-pointer items-center justify-between gap-2',
+              'flex cursor-pointer items-center justify-between gap-2 py-2',
               active && 'sm:font-bold'
             )}
           >
@@ -129,9 +130,7 @@ export function Header({ theme, data }) {
           <RemixLink to='/' className={clsx('min-h-[42px] min-w-[167px]')}>
             <img src={logo.url} alt={logo.alt} height={42} width={167} />
           </RemixLink>
-          <img
-            src='/img/hamburger.svg'
-            alt='menu'
+          <HamburgerIcon
             className='cursor-pointer sm:hidden'
             onClick={() => setMenuOpen(!menuOpen)}
           />
