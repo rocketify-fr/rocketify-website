@@ -16,7 +16,7 @@ export function Link({
         target={link.blank ? '_blank' : ''}
         rel='noreferrer'
       >
-        {link.title}
+        {link.label || link.title}
       </a>
     )
   }
@@ -35,7 +35,7 @@ export function Link({
 
   return (
     <RemixLink className={clsx(className)} to={path}>
-      {children}
+      {link.label || children}
     </RemixLink>
   )
 }

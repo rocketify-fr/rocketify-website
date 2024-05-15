@@ -17,6 +17,7 @@ const link = `
     "slug": slug.current,
     "type": _type
   },
+  label,
   linkType
 `
 
