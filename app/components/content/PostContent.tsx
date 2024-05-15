@@ -1,3 +1,5 @@
+import { PortableText } from '@portabletext/react'
+
 import RealisationsGrid from '../realisations/RealisationsGrid'
 import Separator from '../Separator'
 import BlogPostsGrid from './BlogPostsGrid'
@@ -47,6 +49,8 @@ const ContentBlock = ({ item, firstOfType, lastOfType, even }) => {
       return <RealisationsGrid {...item} />
     case 'blogPostsGrid':
       return <BlogPostsGrid {...item} />
+    case 'rawContent':
+      return <PortableText {...item} />
     default:
       return <pre>{JSON.stringify(item, null, 2)}</pre>
   }
