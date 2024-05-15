@@ -1,7 +1,6 @@
 import Container from '../Container'
 
 const Methodology = ({ title, description, image, summary }) => {
-  console.log({ description })
   return (
     <Container>
       <div className='my-16 flex w-full flex-col items-center gap-16 sm:flex-row'>

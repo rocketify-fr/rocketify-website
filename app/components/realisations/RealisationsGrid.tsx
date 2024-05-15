@@ -25,7 +25,6 @@ export default function RealisationsGrid() {
   )
 
   const  realisations = data || initial.data || []
-  console.log({pageData, realisations, data, initial});
 
   const location = useLocation()
   const navigate = useNavigate()

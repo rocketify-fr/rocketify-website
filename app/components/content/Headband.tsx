@@ -1,27 +1,29 @@
 import { Link as RemixLink } from '@remix-run/react'
 import clsx from 'clsx'
 
+import { getColor } from '~/utils/colors'
+
 import RocketIcon from '../icons/Rocket'
 import { Link } from '../Link'
 
-const Rockets = ({ color }) => (
-  <div className={'flex gap-4'}>
-    {new Array(3).fill(0).map((_, i) => (
-      <RocketIcon width={52} height={21} color={color} />
-    ))}
-  </div>
-)
+const Rockets = () => {
+  return (
+    <div className={'flex gap-4'}>
+      {new Array(3).fill(0).map((_, i) => (
+        <RocketIcon width={52} height={21} />
+      ))}
+    </div>
+  )
+}
 
 const Headband = ({
   link = null,
   colorName = 'rPurple',
-  rocketColor = null,
   margin = true,
   title = null,
   to = null,
 }) => {
-  const colors = ['rPurple', 'rTurquoise', 'rGreen']
-  const color = colors.find((c) => colorName.includes(c))
+  const color = getColor(colorName)
   const classNames = clsx(
     'headband flex size-full items-center justify-evenly gap-8 text-nowrap pl-16 text-2xl'
   )
@@ -38,7 +40,7 @@ const Headband = ({
         <RemixLink to={to} title={title} className={classNames}>
           {new Array(50).fill(0).map((_, i) => (
             <>
-              <Rockets color={rocketColor}></Rockets>
+              <Rockets></Rockets>
               <div className='flex items-center text-2xl'>{title}</div>
             </>
           ))}
@@ -47,7 +49,7 @@ const Headband = ({
         <Link link={link} className={classNames}>
           {new Array(50).fill(0).map((_, i) => (
             <>
-              <Rockets color={rocketColor}></Rockets>
+              <Rockets></Rockets>
               <div className='flex items-center text-2xl'>{title}</div>
             </>
           ))}

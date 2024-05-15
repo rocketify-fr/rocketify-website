@@ -1,25 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-const gaps = [0, 4, 8, 12, 16]
+import { colors } from './app/utils/colors'
 
-const colors = {
-  black: '#000000',
-  rDark: '#222A2B',
-  rGreen: '#99E800',
-  rGreenHover: '#B1FF1A',
-  rPurple: '#C29FFC',
-  rPurpleHover: '#E3D2FE',
-  rTurquoise: '#2FCCC8',
-  rAzure: '#E1FCFF',
-  rDeepBlue: '#0B134F',
-}
+const gaps = [0, 4, 8, 12, 16]
 
 const safelist = gaps
   .flatMap((size) => [`gap-${size}`, `gap-y-${size}`, `gap-x-${size}`])
   .concat(
     Object.keys(colors).flatMap((color) => [`bg-${color}`, `fill-${color}`])
   )
-
-console.log({ safelist })
 
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],

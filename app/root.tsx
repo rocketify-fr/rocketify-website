@@ -50,10 +50,13 @@ export const meta: MetaFunction<
     const layoutData = matches.find(
       (match) => match.id === `root`,
     )?.data
+
     const home = layoutData ? layoutData.initial.data : null
+
     const title = [data?.initial?.data?.title, home?.siteTitle]
       .filter(Boolean)
       .join(' | ')
+
     const ogImageUrl = data ? data.ogImageUrl : null
 
     const value = [

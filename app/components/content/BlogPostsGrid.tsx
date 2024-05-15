@@ -25,7 +25,6 @@ const BlogPostsGrid = () => {
 
   const [tags, setTags] = useState(tagsData)
 
-  console.log({ tags })
   const toggleActive = useCallback(
     (index, value = null) =>
       setTags(

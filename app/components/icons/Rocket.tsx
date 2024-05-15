@@ -1,16 +1,17 @@
 import clsx from 'clsx'
 
-const RocketIcon = ({ color, width, height }) => {
+import { getColor } from '~/utils/colors'
+
+const RocketIcon = ({ color = 'black', width, height }) => {
   const w = width || '54'
   const h = height || '22'
-  const fillColor = color || 'black'
+  const fillColor = getColor(color)
   return (
     <svg
       width={w}
       height={h}
       viewBox={`0 0 ${w} ${h}`}
-      fill='none'
-      className={clsx(`fill-${fillColor}`)}
+      className={clsx(`fill-${fillColor}`, 'h-[22px] w-[54px]')}
       xmlns='http://www.w3.org/2000/svg'
     >
       <path d='M41.1989 7.76465C40.2089 7.76465 39.4189 8.06465 38.7989 8.65465C38.1889 9.25465 37.8789 10.0246 37.8789 10.9746C37.8789 11.9246 38.1889 12.7046 38.7989 13.2946C39.4089 13.8946 40.2089 14.1846 41.1989 14.1846C42.1889 14.1846 42.9789 13.8846 43.5689 13.2946C44.1589 12.7046 44.4589 11.9246 44.4589 10.9746C44.4589 10.0246 44.1589 9.24465 43.5689 8.65465C42.9689 8.06465 42.1789 7.76465 41.1989 7.76465Z' />
