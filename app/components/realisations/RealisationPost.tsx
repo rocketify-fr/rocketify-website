@@ -29,7 +29,12 @@ const RealisationPost = ({ post: postData }) => {
   return (
     <>
       <Container className='flex flex-col'>
-        <Breadcrumbs></Breadcrumbs>
+        <Breadcrumbs
+          parent={{
+            label: 'Nos réalisations',
+            path: '/realisations',
+          }}
+        ></Breadcrumbs>
         <div className='flex flex-col gap-4 py-8 2xl:flex-row 2xl:gap-16'>
           <h1 className='font-bai text-3xl lg:text-6xl 2xl:w-1/3'>
             {bigTitle}
@@ -62,7 +67,7 @@ const RealisationPost = ({ post: postData }) => {
         <Testimonials
           testimonials={testimonial}
           title="Retour d'expérience"
-          subTitle='Lorem ipsum à la mano'
+          subTitle='Découvrez comment Rocketify a transformé des projets en succès à travers les témoignages de nos clients.'
         ></Testimonials>
       </div>
       {moreDetailsPosts?.length > 0 && false && (

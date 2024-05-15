@@ -3,7 +3,7 @@ import Container from '../Container'
 const Methodology = ({ title, description, image, summary }) => {
   return (
     <Container className='flex flex-col'>
-      <div className='my-16 flex w-full flex-col items-center gap-16 sm:flex-row'>
+      <div className='my-16 flex w-full flex-col items-start gap-16 sm:flex-row'>
         <h2 className='font-bai text-[56px] leading-[67px] sm:w-1/2'>
           {title}
         </h2>

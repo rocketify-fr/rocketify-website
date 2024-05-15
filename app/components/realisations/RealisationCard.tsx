@@ -20,7 +20,7 @@ export default function RealisationCard({
         src={realisation.image.url}
         alt={realisation.image.alt}
         className={clsx(
-          'w-full border-b border-black object-cover',
+          'w-full border-b border-black object-cover lg:max-h-[25vw]',
           horizontal ? 'lg:aspect-[11/10] lg:flex-[2]' : 'aspect-[16/9]'
         )}
       />
