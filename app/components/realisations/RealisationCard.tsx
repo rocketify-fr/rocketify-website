@@ -6,6 +6,7 @@ export default function RealisationCard({
   horizontal = false,
   className = null,
 }) {
+  const [bigTitle, subTitle] = realisation.title.split(' | ')
   return (
     <Link
       to={`/realisations/${realisation.slug}`}
@@ -25,13 +26,12 @@ export default function RealisationCard({
       />
       <div
         className={clsx(
-          'flex flex-col p-4',
+          'flex flex-col gap-2 p-6',
           horizontal && 'lg:my-auto lg:flex-[1] lg:px-6'
         )}
       >
-        <h3 className='font-bai text-[26px] leading-[100%]'>
-          {realisation.title}
-        </h3>
+        <h3 className='font-bai text-[26px] leading-[100%]'>{bigTitle}</h3>
+        <h2 className='text-lg'>{subTitle}</h2>
         <p className='text-sm'>{realisation.description}</p>
       </div>
     </Link>

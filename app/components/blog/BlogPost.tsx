@@ -47,7 +47,7 @@ const BlogPost = ({ post: postData }) => {
           <PortableText value={content}></PortableText>
         </div>
       </Container>
-      {relatedPosts?.length > 0 && (
+      {relatedPosts?.length > 0 && false && (
         <>
           <div className='my-16 h-px w-full bg-black'></div>
           <Container className='flex flex-col'>
