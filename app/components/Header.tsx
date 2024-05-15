@@ -55,6 +55,7 @@ const NavLink = ({ menu, sub }) => {
   useEffect(() => {
     setOpen(false)
   }, [location])
+
   return (
     <div className='flex items-center gap-1'>
       {menu._type !== 'ctaButton' && (
@@ -62,7 +63,7 @@ const NavLink = ({ menu, sub }) => {
           className={clsx(
             'hidden opacity-0 sm:block',
             active && 'opacity-100',
-            sub && 'hidden'
+            sub && 'hidden sm:hidden'
           )}
         />
       )}
@@ -95,7 +96,7 @@ const NavLink = ({ menu, sub }) => {
               </>
             ))}
           </div>
-          <div className='absolute top-6 z-10 hidden max-h-0 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all duration-500 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100 sm:flex'>
+          <div className='absolute top-12  z-10 hidden max-h-0 -translate-x-1/4 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all duration-500 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100 sm:flex'>
             {menu.menu.map((link, i, col) => (
               <>
                 <NavLink key={link.internal.slug} menu={link} sub />

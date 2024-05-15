@@ -7,7 +7,7 @@ const ServiceHighlights = ({ title, description, services }) => {
   return (
     <>
       <Container className='flex flex-col gap-4 pb-16'>
-        <h2 className='text-blockHeader'>{title}</h2>
+        <h2 className='text-2xl sm:text-blockHeader'>{title}</h2>
         <p className='pb-8 text-paragraph lg:w-2/3'>{description}</p>
       </Container>
       <div className='w-dvw overflow-x-hidden px-4 sm:hidden'>

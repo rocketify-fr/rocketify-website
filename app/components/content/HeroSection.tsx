@@ -8,7 +8,7 @@ const HeroSection = ({ title, description, image, cta }) => {
   return (
     <Container className='flex flex-col gap-16 lg:flex-row'>
       <div className='my-auto flex flex-col items-start lg:w-3/5'>
-        <h2 className='pb-8 font-bai text-2xl leading-[65px] lg:text-[56px]'>
+        <h2 className='pb-8 font-bai text-2xl lg:text-[56px] lg:leading-[65px]'>
           {title}
         </h2>
         <div className='pb-12 text-paragraph'>
