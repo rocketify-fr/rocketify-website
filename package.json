@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@formspree/react": "^2.5.1",
     "@portabletext/react": "^3.0.15",
     "@remix-run/node": "*",
     "@remix-run/react": "*",

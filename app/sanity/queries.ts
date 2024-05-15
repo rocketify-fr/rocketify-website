@@ -163,6 +163,7 @@ const pageAndServiceContent = `
   _type == "headingTagline" => {${headingTagline}},
   _type == "textAndImage" => {${textAndImage}},
   _type == "faq" => {${faq}},
+  _type == "rawContent" => {...},
 `
 const menu = `
   menu[] {
@@ -238,6 +239,11 @@ export const POST_TAGS_QUERY = groq`
  "slug": slug.current
 }
 `
+
+export const SERVICE_NAMES_QUERY = groq`*[_type == "service"] {
+  title,
+  description,
+}`
 
 export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug][0]{
   _id,

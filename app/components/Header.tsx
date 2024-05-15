@@ -145,7 +145,7 @@ export function Header({ theme, data }) {
       <div
         className={clsx(
           menuOpen ? 'h-dvh py-12' : 'h-0 py-0',
-          'absolute top-[81px] flex w-full max-w-[100dvw] flex-col items-start justify-start gap-4 overflow-hidden bg-white px-12 text-paragraph transition-all duration-500'
+          'absolute top-[81px] z-10 flex w-full max-w-[100dvw] flex-col items-start justify-start gap-4 overflow-hidden bg-white px-12 text-paragraph transition-all duration-500'
         )}
       >
         {data.menu.map((entry, i) => {
