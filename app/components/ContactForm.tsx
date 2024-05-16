@@ -84,7 +84,7 @@ const ContactForm = () => {
           </Input>
           <div className='flex gap-8'>
             <Input label='Budget' type='select'>
-            <option value=''>{`----`}</option>
+            <option value={null}>{`Sélectionnez un budget`}</option>
               <option value='5k'>{`< 5 000€`}</option>
               <option value='10k'>5 000€ - 10 000€</option>
               <option value='20k'>10 000€ - 20 000€</option>
@@ -92,7 +92,7 @@ const ContactForm = () => {
               <option value='gt50k'>{`> 50 000€`}</option>
             </Input>
             <Input name='delay' label='Délai' type='select'>
-              <option value=''>{`----`}</option>
+              <option value={null}>{`Sélectionnez un délai`}</option>
               <option value='4w'>2 - 4 semaines</option>
               <option value='8w'>1 - 2 mois</option>
               <option value='32w'>2 - 6 mois</option>
