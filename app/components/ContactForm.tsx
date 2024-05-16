@@ -84,6 +84,7 @@ const ContactForm = () => {
           </Input>
           <div className='flex gap-8'>
             <Input label='Budget' type='select'>
+            <option value=''>{`----`}</option>
               <option value='5k'>{`< 5 000€`}</option>
               <option value='10k'>5 000€ - 10 000€</option>
               <option value='20k'>10 000€ - 20 000€</option>
@@ -91,6 +92,7 @@ const ContactForm = () => {
               <option value='gt50k'>{`> 50 000€`}</option>
             </Input>
             <Input name='delay' label='Délai' type='select'>
+              <option value=''>{`----`}</option>
               <option value='4w'>2 - 4 semaines</option>
               <option value='8w'>1 - 2 mois</option>
               <option value='32w'>2 - 6 mois</option>
@@ -125,18 +127,18 @@ const ContactForm = () => {
           {[
             {
               title: 'Par mail',
-              value: 'contact@rocketify.com',
-              link: 'mailto:contact@rocketify.com',
+              value: 'contact@rocketify.io',
+              link: 'mailto:contact@rocketify.io',
             },
             {
               title: 'Par téléphone',
-              value: '+337 12 34 56 78',
-              link: 'tel:+33712345678',
+              value: '+33 6 52 62 76 28',
+              link: 'tel:+33652627628',
             },
             {
               title: 'Prendre rendez-vous',
               value: 'Lien Calendly',
-              link: 'https://duckduckgo.com',
+              link: 'https://calendly.com/rocketify/faisons-connaissance',
               target: '_blank',
             },
           ].map((method, i) => (
