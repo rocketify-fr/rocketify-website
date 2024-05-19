@@ -33,6 +33,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   })
 }
 
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}) => {
+  return [{ title: data.pageData.seo.title }, {name: 'description', content:data.pageData.seo.description }];
+};
+
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
   const { data, loading, encodeDataAttribute } = useQuery<typeof initial.data>(

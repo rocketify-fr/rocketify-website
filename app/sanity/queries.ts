@@ -215,7 +215,7 @@ export const LAYOUT_QUERY = groq`{
 }`
 
 export const HOMEPAGE_QUERY = groq`
-*[_type == "page" && title == 'Accueil'] {
+*[_type == "page" && title == 'Accueil'][0] {
 ...,
   _id,
   _type,
@@ -429,5 +429,9 @@ export const USE_CASES_QUERY = groq`*[_type == "useCase"][0...12]|order(title as
   tags[]{
     title,
     "slug": slug.current,
+  },
+  seo {
+    title,
+    description
   }
 } | order(_updatedAt desc)`

@@ -1,4 +1,4 @@
-import type {LoaderFunctionArgs} from '@remix-run/node'
+import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
 
@@ -34,6 +34,12 @@ export const loader = async ({params, request}: LoaderFunctionArgs) => {
     ogImageUrl,
   }
 }
+
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}) => {
+  return [{ title: data.initial.data.seo.title }, {name: 'description', content:data.initial.data.seo.description }];
+};
 
 export default function PostPage() {
   const {initial, query, params} = useLoaderData<typeof loader>()

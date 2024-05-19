@@ -51,6 +51,7 @@ export const meta: MetaFunction<
       (match) => match.id === `root`,
     )?.data
 
+    // console.log(JSON.stringify(data.initial, null, 2))
     const home = layoutData ? layoutData.initial.data : null
 
     const title = [data?.initial?.data?.title, home?.siteTitle]
@@ -58,6 +59,8 @@ export const meta: MetaFunction<
       .join(' | ')
 
     const ogImageUrl = data ? data.ogImageUrl : null
+
+
 
     const value = [
       { title },

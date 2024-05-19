@@ -1,4 +1,4 @@
-import type {LoaderFunctionArgs} from '@remix-run/node'
+import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
@@ -35,6 +35,11 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
     params: queryParams,
   })
 }
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}) => {
+  return [{ title: data.initial?.data?.seo?.title }, {name: 'description', content: data.initial?.data?.seo?.description }];
+};
 
 export default function Index() {
   const {notFound, initial, query, params} = useLoaderData<typeof loader>()
