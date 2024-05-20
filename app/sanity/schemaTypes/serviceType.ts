@@ -122,6 +122,12 @@ export const serviceType = defineType({
       fieldset: 'details',
     }),
     defineField({
+      name: 'publishStatus',
+      type: 'publishStatus',
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
       options: {

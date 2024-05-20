@@ -122,6 +122,12 @@ export const useCaseType = defineType({
       fieldset: 'details',
     }),
     defineField({
+      name: 'publishStatus',
+      type: 'publishStatus',
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
       group: 'details',

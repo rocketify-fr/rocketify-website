@@ -120,6 +120,10 @@ export const pageType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'publishStatus',
+      type: 'publishStatus',
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
       options: {
