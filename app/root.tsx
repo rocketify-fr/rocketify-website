@@ -28,20 +28,6 @@ export const links: LinksFunction = () => {
   return [
     { rel: 'stylesheet', href: styles },
     { rel: 'preconnect', href: 'https://cdn.sanity.io' },
-    {
-      rel: 'preconnect',
-      href: 'https://fonts.gstatic.com',
-      crossOrigin: 'anonymous',
-    },
-    {
-      rel: 'preconnect',
-      href: 'https://fonts.googleapis.com',
-      crossOrigin: 'anonymous',
-    },
-    {
-      href: 'https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500&family=Work+Sans:wght@400;500&display=swap',
-      rel: 'stylesheet',
-    },
   ]
 }
 

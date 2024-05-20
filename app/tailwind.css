@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Bai Jamjuree';
+  font-weight: 500;
+  src: url('/fonts/BaiJamjuree-Medium.woff2') format('woff2'),
+       url('/fonts/BaiJamjuree-Medium.woff') format('woff'),
+       url('/fonts/BaiJamjuree-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-weight: 400;
+  src: url('/fonts/WorkSans-Regular.woff2') format('woff2'),
+       url('/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-weight: 500;
+  src: url('/fonts/WorkSans-Medium.woff2') format('woff2'),
+       url('/fonts/WorkSans-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
 html,
 body {
   @apply font-work w-dvw max-w-[100vw];
