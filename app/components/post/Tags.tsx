@@ -18,7 +18,6 @@ export const Tags = ({ tags, className = '' }) => {
       {tags.map((tag, i) => (
         <span key={tag.slug}>
           <Button
-            key={tag.slug}
             className={clsx(
               'pointer-events-none font-work text-xs',
               tag.active && 'bg-rGreen'

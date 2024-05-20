@@ -5,6 +5,7 @@ import Container from '../Container'
 import Button from '../layout/Button'
 import { Tags } from '../post/Tags'
 import Separator from '../Separator'
+import { Fragment } from 'react/jsx-runtime'
 
 const ProjectShowcase = ({ title, description, projects }) => {
   return (
@@ -17,9 +18,8 @@ const ProjectShowcase = ({ title, description, projects }) => {
         {projects.map(({ slug, image, tags, title, description }, i) => {
           const [bigTitle, subTitle] = title.split(' | ')
           return (
-            <>
+            <Fragment key={`${slug}-${i}`}>
               <div
-                key={`${slug}-${i}`}
                 className={clsx(
                   'flex flex-col gap-6 sm:flex-row sm:gap-12',
                   i % 2 !== 0 && 'sm:flex-row-reverse'
@@ -43,7 +43,7 @@ const ProjectShowcase = ({ title, description, projects }) => {
                 />
               </div>
               {i + 1 < projects.length && <Separator />}
-            </>
+            </Fragment>
           )
         })}
       </div>
