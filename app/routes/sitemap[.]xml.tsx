@@ -8,7 +8,13 @@ const baseUrl = 'https://rocketify.io/';
 export const loader = async () => {
   try {
     const data = await fetchDataFromSanity();
-    const sitemapXml = createSitemapXml(data);
+    const allItems = [
+      ...data.pages,
+      ...data.posts,
+      ...data.services,
+      ...data.useCases
+    ];
+    const sitemapXml = createSitemapXml(allItems);
 
     return new Response(sitemapXml, {
       headers: { 'Content-Type': 'application/xml' }
@@ -24,24 +30,44 @@ export const loader = async () => {
 
 async function fetchDataFromSanity() {
   const query = `
-  *[
-        _type in ["page", "post", "service", "useCase"] && 
-        defined(slug.current) && 
-        !(_id in path('drafts.**'))
-    ]{
-        _type == "page" => {
-        "slug": slug.current
-        },
-        _type == "post" => {
-        "slug": "blog/" + slug.current
-        },
-        _type == "service" => {
-        "slug": "services/" + slug.current
-        },
-        _type == "useCase" => {
-        "slug": "realisation/" + slug.current
-        }
+  {
+    "pages": *[
+      _type == "page" && 
+      defined(slug.current) && 
+      !(_id in path('drafts.**')) && 
+      publishStatus == "public" && 
+      _createdAt < now()
+    ] | order(publishedAt desc) {
+      "slug": slug.current,
+    },
+    "posts": *[
+      _type == "post" && 
+      defined(slug.current) && 
+      !(_id in path('drafts.**')) && 
+      publishStatus == "public" && 
+      _createdAt < now()
+    ] | order(publishedAt desc) {
+      "slug": "blog/" + slug.current
+    },
+    "services": *[
+      _type == "service" && 
+      defined(slug.current) && 
+      !(_id in path('drafts.**')) && 
+      publishStatus == "public" && 
+      _createdAt < now()
+    ] | order(publishedAt desc) {
+      "slug": "services/" + slug.current
+    },
+    "useCases": *[
+      _type == "useCase" && 
+      defined(slug.current) && 
+      !(_id in path('drafts.**')) && 
+      publishStatus == "public" && 
+      _createdAt < now()
+    ] | order(publishedAt desc) {
+      "slug": "realisation/" + slug.current
     }
+  }
   `;
 
   const options = {}; // Ajoutez les options nécessaires si besoin
