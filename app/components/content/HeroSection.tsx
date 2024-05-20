@@ -1,8 +1,17 @@
 import { PortableText } from '@portabletext/react'
+import urlBuilder from '@sanity/image-url'
+
+import {dataset, projectId} from '~/sanity/projectDetails'
 
 import Container from '../Container'
 import Button from '../layout/Button'
 import { Link } from '../Link'
+
+const builder = urlBuilder({projectId, dataset})
+
+export function urlFor(source) {
+  return builder.image(source);
+}
 
 const HeroSection = ({ title, description, image, cta }) => {
   return (
@@ -19,10 +28,16 @@ const HeroSection = ({ title, description, image, cta }) => {
         </Button>
       </div>
       <img
-        src={image.url}
-        alt={image.alt}
-        className='aspect-[4/3] rounded-3xl sm:aspect-[21/9] lg:aspect-[4/3] lg:w-2/5'
-      />
+          className="aspect-[4/3] rounded-3xl sm:aspect-[21/9] lg:aspect-[4/3] lg:w-2/5"
+          src={urlFor(image._id)
+            .height(432)
+            .width(576)
+            .fit('max')
+            .quality(100)
+            .auto('format')
+            .url()}
+          alt={image?.alt ?? ``}
+        />
     </Container>
   )
 }

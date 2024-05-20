@@ -2,7 +2,7 @@ import groq from 'groq'
 
 const logo = '"logo": logo{"url": asset->url, alt}'
 
-const image = '"image": image{"url": asset->url, alt}'
+const image = '"image": image{"url": asset->url, "_id": asset->_id, alt}'
 
 const getImage = (name) => `"${name}": ${name}{"url": asset->url, alt}`
 
