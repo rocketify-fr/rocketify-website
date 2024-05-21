@@ -11,6 +11,7 @@ const ImageGallery = ({ gallery }) => {
           const fullWidth = index % 3 === 0 && col.length !== 2
           return (
             <div
+              key={index}
               className={clsx(
                 'overflow-hidden rounded-3xl border border-black',
                 fullWidth ? 'sm:col-span-2' : 'sm:col-span-1'

@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Fragment } from 'react/jsx-runtime'
 
 import Container from '../Container'
 import Separator from '../Separator'
@@ -13,7 +14,7 @@ const FAQ = ({ title, description, faqItems }) => (
       <Separator></Separator>
       <div className='flex flex-col'>
         {faqItems.map((item, i) => (
-          <>
+          <Fragment key={i}>
             <div className='flex flex-col gap-6 sm:flex-row'>
               <h4 className='text-lg sm:flex-[2] sm:text-[26px]'>
                 {item.title}
@@ -23,7 +24,7 @@ const FAQ = ({ title, description, faqItems }) => (
               </p>
             </div>
             {i + 1 < faqItems.length && <Separator></Separator>}
-          </>
+          </Fragment>
         ))}
       </div>
     </Container>

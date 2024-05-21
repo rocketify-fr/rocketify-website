@@ -74,7 +74,7 @@ const serviceHighlights = `
     _type,
     title,
     description,
-    ${getImage('icon')},
+    colorName,
     link {${link}}
   }
 `

@@ -8,7 +8,7 @@ export const ctaButton = defineType({
       name: 'link',
       type: 'customLink',
     }),
-    {
+    defineField({
       name: 'colorName',
       title: 'Color Name',
       type: 'string',
@@ -25,6 +25,6 @@ export const ctaButton = defineType({
           { title: 'Deep Blue (Sombre)', value: 'rDeepBlue' },
         ],
       },
-    },
+    }),
   ],
 })

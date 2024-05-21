@@ -1,4 +1,5 @@
 import { PortableText } from '@portabletext/react'
+import { Fragment } from 'react/jsx-runtime'
 
 import Container from '../Container'
 import RealisationsGrid from '../realisations/RealisationsGrid'
@@ -80,10 +81,10 @@ export const PostContent = ({ content }) => {
       !(lastOfType && content[i + 1]?._type === 'headband')
 
     return (
-      <>
+      <Fragment key={i}>
         <ContentBlock {...{ item, even, firstOfType, lastOfType }} />
         {separator ? <Separator /> : null}
-      </>
+      </Fragment>
     )
   })
 }

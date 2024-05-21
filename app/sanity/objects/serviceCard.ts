@@ -13,8 +13,22 @@ export const serviceCard = defineType({
       type: 'text',
     }),
     defineField({
-      name: 'icon',
-      type: 'customImage',
+      name: 'colorName',
+      title: 'Color Name',
+      type: 'string',
+      description: 'Name of the Tailwind CSS color class',
+      options: {
+        list: [
+          { title: 'Dark (Noir)', value: 'rDark' },
+          { title: 'Green (Vert)', value: 'rGreen' },
+          { title: 'Green Hover (Vert hover)', value: 'rGreenHover' },
+          { title: 'Purple (Mauve base)', value: 'rPurple' },
+          { title: 'Purple Hover (Mauve hover)', value: 'rPurpleHover' },
+          { title: 'Turquoise', value: 'rTurquoise' },
+          { title: 'Azure', value: 'rAzure' },
+          { title: 'Deep Blue (Sombre)', value: 'rDeepBlue' },
+        ],
+      },
     }),
     defineField({
       name: 'link',

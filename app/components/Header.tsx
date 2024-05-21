@@ -1,6 +1,6 @@
 import { Link as RemixLink, useLocation } from '@remix-run/react'
 import clsx from 'clsx'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 import Container from './Container'
 import BulletIcon from './icons/Bullet'
@@ -91,19 +91,17 @@ const NavLink = ({ menu, sub }) => {
             )}
           >
             {menu.menu.map((link, i, col) => (
-              <>
-                <NavLink key={link.internal.slug} menu={link} sub />
-              </>
+              <NavLink key={link.internal.slug} menu={link} sub />
             ))}
           </div>
           <div className='absolute top-12  z-10 hidden max-h-0 -translate-x-1/4 flex-col items-start overflow-y-hidden rounded-2xl border border-transparent p-0 opacity-0 transition-all duration-500 group-hover:max-h-dvh group-hover:border-black group-hover:bg-white group-hover:p-4 group-hover:opacity-100 sm:flex'>
             {menu.menu.map((link, i, col) => (
-              <>
-                <NavLink key={link.internal.slug} menu={link} sub />
+              <Fragment key={link.internal.slug}>
+                <NavLink menu={link} sub />
                 {i + 1 < col.length && (
                   <div className='my-1 h-px w-full border-b border-b-black'></div>
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
         </div>
