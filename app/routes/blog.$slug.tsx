@@ -35,6 +35,21 @@ export const loader = async ({params, request}: LoaderFunctionArgs) => {
   }
 }
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const metaTags = [
+    { title: data.initial?.data?.seo?.title },
+    { name: 'description', content: data.initial?.data?.seo?.description },
+  ];
+  
+  const publishStatus = data?.initial?.data?.publishStatus?.replace(/[^\x20-\x7E]/g, '').trim();
+  
+  if (publishStatus === "hidden") {
+    metaTags.push({ name: 'robots', content: 'noindex' });
+  }
+
+  return metaTags;
+};
+
 export default function PostPage() {
   const {initial, query, params} = useLoaderData<typeof loader>()
   const {data, loading, encodeDataAttribute} = useQuery<typeof initial.data>(
