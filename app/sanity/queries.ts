@@ -186,8 +186,10 @@ const menu = `
 `
 // Rocketify Queries \\
 export const HEADER_QUERY = `*[_type == "header" ]{
+  ...menuHeader-> {
+    ${menu}
+  },
   ${logo},
-  ...menu-> {${menu}} 
 }[0]`
 
 export const FOOTER_QUERY = `*[_type == "footer" ]{
