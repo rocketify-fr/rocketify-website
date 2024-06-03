@@ -2,13 +2,12 @@ import { assist } from '@sanity/assist'
 import { codeInput } from '@sanity/code-input'
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
-import { presentationTool } from 'sanity/presentation'
+import { defineLocations, presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { media } from 'sanity-plugin-media'
 
 import { STUDIO_BASEPATH } from '~/sanity/constants'
-import { locate } from '~/sanity/presentation/locate'
 import { projectDetails } from '~/sanity/projectDetails'
 import schema from '~/sanity/schemaTypes'
 import { defaultDocumentNode, structure } from '~/sanity/structure'
@@ -28,7 +27,25 @@ export default defineConfig({
           enable: '/resource/preview',
         },
       },
-      locate,
+      resolve: {
+        locations: {
+          record: defineLocations({
+            select: {
+              title: 'title',
+              slug: 'slug.current',
+            },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: doc?.title || 'Untitled',
+                  href: `/services/${doc?.slug}`,
+                },
+                { title: 'Home', href: `/` },
+              ],
+            }),
+          }),
+        },
+      },
     }),
     visionTool(),
     unsplashImageAsset(),
