@@ -1,7 +1,7 @@
 import * as queryStore from '@sanity/react-loader'
 
-import {client} from '~/sanity/client'
-import {STUDIO_BASEPATH} from '~/sanity/constants'
+import { client } from '~/sanity/client'
+import { STUDIO_BASEPATH } from '~/sanity/constants'
 
 // In a perfect world, these could be dynamic based on the Request
 // But because middleware hasn't landed in Remix
@@ -12,7 +12,8 @@ const clientWithToken = client.withConfig({
   token: process.env.SANITY_READ_TOKEN,
   // You do not want this enabled in production
   // This should be overridden when using loadQuery in a loader
-  stega: process.env.NODE_ENV === 'development' && {
+  // stega: process.env.NODE_ENV === 'development' && {
+  stega: {
     enabled: true,
     studioUrl: STUDIO_BASEPATH,
   },
@@ -20,4 +21,4 @@ const clientWithToken = client.withConfig({
 
 queryStore.setServerClient(clientWithToken)
 
-export const {loadQuery} = queryStore
+export const { loadQuery } = queryStore
