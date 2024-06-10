@@ -23,6 +23,14 @@ import { Footer } from './components/Footer'
 import { VisualEditing } from '@sanity/visual-editing/remix'
 import { ExitPreview } from './components/ExitPreview'
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
+import TagManager from 'react-gtm-module'
+import { useEffect } from 'react'
+
+const GTM_ID = 'GTM-T2JXGG9Q'
+
+const tagManagerArgs = {
+  gtmId: GTM_ID,
+}
 
 export const links: LinksFunction = () => {
   return [
@@ -101,6 +109,10 @@ export default function App() {
     initial,
   })
 
+  useEffect(() => {
+    TagManager.initialize(tagManagerArgs)
+  }, [])
+  
   return (
     <html lang="en">
       <head>
@@ -135,6 +147,15 @@ export default function App() {
             __html: `window.ENV = ${JSON.stringify(ENV)}`,
           }}
         />
+        {/* GTM script fallback if js is disabled */}
+        <noscript>
+          <iframe
+            height='0'
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            style={{ display: 'none', visibility: 'hidden' }}
+            width='0'
+          />
+        </noscript>
         <Scripts />
       </body>
     </html>
