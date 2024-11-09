@@ -359,6 +359,12 @@ export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug
   _id,
   _type,
   title,
+  language,
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  },
   publishStatus,
   url,
   description,
@@ -428,6 +434,12 @@ export const USE_CASES_QUERY = groq`*[_type == "useCase"][0...12]|order(title as
   _id,
   _type,
   title,
+  language,
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  },
   description,
   _updatedAt,
   _createdAt,

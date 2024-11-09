@@ -116,6 +116,13 @@ export const useCaseType = defineType({
   ],
   fields: [
     defineField({
+      // should match 'languageField' plugin configuration setting, if customized
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'title',
       type: 'string',
       group: 'details',

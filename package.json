@@ -24,6 +24,7 @@
     "@sanity/block-tools": "^3.36.0",
     "@sanity/client": "^6.15.7",
     "@sanity/code-input": "^4.1.4",
+    "@sanity/document-internationalization": "^3.1.0",
     "@sanity/icons": "^2.11.4",
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-url-secret": "^1.6.5",
