@@ -137,8 +137,8 @@ const ContactForm = () => {
             },
             {
               title: 'Prendre rendez-vous',
-              value: 'Lien Calendly',
-              link: 'https://calendly.com/rocketify/faisons-connaissance',
+              value: 'Lien vers le calendrier',
+              link: 'https://tidycal.com/rocketify/faisons-connaissance',
               target: '_blank',
             },
           ].map((method, i) => (
