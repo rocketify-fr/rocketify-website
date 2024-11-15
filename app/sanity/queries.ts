@@ -222,6 +222,12 @@ export const HOMEPAGE_QUERY = groq`
   _id,
   _type,
   title,
+  language,
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  },
   publishStatus,
   _createdAt,
   _updatedAt,
@@ -254,6 +260,12 @@ export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug]
   _createdAt,
   _updatedAt,
   title,
+  language,
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  },
   publishStatus,
   description,
   ${image},
@@ -269,6 +281,12 @@ export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
   _createdAt,
   _updatedAt,
   title,
+  language,
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  },
   publishStatus,
   "slug": slug.current,
   ${seo},
@@ -281,6 +299,12 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
   _type,
   title,
+  language,
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  },
   publishStatus,
   _createdAt,
   _updatedAt,
@@ -325,6 +349,12 @@ export const POST_CARD = `
   _id,
   _type,
   title,
+  language,
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  },
   description,
   _updatedAt,
   _createdAt,

@@ -30,7 +30,7 @@ export default defineConfig({
 
       // Required
       // Translations UI will only appear on these schema types
-      schemaTypes: ['post', 'useCase'],
+      schemaTypes: ['post', 'useCase', 'page', 'service'],
 
       // Optional
       // Customizes the name of the language field
