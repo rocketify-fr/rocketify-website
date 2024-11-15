@@ -7,16 +7,18 @@ import {Loading} from '~/components/Loading'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
 import {POST_QUERY} from '~/sanity/queries'
+import { getLanguage } from '~/utils/language'
 
 // Load the `record` document with this slug
 export const loader = async ({params, request}: LoaderFunctionArgs) => {
+  const lang = getLanguage(params)
   const {options} = await loadQueryOptions(request.headers)
 
   const query = POST_QUERY
+  console.log({params});
   const initial = await loadQuery(
     query,
-    // $slug.tsx has the params { slug: 'hello-world' }
-    params,
+    {...params, lang},
     options,
   ).then((res) => ({...res, data: res.data ? res.data : null}))
   if (!initial.data) {

@@ -9,8 +9,10 @@ import { Loading } from '~/components/Loading'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { PAGE_QUERY, POST_TAGS_QUERY, POSTS_QUERY, POSTS_QUERY_TAG } from '~/sanity/queries'
+import { getLanguage } from '~/utils/language'
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const lang = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
 
   const [{ data: pageData }, {data: tagsData}] = await Promise.all([
@@ -29,6 +31,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const query = tag?.length > 0 ? POSTS_QUERY_TAG : POSTS_QUERY
 
   const queryParams = {
+    lang,
     from: postsPerPage * ((+page || 1) - 1),
     to: postsPerPage * (+page || 1),
     order,

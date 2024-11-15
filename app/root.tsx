@@ -70,7 +70,8 @@ export const meta: MetaFunction<
 
     return value
   }
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params: { lang: language } }: LoaderFunctionArgs) => {
+  console.log(JSON.stringify({ language }, null, 2));
   // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)
   const cookieHeader = request.headers.get('Cookie')
@@ -86,7 +87,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({
     initial,
     query,
-    params,
+    params: { ...params, language },
     sanity: { preview },
     theme,
     bodyClassNames,
@@ -113,7 +114,7 @@ export default function App() {
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)
   }, [])
-  
+
   return (
     <html lang="en">
       <head>
@@ -133,7 +134,7 @@ export default function App() {
               {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
               <Outlet />
             </Page>
-              <Footer data={footer}></Footer>
+            <Footer data={footer}></Footer>
             {sanity.preview ? (
               <>
                 <VisualEditing />
