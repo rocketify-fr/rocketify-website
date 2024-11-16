@@ -56,20 +56,24 @@ const BlogPostsGrid = () => {
   useEffect(() => {
     const query = queryString.parse(location.search)
     if (query.tag) {
-      const active = tags.findIndex((tag) => tag.title === query.tag)
+      const active = tagsData.findIndex((tag) => tag.title === query.tag)
       if (active !== -1) {
         toggleActive(active, true)
       }
     } else {
-      setTags(tags.map((tag) => ({ ...tag, active: false })))
+      setTags(tagsData.map((tag) => ({ ...tag, active: false })))
     }
-  }, [location.search, tags, toggleActive])
+  }, [location.search])
 
   const filters = useMemo(() => {
     const { sortBy, sortOrder, page } = queryString.parse(location.search)
     return { sortBy, sortOrder, page: +page }
   }, [location.search])
 
+  const basePath = useMemo(
+    () => getLocalizedPath(pageData.language, '/blog'),
+    [pageData.language]
+  )
   return (
     <Container>
       <div className='flex items-center justify-between py-8'>
@@ -108,7 +112,7 @@ const BlogPostsGrid = () => {
             disabled={filters.page === 1 || !filters.page}
           >
             <Link
-              to={`$${getLocalizedPath(pageData.language, '/blog')}?${updateQuery(location, { page: filters.page - 1 })}`}
+              to={`$${basePath}?${updateQuery(location, { page: filters.page - 1 })}`}
             >
               Précédent
             </Link>

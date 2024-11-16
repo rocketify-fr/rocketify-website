@@ -6,6 +6,7 @@ import { defineConfig } from 'sanity'
 import { defineLocations, presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
+import { internationalizedArray } from 'sanity-plugin-internationalized-array'
 import { media } from 'sanity-plugin-media'
 
 import { STUDIO_BASEPATH } from '~/sanity/constants'
@@ -20,8 +21,8 @@ export default defineConfig({
   plugins: [
     documentInternationalization({
       supportedLanguages: [
-        { id: 'en', title: 'English' },
         { id: 'fr', title: 'French' },
+        { id: 'en', title: 'English' },
       ],
       // ...or a function that takes the client and returns a promise of an array of supported languages
       // MUST return an "id" and "title" as strings
@@ -30,7 +31,15 @@ export default defineConfig({
 
       // Required
       // Translations UI will only appear on these schema types
-      schemaTypes: ['post', 'useCase', 'page', 'service'],
+      schemaTypes: [
+        'author',
+        'post',
+        'postTag',
+        'useCase',
+        'useCaseTag',
+        'page',
+        'service',
+      ],
 
       // Optional
       // Customizes the name of the language field
@@ -39,6 +48,14 @@ export default defineConfig({
       // Optional
       // Keep translation.metadata references weak
       weakReferences: true, // defaults to false
+    }),
+    internationalizedArray({
+      languages: [
+        { id: 'fr', title: 'French' },
+        { id: 'en', title: 'English' },
+      ],
+      defaultLanguages: ['fr'],
+      fieldTypes: ['string'],
     }),
     codeInput(),
     media(),
