@@ -15,7 +15,6 @@ export const loader = async ({params, request}: LoaderFunctionArgs) => {
   const {options} = await loadQueryOptions(request.headers)
 
   const query = POST_QUERY
-  console.log({params});
   const initial = await loadQuery(
     query,
     {...params, lang},

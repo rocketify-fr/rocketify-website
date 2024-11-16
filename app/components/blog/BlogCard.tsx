@@ -10,14 +10,9 @@ export default function PostCard({
   horizontal = false,
   className = null,
 }) {
-  const {
-    pageData: { language },
-  } = useLoaderData()
-
-  console.log({ post })
   return (
     <Link
-      to={`${getLocalizedPath(language, '/blog')}/${post.slug}`}
+      to={`${getLocalizedPath(post.language, `/blog/${post.slug}`)}`}
       className={clsx(
         'flex overflow-hidden rounded-3xl border border-black',
         !horizontal && 'flex-col',
