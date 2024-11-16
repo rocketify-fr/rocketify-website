@@ -3,6 +3,7 @@ import { useQuery } from '@sanity/react-loader'
 import queryString from 'query-string'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { getLocalizedPath } from '~/utils/language'
 import { updateQuery } from '~/utils/location'
 
 import PostCard from '../blog/BlogCard'
@@ -15,6 +16,7 @@ const BlogPostsGrid = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { initial, params, pageData, query, tagsData } = useLoaderData()
+
   const { data: posts } = useQuery(query, params, {
     initial,
   })
@@ -41,11 +43,14 @@ const BlogPostsGrid = () => {
     (e) => {
       const sortBy = e.target.value
 
-      navigate(`/blog?${updateQuery(location, { sortBy })}`, {
-        preventScrollReset: true,
-      })
+      navigate(
+        `${getLocalizedPath(pageData.language, '/blog')}?${updateQuery(location, { sortBy })}`,
+        {
+          preventScrollReset: true,
+        }
+      )
     },
-    [location.search]
+    [location, navigate, pageData.language]
   )
 
   useEffect(() => {
@@ -58,12 +63,13 @@ const BlogPostsGrid = () => {
     } else {
       setTags(tags.map((tag) => ({ ...tag, active: false })))
     }
-  }, [location.search])
+  }, [location.search, tags, toggleActive])
 
   const filters = useMemo(() => {
     const { sortBy, sortOrder, page } = queryString.parse(location.search)
     return { sortBy, sortOrder, page: +page }
   }, [location.search])
+
   return (
     <Container>
       <div className='flex items-center justify-between py-8'>
@@ -102,7 +108,7 @@ const BlogPostsGrid = () => {
             disabled={filters.page === 1 || !filters.page}
           >
             <Link
-              to={`/blog?${updateQuery(location, { page: filters.page - 1 })}`}
+              to={`$${getLocalizedPath(pageData.language, '/blog')}?${updateQuery(location, { page: filters.page - 1 })}`}
             >
               Précédent
             </Link>

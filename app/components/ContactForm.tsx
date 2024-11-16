@@ -3,7 +3,6 @@ import { Form, useFetcher, useLoaderData, useLocation } from '@remix-run/react'
 import clsx from 'clsx'
 
 import Container from './Container'
-import Button from './layout/Button'
 
 const Input = ({ type = 'text', label, children = [], ...props }) => (
   <label className='relative flex w-full flex-col items-start text-paragraph'>
@@ -84,7 +83,7 @@ const ContactForm = () => {
           </Input>
           <div className='flex gap-8'>
             <Input label='Budget' type='select'>
-            <option value={null}>{`Sélectionnez un budget`}</option>
+              <option value={null}>{`Sélectionnez un budget`}</option>
               <option value='5k'>{`< 5 000€`}</option>
               <option value='10k'>5 000€ - 10 000€</option>
               <option value='20k'>10 000€ - 20 000€</option>

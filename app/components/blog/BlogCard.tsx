@@ -1,5 +1,7 @@
-import { Link } from '@remix-run/react'
+import { Link, useLoaderData } from '@remix-run/react'
 import clsx from 'clsx'
+
+import { getLocalizedPath } from '~/utils/language'
 
 import { PreHeader } from '../post/BlogHeader'
 
@@ -8,9 +10,14 @@ export default function PostCard({
   horizontal = false,
   className = null,
 }) {
+  const {
+    pageData: { language },
+  } = useLoaderData()
+
+  console.log({ post })
   return (
     <Link
-      to={`/blog/${post.slug}`}
+      to={`${getLocalizedPath(language, '/blog')}/${post.slug}`}
       className={clsx(
         'flex overflow-hidden rounded-3xl border border-black',
         !horizontal && 'flex-col',

@@ -6,21 +6,25 @@ import queryString from 'query-string'
 import BlogPosts from '~/components/blog/BlogPosts'
 
 import { Loading } from '~/components/Loading'
+import NotFound from '~/components/NotFound'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { PAGE_QUERY, POST_TAGS_QUERY, POSTS_QUERY, POSTS_QUERY_TAG } from '~/sanity/queries'
-import { getLanguage } from '~/utils/language'
+import { getLanguage, languages } from '~/utils/language'
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const lang = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
 
-  const [{ data: pageData }, {data: tagsData}] = await Promise.all([
-    loadQuery(PAGE_QUERY, { slug: 'blog' }, options),
+  const slug = lang === 'fr' ? 'blog' : `${lang}/blog`
+
+  const [{ data: pageData }, { data: tagsData }] = await Promise.all([
+    loadQuery(PAGE_QUERY, { slug }, options),
     loadQuery(POST_TAGS_QUERY)
   ])
 
-  const gridConfig = pageData.content.find(item => item._type === "blogPostsGrid")
+
+  const gridConfig = pageData?.content?.find(item => item._type === "blogPostsGrid")
 
   const postsPerPage = gridConfig?.perPage || 10
 
@@ -68,6 +72,10 @@ export default function Index() {
       initial,
     }
   )
+
+  if (!languages.includes(params.lang)) {
+    return <NotFound></NotFound>
+  }
 
   if (loading && !data) {
     return <Loading />

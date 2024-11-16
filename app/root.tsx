@@ -1,5 +1,5 @@
 import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import {
   Links,
   Meta,
@@ -25,6 +25,8 @@ import { ExitPreview } from './components/ExitPreview'
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
 import TagManager from 'react-gtm-module'
 import { useEffect } from 'react'
+import { additionalLanguages, getLanguage, languages } from './utils/language'
+import NotFound from './components/NotFound'
 
 const GTM_ID = 'GTM-T2JXGG9Q'
 
@@ -46,7 +48,6 @@ export const meta: MetaFunction<
       (match) => match.id === `root`,
     )?.data
 
-    // console.log(JSON.stringify(data.initial, null, 2))
     const home = layoutData ? layoutData.initial.data : null
 
     const title = [data?.initial?.data?.title, home?.siteTitle]
@@ -70,8 +71,16 @@ export const meta: MetaFunction<
 
     return value
   }
-export const loader = async ({ request, params: { lang: language } }: LoaderFunctionArgs) => {
-  console.log(JSON.stringify({ language }, null, 2));
+export const loader = async ({ request, params: requestParams }: LoaderFunctionArgs) => {
+  const url = new URL(request.url)
+
+
+  if (url.pathname.startsWith('/fr')) {
+    const newPath = url.pathname.split('/fr')[1]
+    return redirect(newPath)
+  }
+
+
   // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)
   const cookieHeader = request.headers.get('Cookie')
@@ -79,15 +88,16 @@ export const loader = async ({ request, params: { lang: language } }: LoaderFunc
   const theme = themePreference.parse(cookieValue.themePreference) || 'light'
   const bodyClassNames = getBodyClassNames(theme)
 
+  const language = getLanguage(requestParams)
   const query = LAYOUT_QUERY
-  const params = {}
+  const params = { language }
   const initial = await loadQuery(query, params, options)
 
-
-  return json({
+  const result = {
     initial,
     query,
-    params: { ...params, language },
+    params,
+    language,
     sanity: { preview },
     theme,
     bodyClassNames,
@@ -96,7 +106,14 @@ export const loader = async ({ request, params: { lang: language } }: LoaderFunc
       VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
       VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
     },
-  })
+  }
+
+
+  if (!languages.includes(language)) {
+    result.notFound = true
+  }
+
+  return json(result)
 }
 
 export default function App() {
@@ -130,8 +147,8 @@ export default function App() {
         ) : (
           <div className="min-h-dvh flex flex-col justify-between">
             <Header theme={theme} data={header} />
+
             <Page>
-              {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
               <Outlet />
             </Page>
             <Footer data={footer}></Footer>
