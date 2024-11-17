@@ -59,7 +59,13 @@ export default defineConfig({
     }),
     codeInput(),
     media(),
-    assist(),
+    assist({
+      translate: {
+        document: {
+          languageField: 'language',
+        },
+      },
+    }),
     structureTool({ structure, defaultDocumentNode }),
     presentationTool({
       previewUrl: {
