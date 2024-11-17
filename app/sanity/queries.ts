@@ -4,7 +4,9 @@ const logo = '"logo": logo{"url": asset->url, alt}'
 
 const image = '"image": image{"url": asset->url, "_id": asset->_id, alt}'
 
-const getImage = (name) => `"${name}": ${name}{"url": asset->url, alt}`
+const localized = `[_key == $language][0].value`
+
+// const getImage = (name) => `"${name}": ${name}{"url": asset->url, alt}`
 
 const link = `
   "external": {
@@ -194,10 +196,10 @@ export const HEADER_QUERY = `*[_type == "header" ]{
 
 export const FOOTER_QUERY = `*[_type == "footer" ]{
   ${logo},
-  description,
-  menuTitle,
+  "description": description${localized},
+  "menuTitle": menuTitle${localized},
   ...menu-> {${menu}},
-  certificationsTitle,
+  "certificationsTitle": certificationsTitle${localized},
   certifications[]{
     title, 
     description, 

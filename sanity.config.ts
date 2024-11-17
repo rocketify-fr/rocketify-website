@@ -55,7 +55,7 @@ export default defineConfig({
         { id: 'en', title: 'English' },
       ],
       defaultLanguages: ['fr'],
-      fieldTypes: ['string'],
+      fieldTypes: ['string', 'text'],
     }),
     codeInput(),
     media(),
