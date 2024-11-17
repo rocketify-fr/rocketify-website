@@ -33,6 +33,10 @@ export function Link({
 
   const path = `${prefix}${link.slug || ''}`
 
+  if (label === 'Accueil') {
+    console.log({ link, className })
+  }
+
   return (
     <RemixLink className={clsx(className)} to={path}>
       {label || children}

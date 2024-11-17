@@ -19,6 +19,7 @@ const BasicLink = ({ menu, sub, active }) => {
       )}
     >
       <span
+        data-active={active}
         data-content={title}
         className={clsx(
           'menu-link text-nowrap border py-2',
@@ -59,7 +60,7 @@ const NavLink = ({ menu, sub }) => {
   }, [location])
 
   return (
-    <div className='flex items-center gap-1'>
+    <div className='flex items-center gap-1' data-active={active}>
       {menu._type !== 'ctaButton' && (
         <BulletIcon
           className={clsx(
