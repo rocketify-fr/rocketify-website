@@ -7,16 +7,17 @@ import ServicePost from '~/components/services/ServicePost'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
 import {SERVICE_QUERY} from '~/sanity/queries'
+import { getLanguage } from '~/utils/language'
 
 // Load the `record` document with this slug
 export const loader = async ({params, request}: LoaderFunctionArgs) => {
   const {options} = await loadQueryOptions(request.headers)
-
+  const language = getLanguage(params)
   const query = SERVICE_QUERY
   const initial = await loadQuery(
     query,
     // $slug.tsx has the params { slug: 'hello-world' }
-    params,
+    {...params, language},
     options,
   ).then((res) => ({...res, data: res.data ? res.data : null}))
   if (!initial.data) {
@@ -28,6 +29,7 @@ export const loader = async ({params, request}: LoaderFunctionArgs) => {
   const ogImageUrl = `${origin}/resource/og?id=${initial.data._id}`
 
   return {
+    language,
     initial,
     query,
     params,
@@ -51,10 +53,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function ServicePage() {
-  const {initial, query, params} = useLoaderData<typeof loader>()
+  const {initial, query, params, language} = useLoaderData<typeof loader>()
   const {data, loading} = useQuery<typeof initial.data>(
     query,
-    params,
+    {...params, language},
     {
       // @ts-expect-error
       initial,

@@ -34,6 +34,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const ogImageUrl = `${origin}/resource/og?id=${initial.data._id}`
 
   return {
+    language,
     initial,
     query,
     params,
@@ -57,10 +58,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function PostPage() {
-  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { initial, query, params, language } = useLoaderData<typeof loader>()
   const { data, loading } = useQuery<typeof initial.data>(
     query,
-    params,
+    {...params, language} ,
     {
       // There's a TS issue with how initial comes over the wire
       // @ts-expect-error
