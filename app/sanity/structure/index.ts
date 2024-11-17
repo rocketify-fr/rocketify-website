@@ -18,17 +18,103 @@ import type {
 import OGPreview from '~/sanity/components/OGPreview'
 import { resolveOGUrl } from '~/sanity/structure/resolveOGUrl'
 
+const languages = [
+  { id: 'fr', title: 'Français', flag: '🇫🇷' },
+  { id: 'en', title: 'English', flag: '🇬🇧' },
+]
+
+const getLocalizedTitle = (title: string, lang: (typeof languages)[0]) => {
+  return `${lang.flag} ${title} ${lang.title}`
+}
+
 export const structure: StructureResolver = (S) =>
   S.list()
     .id('root')
     .title('Content')
     .items([
       // Document lists
-      S.documentTypeListItem('page').title('Pages').icon(FileCheck),
-      S.documentTypeListItem('service').title('Services').icon(FileBarChart),
+      S.listItem()
+        .title('Pages')
+        .icon(FileCheck)
+        .child(
+          S.list()
+            .title('Pages par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Pages', language))
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Pages', language))
+                      .filter('_type == "page" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
+      S.listItem()
+        .title('Services')
+        .icon(FileBarChart)
+        .child(
+          S.list()
+            .title('Services par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Services', language))
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Services', language))
+                      .filter('_type == "service" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
       S.divider(),
-      S.documentTypeListItem('post').title('Posts').icon(Newspaper),
-      S.documentTypeListItem('useCase').title('Use cases').icon(NotebookText),
+      S.listItem()
+        .title('Posts')
+        .icon(Newspaper)
+        .child(
+          S.list()
+            .title('Posts par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Posts', language))
+
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Posts', language))
+                      .filter('_type == "post" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
+      S.listItem()
+        .title('Use cases')
+        .icon(NotebookText)
+        .child(
+          S.list()
+            .title('Use cases par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Use cases', language))
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Use cases', language))
+                      .filter('_type == "useCase" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
       S.divider(),
       S.documentTypeListItem('heroSection').title('Hero').icon(PanelTopDashed),
       S.documentTypeListItem('testimonial').title('Testimonial').icon(Contact),
