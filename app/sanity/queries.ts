@@ -12,14 +12,14 @@ const link = `
   "external": {
     blank,
     href,
-    title
+    "title": title${localized}
   },
   "internal": internalLink-> {
-    title,
+    "title": title${localized},
     "slug": slug.current,
     "type": _type
   },
-  label,
+  "label": label${localized},
   linkType
 `
 
@@ -177,7 +177,7 @@ const menu = `
         _id,
         _type,
         _type == "nav" => {
-          title,
+          "title": title${localized},
           menu[] {
             _type == "customLink" => {${link}},
             _type == "ctaButton" => {${ctaButtonMenu}},

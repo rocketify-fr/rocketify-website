@@ -21,7 +21,7 @@ export const customLink = defineType({
     }),
     defineField({
       name: 'label',
-      type: 'string',
+      type: 'internationalizedArrayString',
     }),
     defineField({
       title: 'URL',
@@ -37,7 +37,7 @@ export const customLink = defineType({
     defineField({
       title: 'title',
       name: 'title',
-      type: 'string',
+      type: 'internationalizedArrayString',
       hidden: ({ parent }) => parent?.linkType !== 'external', // hidden if link type is not external
     }),
     defineField({

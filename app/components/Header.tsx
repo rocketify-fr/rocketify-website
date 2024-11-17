@@ -14,12 +14,14 @@ const BasicLink = ({ menu, sub, active }) => {
     <Link
       link={menu}
       key={menu.internal.slug}
-      className={clsx('relative flex items-center justify-end  text-black')}
+      className={clsx(
+        'relative flex items-center justify-end  text-nowrap text-black'
+      )}
     >
       <span
         data-content={title}
         className={clsx(
-          'menu-link border py-2',
+          'menu-link text-nowrap border py-2',
           active && 'sm:font-bold',
           sub ? 'sm:w-60' : '',
           menu._type === 'ctaButton'
@@ -72,11 +74,11 @@ const NavLink = ({ menu, sub }) => {
           <span
             onClick={() => setOpen(!open)}
             className={clsx(
-              'flex cursor-pointer items-center justify-between gap-2 py-2',
+              'flex cursor-pointer items-center justify-between gap-2 text-nowrap py-2',
               active && 'sm:font-bold'
             )}
           >
-            <span>{menu.title}</span>
+            <span className='text-nowrap'>{menu.title}</span>
             <ChevronIcon
               className={clsx(
                 'transition-all sm:rotate-180 group-hover:sm:rotate-0',
