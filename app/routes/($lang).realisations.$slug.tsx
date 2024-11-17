@@ -1,30 +1,36 @@
-import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
-import {useLoaderData} from '@remix-run/react'
-import {useQuery} from '@sanity/react-loader'
+import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { useQuery } from '@sanity/react-loader'
 
-import {Loading} from '~/components/Loading'
+import { Loading } from '~/components/Loading'
 import RealisationPost from '~/components/realisations/RealisationPost'
-import {loadQuery} from '~/sanity/loader.server'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions.server'
-import {USE_CASE_QUERY} from '~/sanity/queries'
+import { loadQuery } from '~/sanity/loader.server'
+import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
+import { USE_CASE_QUERY } from '~/sanity/queries'
+import { getLanguage } from '~/utils/language'
 
 // Load the `record` document with this slug
-export const loader = async ({params, request}: LoaderFunctionArgs) => {
-  const {options} = await loadQueryOptions(request.headers)
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const { options } = await loadQueryOptions(request.headers)
+
+  const language = getLanguage(params)
+
 
   const query = USE_CASE_QUERY
   const initial = await loadQuery(
     query,
     // $slug.tsx has the params { slug: 'hello-world' }
-    params,
+    {
+      ...params, language
+    },
     options,
-  ).then((res) => ({...res, data: res.data ? res.data : null}))
+  ).then((res) => ({ ...res, data: res.data ? res.data : null }))
   if (!initial.data) {
-    throw new Response('Not found', {status: 404})
+    throw new Response('Not found', { status: 404 })
   }
 
   // Create social share image url
-  const {origin} = new URL(request.url)
+  const { origin } = new URL(request.url)
   const ogImageUrl = `${origin}/resource/og?id=${initial.data._id}`
 
   return {
@@ -40,9 +46,9 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { title: data.initial?.data?.seo?.title },
     { name: 'description', content: data.initial?.data?.seo?.description },
   ];
-  
+
   const publishStatus = data?.initial?.data?.publishStatus?.replace(/[^\x20-\x7E]/g, '').trim();
-  
+
   if (publishStatus === "hidden") {
     metaTags.push({ name: 'robots', content: 'noindex' });
   }
@@ -51,8 +57,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function PostPage() {
-  const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data, loading} = useQuery<typeof initial.data>(
+  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { data, loading } = useQuery<typeof initial.data>(
     query,
     params,
     {

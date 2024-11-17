@@ -10,15 +10,17 @@ import RealisationsPage from '~/components/realisations/RealisationsPage'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { PAGE_QUERY, USE_CASES_QUERY } from '~/sanity/queries'
+import { getLanguage } from '~/utils/language'
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { options } = await loadQueryOptions(request.headers)
   const query = USE_CASES_QUERY
-  const queryParams = {}
+  const language = getLanguage(params)
+  const queryParams = { language }
 
   const [initial, { data: pageData }] = await Promise.all([
     loadQuery(query, queryParams, options),
-    loadQuery(PAGE_QUERY, { slug: 'realisations' }, options)
+    loadQuery(PAGE_QUERY, { slug: 'realisations', language }, options)
   ])
 
   if (!initial.data) {
@@ -36,7 +38,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }) => {
-  return [{ title: data.pageData.seo.title }, {name: 'description', content:data.pageData.seo.description }];
+  return [{ title: data.pageData.seo.title }, { name: 'description', content: data.pageData.seo.description }];
 };
 
 export default function Index() {
