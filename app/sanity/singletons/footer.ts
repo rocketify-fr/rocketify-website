@@ -11,11 +11,11 @@ export const footer = defineType({
     }),
     defineField({
       name: 'description',
-      type: 'internationalizedArrayText',
+      type: 'text',
     }),
     defineField({
       name: 'menuTitle',
-      type: 'internationalizedArrayString',
+      type: 'string',
     }),
     defineField({
       name: 'menu',
@@ -34,7 +34,7 @@ export const footer = defineType({
     // to do
     defineField({
       name: 'certificationsTitle',
-      type: 'internationalizedArrayString',
+      type: 'string',
     }),
     defineField({
       name: 'certifications',

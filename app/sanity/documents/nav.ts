@@ -6,7 +6,7 @@ export const nav = defineType({
   fields: [
     defineField({
       name: 'title',
-      type: 'internationalizedArrayString',
+      type: 'string',
     }),
     defineField({
       name: 'menu',

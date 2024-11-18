@@ -12,14 +12,14 @@ const link = `
   "external": {
     blank,
     href,
-    "title": title${localized}
+    title
   },
   "internal": internalLink-> {
-    "title": title${localized},
+    title,
     "slug": slug.current,
     "type": _type
   },
-  "label": label${localized},
+  label,
   linkType
 `
 
@@ -177,7 +177,7 @@ const menu = `
         _id,
         _type,
         _type == "nav" => {
-          "title": title${localized},
+          title,
           menu[] {
             _type == "customLink" => {${link}},
             _type == "ctaButton" => {${ctaButtonMenu}},
@@ -196,10 +196,10 @@ export const HEADER_QUERY = `*[_type == "header" ]{
 
 export const FOOTER_QUERY = `*[_type == "footer" ]{
   ${logo},
-  "description": description${localized},
-  "menuTitle": menuTitle${localized},
+  description,
+  menuTitle,
   ...menu-> {${menu}},
-  "certificationsTitle": certificationsTitle${localized},
+  certificationsTitle,
   certifications[]{
     title, 
     description, 
