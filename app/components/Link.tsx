@@ -1,12 +1,37 @@
-import { Link as RemixLink } from '@remix-run/react'
+import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
 import clsx from 'clsx'
+import { useEffect, useState } from 'react'
 
+export function SimpleLink({
+  className = null,
+  label = null,
+  to,
+  children = null,
+}) {
+  const { language } = useRouteLoaderData('root')
+
+  let prefix = ''
+
+  if (language !== 'fr') {
+    prefix += `${language}`
+  }
+
+  const path = `${prefix}${to}`
+
+  return (
+    <RemixLink className={clsx(className)} to={path}>
+      {label || children}
+    </RemixLink>
+  )
+}
 export function Link({
   children,
   className = null,
   link: { linkType, label, ...linkData },
 }) {
   const link = linkData[linkType]
+
+  const { language } = useRouteLoaderData('root')
 
   if (linkType === 'external') {
     return (
@@ -22,24 +47,25 @@ export function Link({
   }
 
   const { type } = link
+
   let prefix = '/'
 
+  if (language !== 'fr') {
+    prefix += `${language}/`
+  }
+
   if (type === 'post') {
-    prefix = '/blog/'
+    prefix += '/blog/'
   }
   if (type === 'service') {
-    prefix = '/services/'
+    prefix += '/services/'
   }
 
   const path = `${prefix}${link.slug || ''}`
 
-  if (label === 'Accueil') {
-    console.log({ link, className })
-  }
-
   return (
     <RemixLink className={clsx(className)} to={path}>
-      {label || children}
+      {children || label}
     </RemixLink>
   )
 }

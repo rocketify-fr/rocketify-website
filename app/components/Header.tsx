@@ -1,12 +1,14 @@
-import { Link as RemixLink, useLocation } from '@remix-run/react'
+import { useLocation, useRouteLoaderData } from '@remix-run/react'
 import clsx from 'clsx'
 import { Fragment, useEffect, useState } from 'react'
+
+import { getLocalizedPath } from '~/utils/language'
 
 import Container from './Container'
 import BulletIcon from './icons/Bullet'
 import ChevronIcon from './icons/Chevron'
 import HamburgerIcon from './icons/Hamburger'
-import { Link } from './Link'
+import { Link, SimpleLink } from './Link'
 
 const BasicLink = ({ menu, sub, active }) => {
   const title = menu.title || menu.internal.title
@@ -15,6 +17,7 @@ const BasicLink = ({ menu, sub, active }) => {
       link={menu}
       key={menu.internal.slug}
       className={clsx(
+        active && 'sm:font-bold',
         'relative flex items-center justify-end  text-nowrap text-black'
       )}
     >
@@ -23,7 +26,6 @@ const BasicLink = ({ menu, sub, active }) => {
         data-content={title}
         className={clsx(
           'menu-link text-nowrap border py-2',
-          active && 'sm:font-bold',
           sub ? 'sm:w-60' : '',
           menu._type === 'ctaButton'
             ? 'rounded-3xl border-black bg-rGreen px-3 hover:bg-rGreenHover '
@@ -40,12 +42,13 @@ const NavLink = ({ menu, sub }) => {
   const location = useLocation()
   const [active, setActive] = useState(false)
   const [open, setOpen] = useState(false)
+  const { language } = useRouteLoaderData('root')
 
   useEffect(() => {
     if (menu._type === 'nav') {
       setActive(location.pathname.includes(menu.menu[0].internal.type))
     } else if (
-      location.pathname === '/' &&
+      location.pathname === getLocalizedPath(language, '/') &&
       menu._type === 'customLink' &&
       !menu.internal?.slug
     ) {
@@ -117,21 +120,20 @@ const NavLink = ({ menu, sub }) => {
 
 export function Header({ theme, data }) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
 
   const { logo } = data
 
   useEffect(() => {
     setMenuOpen(false)
-  }, [location])
+  }, [])
 
   return (
     <>
       <header className='max-w-[100dvw] border-b border-black transition-all duration-1000 ease-in-out dark:border-gray-900'>
         <Container className='m-auto flex h-[80px] items-center justify-between'>
-          <RemixLink to='/' className={clsx('min-h-[42px] min-w-[167px]')}>
+          <SimpleLink to='/' className={clsx('min-h-[42px] min-w-[167px]')}>
             <img src={logo.url} alt={logo.alt} height={42} width={167} />
-          </RemixLink>
+          </SimpleLink>
           <HamburgerIcon
             className='cursor-pointer sm:hidden'
             onClick={() => setMenuOpen(!menuOpen)}
