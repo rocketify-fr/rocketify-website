@@ -11,8 +11,10 @@
     "plugin:react-hooks/recommended",
     "standard",
     "prettier",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "ignorePatterns": ["node_modules", "build", ".cache"],
   "plugins": ["prettier", "simple-import-sort", "react", "react-hooks"],
   "parserOptions": {

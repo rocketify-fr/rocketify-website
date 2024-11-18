@@ -1,4 +1,8 @@
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
+import type {
+  LinksFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
 import {
   Links,
@@ -10,23 +14,24 @@ import {
   useLocation,
 } from '@remix-run/react'
 import { loadQuery, useQuery } from '@sanity/react-loader'
+import { VisualEditing } from '@sanity/visual-editing/remix'
+import { useEffect } from 'react'
+import TagManager from 'react-gtm-module'
 
 import { themePreferenceCookie } from '~/cookies'
 import { getBodyClassNames } from '~/lib/getBodyClassNames'
 import styles from '~/tailwind.css?url'
 import { themePreference } from '~/types/themePreference'
+
+import { Page } from './components/Container'
+import { ExitPreview } from './components/ExitPreview'
+import { Footer } from './components/Footer'
+import { Header } from './components/Header'
+import NotFound from './components/NotFound'
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
 import { loadQueryOptions } from './sanity/loadQueryOptions.server'
 import { LAYOUT_QUERY } from './sanity/queries'
-import { Header } from './components/Header'
-import { Page } from './components/Container'
-import { Footer } from './components/Footer'
-import { VisualEditing } from '@sanity/visual-editing/remix'
-import { ExitPreview } from './components/ExitPreview'
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
-import TagManager from 'react-gtm-module'
-import { useEffect } from 'react'
-import { additionalLanguages, getLanguage, languages } from './utils/language'
-import NotFound from './components/NotFound'
+import { getLanguage, languages } from './utils/language'
 
 const GTM_ID = 'GTM-T2JXGG9Q'
 
@@ -42,44 +47,16 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const meta: MetaFunction<
-  typeof loader> = ({ data, matches }) => {
-    const layoutData = matches.find(
-      (match) => match.id === `root`,
-    )?.data
-
-    const home = layoutData ? layoutData.initial.data : null
-
-    const title = [data?.initial?.data?.title, home?.siteTitle]
-      .filter(Boolean)
-      .join(' | ')
-
-    const ogImageUrl = data ? data.ogImageUrl : null
-
-
-
-    const value = [
-      { title },
-      { name: 'viewport', content: "width=device-width, initial-scale=1.0" },
-      { property: 'twitter:card', content: 'summary_large_image' },
-      { property: 'twitter:title', content: title },
-      { property: 'og:title', content: title },
-      { property: 'og:image:width', content: String(OG_IMAGE_WIDTH) },
-      { property: 'og:image:height', content: String(OG_IMAGE_HEIGHT) },
-      { property: 'og:image', content: ogImageUrl },
-    ]
-
-    return value
-  }
-export const loader = async ({ request, params: requestParams }: LoaderFunctionArgs) => {
+export const loader = async ({
+  request,
+  params: requestParams,
+}: LoaderFunctionArgs) => {
   const url = new URL(request.url)
-
 
   if (url.pathname.startsWith('/fr')) {
     const newPath = url.pathname.split('/fr')[1]
     return redirect(newPath)
   }
-
 
   // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)
@@ -108,7 +85,6 @@ export const loader = async ({ request, params: requestParams }: LoaderFunctionA
     },
   }
 
-
   if (!languages.includes(language)) {
     result.notFound = true
   }
@@ -116,15 +92,39 @@ export const loader = async ({ request, params: requestParams }: LoaderFunctionA
   return json(result)
 }
 
+export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
+  const layoutData = matches.find((match) => match.id === `root`)?.data
+
+  const home = layoutData ? layoutData.initial.data : null
+
+  const title = [data?.initial?.data?.title, home?.siteTitle]
+    .filter(Boolean)
+    .join(' | ')
+
+  const ogImageUrl = data ? data.ogImageUrl : null
+
+  const value = [
+    { title },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:title', content: title },
+    { property: 'og:title', content: title },
+    { property: 'og:image:width', content: String(OG_IMAGE_WIDTH) },
+    { property: 'og:image:height', content: String(OG_IMAGE_HEIGHT) },
+    { property: 'og:image', content: ogImageUrl },
+  ]
+
+  return value
+}
+
 export default function App() {
-  const { theme, bodyClassNames, ENV, initial, query, params, sanity } = useLoaderData<typeof loader>()
+  const { theme, bodyClassNames, ENV, initial, query, params, sanity } =
+    useLoaderData<typeof loader>()
   const location = useLocation()
   const isStudio = location.pathname.startsWith('/studio')
   const {
     data: { footer, header },
   } = useQuery<typeof initial.data>(query, params, {
-    // There's a TS issue with how initial comes over the wire
-    // @ts-expect-error
     initial,
   })
 
@@ -133,19 +133,19 @@ export default function App() {
   }, [])
 
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <Meta />
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="icon" href="/favicon.png" />
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width,initial-scale=1' />
+        <link rel='icon' href='/favicon.png' />
         <Links />
       </head>
       <body className={bodyClassNames}>
         {isStudio ? (
           <Outlet></Outlet>
         ) : (
-          <div className="min-h-dvh flex flex-col justify-between">
+          <div className='flex min-h-dvh flex-col justify-between'>
             <Header theme={theme} data={header} />
 
             <Page>
