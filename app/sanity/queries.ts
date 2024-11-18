@@ -187,7 +187,7 @@ const menu = `
   }
 `
 // Rocketify Queries \\
-export const HEADER_QUERY = `*[_type == "header" ]{
+export const HEADER_QUERY = `*[_type == "header" && language == $language ]{
   ...menuHeader-> {
     ${menu}
   },
@@ -219,7 +219,7 @@ export const LAYOUT_QUERY = groq`{
 }`
 
 export const HOMEPAGE_QUERY = groq`
-*[_type == "page" && title == 'Accueil'][0] {
+*[_type == "page" && slug.current == '/' && language == $language][0] {
 ...,
   _id,
   _type,

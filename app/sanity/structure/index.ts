@@ -21,7 +21,10 @@ import { resolveOGUrl } from '~/sanity/structure/resolveOGUrl'
 const languages = [
   { id: 'fr', title: 'Français', flag: '🇫🇷' },
   { id: 'en', title: 'English', flag: '🇬🇧' },
-]
+].map((language) => ({
+  ...language,
+  camelId: language.id[0].toUpperCase() + language.id.slice(1),
+}))
 
 const getLocalizedTitle = (title: string, lang: (typeof languages)[0]) => {
   return `${lang.flag} ${title} ${lang.title}`
@@ -127,26 +130,28 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.list()
             .title('Site Settings')
-            .items([
-              S.listItem()
-                .title('Header Settings')
-                .icon(PanelTop)
-                .child(
-                  S.editor()
-                    .id('header')
-                    .schemaType('header')
-                    .documentId('header')
-                ),
-              S.listItem()
-                .title('Footer Settings')
-                .icon(PanelBottom)
-                .child(
-                  S.editor()
-                    .id('footer')
-                    .schemaType('footer')
-                    .documentId('footer')
-                ),
-            ])
+            .items(
+              languages.flatMap((lang) => [
+                S.listItem()
+                  .title(getLocalizedTitle('Header Settings', lang))
+                  .icon(PanelTop)
+                  .child(
+                    S.editor()
+                      .id(`header${lang.camelId}`)
+                      .schemaType(`header${lang.camelId}`)
+                      .documentId(`header${lang.camelId}`)
+                  ),
+                S.listItem()
+                  .title(getLocalizedTitle('Footer Settings', lang))
+                  .icon(PanelBottom)
+                  .child(
+                    S.editor()
+                      .id(`footer${lang.camelId}`)
+                      .schemaType(`footer${lang.camelId}`)
+                      .documentId(`footer${lang.camelId}`)
+                  ),
+              ])
+            )
         ),
     ])
 

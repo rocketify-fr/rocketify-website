@@ -1,4 +1,6 @@
-import {footer} from './footer'
-import {header} from './header'
+import { footerEn } from './footerEn'
+import { footerFr } from './footerFr'
+import { headerEn } from './headerEn'
+import { headerFr } from './headerFr'
 
-export const singletons = [footer, header]
+export const singletons = [footerFr, footerEn, headerFr, headerEn]

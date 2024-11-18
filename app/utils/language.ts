@@ -10,23 +10,13 @@ export const getLanguage = (params) => {
   return language
 }
 
-export const getLocalizedPath = (lang, path) => {
-  console.log({ lang, path })
+export const getLocalizedPath = (lang: string, path: string) => {
+  if (!path.startsWith('/')) {
+    path = `/${path}`
+  }
+
   if (lang === 'fr') {
     return path
   }
   return `/${lang}${path}`
-}
-
-export const getLocalizedSlug = (params) => {
-  const language = getLanguage(params)
-  const { slug } = params
-
-  console.log({ language, slug })
-
-  if (language === 'fr') {
-    return slug
-  }
-
-  return `${language}/${slug}`
 }

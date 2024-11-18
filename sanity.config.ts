@@ -20,16 +20,11 @@ export default defineConfig({
   title: 'Sanity Remix',
   plugins: [
     documentInternationalization({
+      // ...or a function that takes the client and returns a promise of an array of supported languages
       supportedLanguages: [
         { id: 'fr', title: 'French' },
         { id: 'en', title: 'English' },
       ],
-      // ...or a function that takes the client and returns a promise of an array of supported languages
-      // MUST return an "id" and "title" as strings
-      // Note: Async language configuration cannot create templates for new documents
-      // supportedLanguages: (client) => client.fetch(`*[_type == "language"]{id, title}`),
-
-      // Required
       // Translations UI will only appear on these schema types
       schemaTypes: [
         'author',
@@ -40,11 +35,9 @@ export default defineConfig({
         'page',
         'service',
       ],
-
       // Optional
       // Customizes the name of the language field
       languageField: `language`, // defauts to "language"
-
       // Optional
       // Keep translation.metadata references weak
       weakReferences: true, // defaults to false

@@ -48,15 +48,14 @@ const NavLink = ({ menu, sub }) => {
     if (menu._type === 'nav') {
       setActive(location.pathname.includes(menu.menu[0].internal.type))
     } else if (
-      location.pathname === getLocalizedPath(language, '/') &&
-      menu._type === 'customLink' &&
-      !menu.internal?.slug
+      location.pathname === getLocalizedPath(language, menu.internal?.slug)
     ) {
       setActive(true)
     } else {
-      setActive(location.pathname.includes(menu.internal?.slug))
+      const lastSegment = location.pathname.split('/').reverse()[0]
+      setActive(lastSegment === menu.internal.slug)
     }
-  }, [location.pathname, menu])
+  }, [language, location.pathname, menu])
 
   useEffect(() => {
     setOpen(false)

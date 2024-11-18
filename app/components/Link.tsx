@@ -2,6 +2,8 @@ import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 
+import { getLocalizedPath } from '~/utils/language'
+
 export function SimpleLink({
   className = null,
   label = null,
@@ -10,17 +12,11 @@ export function SimpleLink({
 }) {
   const { language } = useRouteLoaderData('root')
 
-  let prefix = ''
-
-  if (language !== 'fr') {
-    prefix += `${language}`
-  }
-
-  const path = `${prefix}${to}`
+  const path = getLocalizedPath(language, to)
 
   return (
     <RemixLink className={clsx(className)} to={path}>
-      {label || children}
+      {children || label}
     </RemixLink>
   )
 }
@@ -48,20 +44,16 @@ export function Link({
 
   const { type } = link
 
-  let prefix = '/'
-
-  if (language !== 'fr') {
-    prefix += `${language}/`
-  }
+  let prefix = ''
 
   if (type === 'post') {
-    prefix += '/blog/'
+    prefix += 'blog/'
   }
   if (type === 'service') {
-    prefix += '/services/'
+    prefix += 'services/'
   }
 
-  const path = `${prefix}${link.slug || ''}`
+  const path = getLocalizedPath(language, `${prefix}${link.slug || ''}`)
 
   return (
     <RemixLink className={clsx(className)} to={path}>
