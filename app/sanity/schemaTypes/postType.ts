@@ -10,6 +10,8 @@ import {
 import { Newspaper } from 'lucide-react'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { isUniqueOtherThanLanguage } from '~/utils/slug'
+
 export const postType = defineType({
   name: 'post',
   title: 'Post',
@@ -118,6 +120,7 @@ export const postType = defineType({
       group: 'details',
       options: {
         source: 'title',
+        isUnique: isUniqueOtherThanLanguage,
       },
       fieldset: 'details',
     }),
