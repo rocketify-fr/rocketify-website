@@ -1,15 +1,20 @@
-import type { ActionFunction, LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
+import type {
+  ActionFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
-import ContactForm from '~/components/ContactForm'
 
+import ContactForm from '~/components/ContactForm'
 import { Loading } from '~/components/Loading'
 import NotFound from '~/components/NotFound'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { HOMEPAGE_QUERY, SERVICE_NAMES_QUERY } from '~/sanity/queries'
 import type { RecordStub } from '~/types/record'
+import { getLanguage } from '~/utils/language'
 
 export const action: ActionFunction = async ({ request }) => {
   if (request.method !== 'POST') {
@@ -19,22 +24,21 @@ export const action: ActionFunction = async ({ request }) => {
   const body = await request.formData()
 
   for (const [key, value] of body.entries()) {
-    console.log({ key, value });
+    console.log({ key, value })
   }
 
   return null
 }
 
-
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const language = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
   const query = HOMEPAGE_QUERY
-  const queryParams = {}
-  const {data: services} = await loadQuery(
+  const queryParams = { language }
+  const { data: services } = await loadQuery(
     SERVICE_NAMES_QUERY,
     queryParams,
-    options,
+    options
   )
 
   if (!services.length) {
@@ -49,8 +53,5 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 }
 
 export default function Contact() {
-  return (
-    <ContactForm></ContactForm>
-  )
+  return <ContactForm></ContactForm>
 }
-

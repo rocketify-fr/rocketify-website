@@ -18,7 +18,7 @@ import type {
 import OGPreview from '~/sanity/components/OGPreview'
 import { resolveOGUrl } from '~/sanity/structure/resolveOGUrl'
 
-const languages = [
+export const languages = [
   { id: 'fr', title: 'Français', flag: '🇫🇷' },
   { id: 'en', title: 'English', flag: '🇬🇧' },
 ].map((language) => ({

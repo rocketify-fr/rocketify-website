@@ -120,12 +120,15 @@ const NavLink = ({ menu, sub }) => {
 export function Header({ theme, data }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const { logo } = data
-
   useEffect(() => {
     setMenuOpen(false)
   }, [])
 
+  if (!data) {
+    return null
+  }
+
+  const { logo } = data
   return (
     <>
       <header className='max-w-[100dvw] border-b border-black transition-all duration-1000 ease-in-out dark:border-gray-900'>

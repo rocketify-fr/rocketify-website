@@ -10,12 +10,14 @@ import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { HOMEPAGE_QUERY, PAGE_QUERY } from '~/sanity/queries'
 import type { RecordStub } from '~/types/record'
+import { getLanguage } from '~/utils/language'
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const language = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
   const slug = new URL(request.url).pathname.slice(1)
   const query = PAGE_QUERY
-  const queryParams = { slug }
+  const queryParams = { slug, language }
 
   const initial = await loadQuery(query, queryParams, options)
 

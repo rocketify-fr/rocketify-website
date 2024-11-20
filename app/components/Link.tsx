@@ -20,12 +20,14 @@ export function SimpleLink({
     </RemixLink>
   )
 }
-export function Link({
-  children,
-  className = null,
-  link: { linkType, label, ...linkData },
-}) {
+export function Link({ children, className = null, link: _link }) {
+  const { linkType, label, ...linkData } = _link
   const link = linkData[linkType]
+
+  if (!link) {
+    console.log({ _link })
+    return label
+  }
 
   const { language } = useRouteLoaderData('root')
 

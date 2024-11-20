@@ -27,11 +27,10 @@ import { Page } from './components/Container'
 import { ExitPreview } from './components/ExitPreview'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import NotFound from './components/NotFound'
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
 import { loadQueryOptions } from './sanity/loadQueryOptions.server'
 import { LAYOUT_QUERY } from './sanity/queries'
-import { getLanguage, languages } from './utils/language'
+import { extendedLanguages, getLanguage, languages } from './utils/language'
 
 const GTM_ID = 'GTM-T2JXGG9Q'
 
@@ -66,8 +65,13 @@ export const loader = async ({
   const bodyClassNames = getBodyClassNames(theme)
 
   const language = getLanguage(requestParams)
+
+  const langSuffix = extendedLanguages.find((l) => l.id === language).camelId
+
+  const header = `header${langSuffix}`
+  const footer = `footer${langSuffix}`
   const query = LAYOUT_QUERY
-  const params = { language }
+  const params = { language, header, footer }
   const initial = await loadQuery(query, params, options)
 
   const result = {

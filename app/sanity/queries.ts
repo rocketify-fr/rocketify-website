@@ -187,14 +187,14 @@ const menu = `
   }
 `
 // Rocketify Queries \\
-export const HEADER_QUERY = `*[_type == "header" && language == $language ]{
+export const HEADER_QUERY = `*[_type == $header ]{
   ...menuHeader-> {
     ${menu}
   },
   ${logo},
 }[0]`
 
-export const FOOTER_QUERY = `*[_type == "footer" ]{
+export const FOOTER_QUERY = `*[_type == $footer ]{
   ${logo},
   description,
   menuTitle,
@@ -251,12 +251,12 @@ export const POST_TAGS_QUERY = groq`
 }
 `
 
-export const SERVICE_NAMES_QUERY = groq`*[_type == "service"] {
+export const SERVICE_NAMES_QUERY = groq`*[_type == "service" && language == $language] {
   title,
   description,
 }`
 
-export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug][0]{
+export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug && language == $language][0]{
   _id,
   _type,
   _createdAt,
@@ -277,7 +277,7 @@ export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug]
   }
 }`
 
-export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
+export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug && language == $language][0]{
   _id,
   _type,
   _createdAt,
@@ -386,7 +386,7 @@ export const POSTS_QUERY = groq`*
   | order($order) [$from...$to] 
 `
 
-export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug][0]{
+export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug && language == $language][0]{
 ...,
   _id,
   _type,
@@ -462,7 +462,7 @@ export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug
   },
 }`
 
-export const USE_CASES_QUERY = groq`*[_type == "useCase"][0...12]|order(title asc){
+export const USE_CASES_QUERY = groq`*[_type == "useCase" && language == $language][0...12]|order(title asc){
   _id,
   _type,
   title,

@@ -38,6 +38,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
+
   const { data, loading, encodeDataAttribute } = useQuery<typeof initial.data>(
     query,
     params,

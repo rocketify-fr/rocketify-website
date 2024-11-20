@@ -1,4 +1,8 @@
-export const languages = ['fr', 'en']
+import { languages as extLangugages } from '../sanity/structure/index.ts'
+
+export const languages = extLangugages.map((lng) => lng.id)
+
+export const extendedLanguages = extLangugages
 
 export const getLanguage = (params) => {
   const { lang: language } = params
