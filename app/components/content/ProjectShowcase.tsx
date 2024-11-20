@@ -1,11 +1,11 @@
-import { Link } from '@remix-run/react'
 import clsx from 'clsx'
+import { Fragment } from 'react/jsx-runtime'
 
 import Container from '../Container'
 import Button from '../layout/Button'
+import { SimpleLink } from '../Link'
 import { Tags } from '../post/Tags'
 import Separator from '../Separator'
-import { Fragment } from 'react/jsx-runtime'
 
 const ProjectShowcase = ({ title, description, projects }) => {
   return (
@@ -33,7 +33,9 @@ const ProjectShowcase = ({ title, description, projects }) => {
                   <p className='text-paragraph'>{description}</p>
                   <Tags tags={tags}></Tags>
                   <Button className='bg-rPurple'>
-                    <Link to={`/realisations/${slug}`}>Voir le projet</Link>
+                    <SimpleLink to={`/realisations/${slug}`}>
+                      Voir le projet
+                    </SimpleLink>
                   </Button>
                 </div>
                 <img

@@ -1,6 +1,8 @@
 import { Link } from '@remix-run/react'
 import clsx from 'clsx'
 
+import { SimpleLink } from '../Link'
+
 export default function RealisationCard({
   realisation,
   horizontal = false,
@@ -8,7 +10,7 @@ export default function RealisationCard({
 }) {
   const [bigTitle, subTitle] = realisation.title.split(' | ')
   return (
-    <Link
+    <SimpleLink
       to={`/realisations/${realisation.slug}`}
       className={clsx(
         'flex overflow-hidden rounded-3xl border border-black',
@@ -34,6 +36,6 @@ export default function RealisationCard({
         <h2 className='text-lg'>{subTitle}</h2>
         <p className='text-sm'>{realisation.description}</p>
       </div>
-    </Link>
+    </SimpleLink>
   )
 }
