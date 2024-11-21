@@ -300,7 +300,7 @@ export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug && lan
   }
 }`
 
-export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug && language == $lang][0]{
+export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug && language == $language][0]{
   _id,
   _type,
   title,
@@ -384,7 +384,7 @@ export const POSTS_QUERY_TAG = groq`*
   | order($order) [$from...$to] 
 `
 export const POSTS_QUERY = groq`*
-  [_type == "post" && language == $lang]
+  [_type == "post" && language == $language]
   ${POST_CARD}
   | order($order) [$from...$to] 
 `
