@@ -3,6 +3,7 @@ import Container from '~/components/Container'
 import HeroSection from '../content/HeroSection'
 import { PostContent } from '../content/PostContent'
 import Testimonials from '../content/Testimonials'
+import { useTranslations } from '../contexts/translations'
 import Button from '../layout/Button'
 import { Breadcrumbs } from '../post/Breadcrumbs'
 import { Tags } from '../post/Tags'
@@ -26,12 +27,13 @@ const RealisationPost = ({ post: postData }) => {
   } = postData
 
   const [bigTitle, subTitle] = title.split(' | ')
+  const { t } = useTranslations()
   return (
     <>
       <Container className='flex flex-col'>
         <Breadcrumbs
           parent={{
-            label: 'Nos réalisations',
+            label: t('achievements.backToList'),
             path: '/realisations',
           }}
         ></Breadcrumbs>
@@ -49,7 +51,7 @@ const RealisationPost = ({ post: postData }) => {
           <p className='py-2 text-lg'>{description}</p>
           <Button className='mt-4 bg-rPurple'>
             <a target='_blank' href={url} rel='noreferrer'>
-              Visiter le site
+              {t('achievements.visit')}
             </a>
           </Button>
         </div>

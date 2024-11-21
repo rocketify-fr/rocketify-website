@@ -24,6 +24,7 @@ import styles from '~/tailwind.css?url'
 import { themePreference } from '~/types/themePreference'
 
 import { Page } from './components/Container'
+import { TranslationsProvider } from './components/contexts/translations'
 import { ExitPreview } from './components/ExitPreview'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
@@ -74,7 +75,11 @@ export const loader = async ({
   const params = { language, header, footer }
   const initial = await loadQuery(query, params, options)
 
+  const { translations } = initial?.data
+  initial.data.translations = undefined
+
   const result = {
+    translations,
     initial,
     query,
     params,
@@ -122,8 +127,16 @@ export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
 }
 
 export default function App() {
-  const { theme, bodyClassNames, ENV, initial, query, params, sanity } =
-    useLoaderData<typeof loader>()
+  const {
+    theme,
+    bodyClassNames,
+    ENV,
+    initial,
+    query,
+    params,
+    sanity,
+    language,
+  } = useLoaderData<typeof loader>()
   const location = useLocation()
   const isStudio = location.pathname.startsWith('/studio')
   const {
@@ -149,20 +162,22 @@ export default function App() {
         {isStudio ? (
           <Outlet></Outlet>
         ) : (
-          <div className='flex min-h-dvh flex-col justify-between'>
-            <Header theme={theme} data={header} />
+          <TranslationsProvider language={language}>
+            <div className='flex min-h-dvh flex-col justify-between'>
+              <Header theme={theme} data={header} />
 
-            <Page>
-              <Outlet />
-            </Page>
-            <Footer data={footer}></Footer>
-            {sanity.preview ? (
-              <>
-                <VisualEditing />
-                <ExitPreview />
-              </>
-            ) : null}
-          </div>
+              <Page>
+                <Outlet />
+              </Page>
+              <Footer data={footer}></Footer>
+              {sanity.preview ? (
+                <>
+                  <VisualEditing />
+                  <ExitPreview />
+                </>
+              ) : null}
+            </div>
+          </TranslationsProvider>
         )}
         <ScrollRestoration />
         <script

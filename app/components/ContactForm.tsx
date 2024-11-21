@@ -3,6 +3,7 @@ import { Form, useFetcher, useLoaderData, useLocation } from '@remix-run/react'
 import clsx from 'clsx'
 
 import Container from './Container'
+import { useTranslations } from './contexts/translations'
 
 const Input = ({ type = 'text', label, children = [], ...props }) => (
   <label className='relative flex w-full flex-col items-start text-paragraph'>
@@ -49,29 +50,30 @@ const ContactForm = () => {
   const fetcher = useFetcher()
   const { services } = useLoaderData()
   const [state, handleSubmit] = useForm('moqgbywe')
+  const { t } = useTranslations()
 
   return (
     <Container>
-      <h1 className='mb-16 text-2xl sm:text-6xl'>Nous contacter</h1>
+      <h1 className='mb-16 text-2xl sm:text-6xl'>{t('contact.title')}</h1>
       <p className='text-paragraph'></p>
       <div className='flex flex-col gap-8 sm:flex-row sm:gap-48'>
         <fetcher.Form
           className='flex grow flex-col gap-16 sm:w-2/3'
           onSubmit={handleSubmit}
         >
-          <Input name='name' label='Nom'></Input>
-          <Input name='company' label='Société'></Input>
+          <Input name='name' label={t('contact.name')}></Input>
+          <Input name='company' label={t('contact.company')}></Input>
           <div className='flex gap-8'>
-            <Input name='email' label='Email' type='email'></Input>
-            <Input name='tel' label='Téléphone' type='tel'></Input>
+            <Input name='email' label={t('contact.email')} type='email'></Input>
+            <Input name='tel' label={t('contact.phone')} type='tel'></Input>
           </div>
-          <Input name='topic' label='Problématique' type='select'>
+          <Input name='topic' label={t('contact.challenge')} type='select'>
             <option className='text-gray-400' value={null}>
-              Sélectionnez votre sujet
+              {t('contact.challenge.choose')}
             </option>
             {services
               .concat({
-                title: 'Autre',
+                title: t('common.other'),
                 description:
                   'Veuillez détailler votre problème dans le champ ci-dessous',
               })
@@ -82,27 +84,28 @@ const ContactForm = () => {
               ))}
           </Input>
           <div className='flex gap-8'>
-            <Input label='Budget' type='select'>
-              <option value={null}>{`Sélectionnez un budget`}</option>
-              <option value='5k'>{`< 5 000€`}</option>
-              <option value='10k'>5 000€ - 10 000€</option>
-              <option value='20k'>10 000€ - 20 000€</option>
-              <option value='50k'>20 000€ - 50 000€</option>
-              <option value='gt50k'>{`> 50 000€`}</option>
+            <Input label={t('contact.budget')} type='select'>
+              <option value={null}>{t('contact.budget.choose')}</option>
+              {t('contact.budget.options')
+                .split(';')
+                .map((option) => (
+                  <option value={option}>{option}</option>
+                ))}
             </Input>
-            <Input name='delay' label='Délai' type='select'>
-              <option value={null}>{`Sélectionnez un délai`}</option>
-              <option value='4w'>2 - 4 semaines</option>
-              <option value='8w'>1 - 2 mois</option>
-              <option value='32w'>2 - 6 mois</option>
-              <option value='gt32w'>6 mois et plus</option>
+            <Input name='delay' label={t('contact.delay')} type='select'>
+              <option value={null}>{t('contact.delay.choose')}</option>
+              {t('contact.delay.options')
+                .split(';')
+                .map((option) => (
+                  <option value={option}>{option}</option>
+                ))}
             </Input>
           </div>
           <Input
             type='textarea'
             name='message'
-            label='message'
-            placeholder='Votre message'
+            label={t('contact.message')}
+            placeholder={t('contact.message.placeholder')}
             className='min-h-[180px]'
           ></Input>
           <div className='flex justify-center'>
@@ -110,7 +113,7 @@ const ContactForm = () => {
               type='submit'
               className='mx-auto self-center rounded-3xl border border-black bg-rPurple px-4 py-2'
             >
-              Envoyer
+              {t('common.send')}
             </button>
           </div>
           <div
@@ -125,18 +128,18 @@ const ContactForm = () => {
         <div className='flex flex-col items-stretch gap-8 sm:w-1/3'>
           {[
             {
-              title: 'Par mail',
+              title: t('contact.byEmail'),
               value: 'contact@rocketify.io',
               link: 'mailto:contact@rocketify.io',
             },
             {
-              title: 'Par téléphone',
+              title: t('contact.byPhone'),
               value: '+33 6 52 62 76 28',
               link: 'tel:+33652627628',
             },
             {
-              title: 'Prendre rendez-vous',
-              value: 'Lien vers le calendrier',
+              title: t('contact.appointment.title'),
+              value: t('contact.appointment.body'),
               link: 'https://tidycal.com/rocketify/faisons-connaissance',
               target: '_blank',
             },

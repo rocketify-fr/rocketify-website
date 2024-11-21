@@ -153,6 +153,25 @@ export const structure: StructureResolver = (S) =>
               ])
             )
         ),
+      S.divider(),
+      S.listItem()
+        .title('Translations')
+        .id('translations')
+        .icon(SettingsIcon)
+        .child(
+          S.list()
+            .title('Translations')
+            .items([
+              S.listItem()
+                .title('Translations')
+                .child(
+                  S.editor()
+                    .id(`translations`)
+                    .schemaType(`translations`)
+                    .documentId(`translations`)
+                ),
+            ])
+        ),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (

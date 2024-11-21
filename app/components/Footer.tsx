@@ -3,6 +3,7 @@ import clsx from 'clsx'
 
 import Container from './Container'
 import Headband from './content/Headband'
+import { useTranslations } from './contexts/translations'
 import { Link } from './Link'
 
 export function Footer({ data }) {
@@ -17,12 +18,13 @@ export function Footer({ data }) {
     certifications,
     menuSubFooter,
   } = data
+  const { t } = useTranslations()
   return (
     <footer className='flex flex-col border-t border-gray-100 transition-colors duration-1000 ease-in-out dark:border-gray-900'>
       <Headband
         margin={false}
         to='/contact'
-        title='Démarrer un projet'
+        title={t('project.start')}
       ></Headband>
       <Container className='flex flex-col items-start justify-between gap-8 pt-12 sm:flex-row'>
         <div className='flex flex-1 flex-col gap-4'>

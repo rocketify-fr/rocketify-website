@@ -15,7 +15,7 @@ import { getLanguage } from '~/utils/language'
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const language = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
-  const slug = new URL(request.url).pathname.slice(1)
+  const slug = params['*']
   const query = PAGE_QUERY
   const queryParams = { slug, language }
 
