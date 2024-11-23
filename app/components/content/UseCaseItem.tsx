@@ -5,7 +5,6 @@ import Container from '../Container'
 import Separator from '../Separator'
 
 const UseCaseItem = ({ description, image, reverse, separator }) => {
-  console.log({ description })
   return (
     <Container>
       <div

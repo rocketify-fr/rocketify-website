@@ -217,7 +217,7 @@ export const LAYOUT_QUERY = groq`{
   "header": ${HEADER_QUERY},
   "footer": ${FOOTER_QUERY},
   "translations": *[_id == "translations"] { 
-    items[] 
+    namespaces[] 
   }[0]
 }`
 
