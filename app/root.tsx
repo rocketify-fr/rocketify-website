@@ -12,6 +12,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useLocation,
+  useMatches,
 } from '@remix-run/react'
 import { loadQuery, useQuery } from '@sanity/react-loader'
 import { VisualEditing } from '@sanity/visual-editing/remix'
@@ -53,10 +54,10 @@ export const loader = async ({
 }: LoaderFunctionArgs) => {
   const url = new URL(request.url)
 
-  if (url.pathname.startsWith('/fr')) {
-    const newPath = url.pathname.split('/fr')[1]
-    return redirect(newPath)
-  }
+  // if (url.pathname.startsWith('/fr')) {
+  //   const newPath = url.pathname.split('/fr')[1]
+  //   return redirect(newPath)
+  // }
 
   // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)
@@ -67,7 +68,9 @@ export const loader = async ({
 
   const language = getLanguage(requestParams)
 
-  const langSuffix = extendedLanguages.find((l) => l.id === language).camelId
+  console.log(requestParams)
+
+  const langSuffix = extendedLanguages.find((l) => l.id === language)?.camelId
 
   const header = `header${langSuffix}`
   const footer = `footer${langSuffix}`
@@ -92,10 +95,6 @@ export const loader = async ({
       VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
       VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
     },
-  }
-
-  if (!languages.includes(language)) {
-    result.notFound = true
   }
 
   return json(result)

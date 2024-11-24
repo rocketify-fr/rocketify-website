@@ -12,6 +12,10 @@ export const getLanguage = (params) => {
     return 'fr'
   }
 
+  if (!languages.includes(language)) {
+    return 'fr'
+  }
+
   return language
 }
 

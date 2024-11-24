@@ -8,16 +8,18 @@ import NotFound from '~/components/NotFound'
 import PageComponent from '~/components/Page'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
-import { HOMEPAGE_QUERY, PAGE_QUERY } from '~/sanity/queries'
-import type { RecordStub } from '~/types/record'
+import { PAGE_QUERY } from '~/sanity/queries'
 import { getLanguage } from '~/utils/language'
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  console.log({ params })
   const language = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
   const slug = params['*']
   const query = PAGE_QUERY
   const queryParams = { slug, language }
+
+  console.log({ pageLoader: queryParams })
 
   const initial = await loadQuery(query, queryParams, options)
 
