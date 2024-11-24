@@ -1,16 +1,34 @@
-import { useRouteLoaderData } from '@remix-run/react'
-import React, { createContext, useCallback, useContext, useMemo } from 'react'
+import { useLoaderData, useRouteLoaderData } from '@remix-run/react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 import { sanitize } from '~/utils/string'
 
-interface iTranslation {
-  t: (key: string, variables?: object) => string
-}
+const TranslationsContext = createContext(null)
 
-const TranslationsContext = createContext<iTranslation>(null)
+export const TranslationsProvider = ({ children }) => {
+  const { translations: rawTranslations, language: initialLanguage } =
+    useRouteLoaderData('root')
 
-export const TranslationsProvider = ({ children, language = 'fr' }) => {
-  const { translations: rawTranslations } = useRouteLoaderData('root')
+  const [languages, _setLanguages] = useState([])
+  const [language, setLanguage] = useState(initialLanguage)
+
+  const setLanguages = useCallback(
+    (langs) => {
+      const current = langs.find((l) => l.language === language)
+      const value = [current, ...langs.filter((l) => l.language !== language)]
+
+      _setLanguages(value)
+    },
+    [language]
+  )
+
   const translations = useMemo(() => {
     const result = {}
 
@@ -18,41 +36,39 @@ export const TranslationsProvider = ({ children, language = 'fr' }) => {
 
     for (const namespace of namespaces) {
       const key = sanitize(namespace.namespace)
-      result[key] = {}
       for (const item of namespace.translations) {
         const value = sanitize(item[language])
-        result[key][item.key] = value
+        result[`${key}.${item.key}`] = value
       }
     }
 
-    console.log({ result })
     return result
   }, [rawTranslations, language])
 
   const t = useCallback(
-    (key: string, variables: object = {}): string | string[] => {
+    (key: string, variables: object = {}): string => {
       let value: string
-      for (const segment of key.split('.')) {
-        if (translations[segment]) {
-          value = translations[segment]
-        } else {
-          // console.warn(`${key} not found in translations ${language}`)
-          return `missing ${key} for ${language}`
-        }
-      }
-      // bad hack
-      if (Array.isArray(value)) {
-        return value
+      if (translations[key]) {
+        value = translations[key]
+      } else {
+        return `missing ${key} for ${language}`
       }
       for (const [k, v] of Object.entries(variables)) {
         value = value.replace(new RegExp(`{${k}}`, 'g'), v)
       }
+
       return value
     },
     [language, translations]
   )
 
-  const value: iTranslation = { t }
+  const value = {
+    t,
+    languages,
+    setLanguages,
+    language,
+    setLanguage,
+  }
 
   return (
     <TranslationsContext.Provider value={value}>

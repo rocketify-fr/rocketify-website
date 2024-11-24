@@ -127,16 +127,8 @@ export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
 }
 
 export default function App() {
-  const {
-    theme,
-    bodyClassNames,
-    ENV,
-    initial,
-    query,
-    params,
-    sanity,
-    language,
-  } = useLoaderData<typeof loader>()
+  const { theme, bodyClassNames, ENV, initial, query, params, sanity } =
+    useLoaderData<typeof loader>()
   const location = useLocation()
   const isStudio = location.pathname.startsWith('/studio')
   const {
@@ -162,7 +154,7 @@ export default function App() {
         {isStudio ? (
           <Outlet></Outlet>
         ) : (
-          <TranslationsProvider language={language}>
+          <TranslationsProvider>
             <div className='flex min-h-dvh flex-col justify-between'>
               <Header theme={theme} data={header} />
 

@@ -6,6 +6,11 @@ const image = '"image": image{"url": asset->url, "_id": asset->_id, alt}'
 
 const localized = `[_key == $language][0].value`
 
+const translations = `"translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    "slug": slug.current,
+    language
+  }`
+
 // const getImage = (name) => `"${name}": ${name}{"url": asset->url, alt}`
 
 const link = `
@@ -228,11 +233,7 @@ export const HOMEPAGE_QUERY = groq`
   _type,
   title,
   language,
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    title,
-    slug,
-    language
-  },
+  ${translations},
   publishStatus,
   _createdAt,
   _updatedAt,
@@ -266,11 +267,7 @@ export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug 
   _updatedAt,
   title,
   language,
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    title,
-    slug,
-    language
-  },
+  ${translations},
   publishStatus,
   description,
   ${image},
@@ -287,11 +284,7 @@ export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug && lan
   _updatedAt,
   title,
   language,
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    title,
-    slug,
-    language
-  },
+  ${translations},
   publishStatus,
   "slug": slug.current,
   ${seo},
@@ -305,11 +298,7 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug && lan
   _type,
   title,
   language,
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    title,
-    slug,
-    language
-  },
+  ${translations},
   publishStatus,
   _createdAt,
   _updatedAt,
@@ -355,11 +344,7 @@ export const POST_CARD = `
   _type,
   title,
   language,
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    title,
-    slug,
-    language
-  },
+  ${translations},
   description,
   _updatedAt,
   _createdAt,
@@ -395,11 +380,7 @@ export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug
   _type,
   title,
   language,
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    title,
-    slug,
-    language
-  },
+  ${translations},
   publishStatus,
   url,
   description,
@@ -470,11 +451,7 @@ export const USE_CASES_QUERY = groq`*[_type == "useCase" && language == $languag
   _type,
   title,
   language,
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    title,
-    slug,
-    language
-  },
+  ${translations},
   description,
   _updatedAt,
   _createdAt,

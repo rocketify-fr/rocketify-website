@@ -50,9 +50,12 @@ export function Link({ children, className = null, link: _link }) {
 
   if (type === 'post') {
     prefix += 'blog/'
-  }
-  if (type === 'service') {
+  } else if (type === 'service') {
     prefix += 'services/'
+  } else if (type !== 'page') {
+    console.log({ type })
+
+    // if (type === 'use-case') {
   }
 
   const path = getLocalizedPath(language, `${prefix}${link.slug || ''}`)

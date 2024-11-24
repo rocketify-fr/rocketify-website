@@ -67,13 +67,13 @@ const ContactForm = () => {
             <Input name='email' label={t('contact.email')} type='email'></Input>
             <Input name='tel' label={t('contact.phone')} type='tel'></Input>
           </div>
-          <Input name='topic' label={t('contact.challenge')} type='select'>
+          <Input name='topic' label={t('contact.topic')} type='select'>
             <option className='text-gray-400' value={null}>
-              {t('contact.challenge.choose')}
+              {t('contact.topic.choose')}
             </option>
             {services
               .concat({
-                title: t('common.other'),
+                title: t('contact.topic.other'),
                 description:
                   'Veuillez détailler votre problème dans le champ ci-dessous',
               })
@@ -92,9 +92,9 @@ const ContactForm = () => {
                   <option value={option}>{option}</option>
                 ))}
             </Input>
-            <Input name='delay' label={t('contact.delay')} type='select'>
-              <option value={null}>{t('contact.delay.choose')}</option>
-              {t('contact.delay.options')
+            <Input name='delay' label={t('contact.deadline')} type='select'>
+              <option value={null}>{t('contact.deadline.choose')}</option>
+              {t('contact.deadline.options')
                 .split(';')
                 .map((option) => (
                   <option value={option}>{option}</option>

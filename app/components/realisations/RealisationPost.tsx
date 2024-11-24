@@ -33,7 +33,7 @@ const RealisationPost = ({ post: postData }) => {
       <Container className='flex flex-col'>
         <Breadcrumbs
           parent={{
-            label: t('achievements.backToList'),
+            label: t('project.backToList'),
             path: '/realisations',
           }}
         ></Breadcrumbs>
@@ -51,7 +51,7 @@ const RealisationPost = ({ post: postData }) => {
           <p className='py-2 text-lg'>{description}</p>
           <Button className='mt-4 bg-rPurple'>
             <a target='_blank' href={url} rel='noreferrer'>
-              {t('achievements.visit')}
+              {t('project.visit')}
             </a>
           </Button>
         </div>

@@ -1,19 +1,11 @@
-import type {
-  ActionFunction,
-  LoaderFunctionArgs,
-  MetaFunction,
-} from '@remix-run/node'
+import type { ActionFunction, LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { useQuery } from '@sanity/react-loader'
 
 import ContactForm from '~/components/ContactForm'
-import { Loading } from '~/components/Loading'
-import NotFound from '~/components/NotFound'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
 import { HOMEPAGE_QUERY, SERVICE_NAMES_QUERY } from '~/sanity/queries'
-import type { RecordStub } from '~/types/record'
+import { languages } from '~/sanity/structure'
 import { getLanguage } from '~/utils/language'
 
 export const action: ActionFunction = async ({ request }) => {
@@ -46,6 +38,12 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   }
 
   return json({
+    pageData: {
+      translations: languages.map((lang) => ({
+        language: lang.id,
+        slug: 'contact',
+      })),
+    },
     services,
     query,
     params: queryParams,

@@ -1,10 +1,17 @@
-import { useLocation, useRouteLoaderData } from '@remix-run/react'
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useRevalidator,
+  useRouteLoaderData,
+} from '@remix-run/react'
 import clsx from 'clsx'
 import { Fragment, useEffect, useState } from 'react'
 
-import { getLocalizedPath } from '~/utils/language'
+import { extendedLanguages, getLocalizedPath } from '~/utils/language'
 
 import Container from './Container'
+import { useTranslations } from './contexts/translations'
 import BulletIcon from './icons/Bullet'
 import ChevronIcon from './icons/Chevron'
 import HamburgerIcon from './icons/Hamburger'
@@ -119,10 +126,34 @@ const NavLink = ({ menu, sub }) => {
 
 export function Header({ theme, data }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { languages, language } = useTranslations()
+  const navigate = useNavigate()
+  const revalidator = useRevalidator()
 
   useEffect(() => {
     setMenuOpen(false)
   }, [])
+
+  const handleLanguageChange = (language) => {
+    const currentPath = window.location.pathname
+    let prefix = ''
+    if (currentPath.includes('/blog')) {
+      prefix = 'blog/'
+    } else if (currentPath.includes('/services')) {
+      prefix = 'services/'
+    } else if (currentPath.includes('/realisations')) {
+      prefix = 'realisations/'
+    }
+
+    const path = getLocalizedPath(
+      language.language,
+      `${prefix}${language.slug}`
+    )
+
+    setMenuOpen(false)
+    navigate(path)
+    revalidator.revalidate()
+  }
 
   if (!data) {
     return null
@@ -144,6 +175,30 @@ export function Header({ theme, data }) {
             {data.menu.map((entry, i) => {
               return <NavLink key={i} menu={entry} />
             })}
+            <div className='group relative cursor-pointer divide-y bg-white'>
+              <div className='px-4 py-2'>
+                {extendedLanguages.find((lang) => lang.id === language).flag}
+              </div>
+              <div className='group absolute hidden divide-y bg-white group-hover:block'>
+                {languages
+                  .filter((l) => l.language !== language)
+                  .map((l) => (
+                    <div
+                      className={clsx(
+                        l.language === language ? 'font-bold' : '',
+                        'px-4 py-2'
+                      )}
+                      key={l?.language}
+                      onClick={() => handleLanguageChange(l)}
+                    >
+                      {
+                        extendedLanguages.find((lang) => lang.id === l.language)
+                          .flag
+                      }
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </Container>
       </header>
