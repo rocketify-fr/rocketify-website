@@ -141,7 +141,10 @@ export function Header({ theme, data }) {
       prefix = 'blog/'
     } else if (currentPath.includes('/services')) {
       prefix = 'services/'
-    } else if (currentPath.includes('/realisations')) {
+    } else if (
+      currentPath.includes('/realisations') &&
+      !currentPath.endsWith('/realisations')
+    ) {
       prefix = 'realisations/'
     }
 
@@ -175,18 +178,24 @@ export function Header({ theme, data }) {
             {data.menu.map((entry, i) => {
               return <NavLink key={i} menu={entry} />
             })}
-            <div className='group relative cursor-pointer divide-y bg-white'>
-              <div className='px-4 py-2'>
+            <div className='group cursor-pointer rounded-xl border-gray-200 bg-white hover:divide-y '>
+              <div className='flex items-center gap-4 px-4 py-2'>
                 {extendedLanguages.find((lang) => lang.id === language).flag}
+
+                <ChevronIcon
+                  className={clsx(
+                    'rotate-180 transition-all group-hover:rotate-0'
+                  )}
+                ></ChevronIcon>
               </div>
-              <div className='group absolute hidden divide-y bg-white group-hover:block'>
+              <div className='group-over:h-fit group absolute h-0 divide-y overflow-y-hidden bg-white transition-all group-hover:overflow-y-visible'>
                 {languages
                   .filter((l) => l.language !== language)
                   .map((l) => (
                     <div
                       className={clsx(
                         l.language === language ? 'font-bold' : '',
-                        'px-4 py-2'
+                        'bg-white px-4 py-2'
                       )}
                       key={l?.language}
                       onClick={() => handleLanguageChange(l)}
