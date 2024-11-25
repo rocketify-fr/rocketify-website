@@ -37,12 +37,5 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
 
-  // if (loading && !data) {
-  //   return <Loading />
-  // } else if (!data || !initial.data) {
-  //   return <div>Not found</div>
-  // }
-
-  console.log({ initial })
   return <PageComponent {...initial.data} />
 }
