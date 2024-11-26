@@ -1,3 +1,4 @@
+import { appsGrid } from './appsGrid'
 import { blogPostsGrid } from './blogPostsGrid'
 import { faq } from './faq'
 import { headingTagline } from './headingTagline'
@@ -14,6 +15,7 @@ import { useCaseIntro } from './useCaseIntro'
 import { useCaseItem } from './useCaseItem'
 
 export const sections = [
+  appsGrid,
   relatedPost,
   useCaseIntro,
   useCaseItem,

@@ -137,10 +137,18 @@ export function Header({ theme, data }) {
   const handleLanguageChange = (language) => {
     const currentPath = window.location.pathname
     let prefix = ''
-    if (currentPath.includes('/blog')) {
+    if (currentPath.includes('/blog') && !currentPath.endsWith('/blog')) {
       prefix = 'blog/'
-    } else if (currentPath.includes('/services')) {
+    } else if (
+      currentPath.includes('/services') &&
+      !currentPath.endsWith('/services')
+    ) {
       prefix = 'services/'
+    } else if (
+      currentPath.includes('/apps') &&
+      !currentPath.endsWith('/apps')
+    ) {
+      prefix = 'apps/'
     } else if (
       currentPath.includes('/realisations') &&
       !currentPath.endsWith('/realisations')

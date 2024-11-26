@@ -4,6 +4,7 @@ import { Fragment } from 'react/jsx-runtime'
 import Container from '../Container'
 import RealisationsGrid from '../realisations/RealisationsGrid'
 import Separator from '../Separator'
+import AppsGrid from './AppsGrid'
 import BlogPostsGrid from './BlogPostsGrid'
 import FAQ from './FAQ'
 import Headband from './Headband'
@@ -51,6 +52,8 @@ const ContentBlock = ({ item, firstOfType, lastOfType, even }) => {
       return <RealisationsGrid {...item} />
     case 'blogPostsGrid':
       return <BlogPostsGrid {...item} />
+    case 'appsGrid':
+      return <AppsGrid {...item} />
     case 'rawContent':
       return (
         <Container className='post-content'>

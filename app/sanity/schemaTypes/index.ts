@@ -10,6 +10,7 @@ import { useCaseType } from '~/sanity/schemaTypes/useCaseType'
 import { sections } from '~/sanity/sections' // sections
 import { singletons } from '~/sanity/singletons'
 
+import { appType } from './appType'
 import { serviceType } from './serviceType'
 
 export default [
@@ -19,6 +20,7 @@ export default [
   authorType,
   postTagType,
   useCaseTagType,
+  appType,
   serviceType,
   ...objects,
   ...documents,

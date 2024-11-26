@@ -1,4 +1,5 @@
 import {
+  AppWindow,
   Contact,
   FileBarChart,
   FileCheck,
@@ -113,6 +114,26 @@ export const structure: StructureResolver = (S) =>
                     S.documentList()
                       .title(getLocalizedTitle('Use cases', language))
                       .filter('_type == "useCase" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
+      S.listItem()
+        .title('Apps')
+        .icon(AppWindow)
+        .child(
+          S.list()
+            .title('Apps par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Apps', language))
+                  .icon(AppWindow)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('App', language))
+                      .filter('_type == "app" && language == $language')
                       .params({ language: language.id })
                   )
               )

@@ -153,6 +153,24 @@ const headbang = `
   ...${ctaButton} { link, colorName }
 `
 
+const app = `
+  title,
+  description,
+  "slug": slug.current,
+  ${image},
+  ${translations},
+  seo {
+    title,
+    description
+  },
+  _createdAt,
+  _updatedAt
+`
+
+const appsGrid = `
+  perPage
+`
+
 const pageAndServiceContent = `
   _type,
   _type == "reference" => {
@@ -170,8 +188,10 @@ const pageAndServiceContent = `
   _type == "headingTagline" => {${headingTagline}},
   _type == "textAndImage" => {${textAndImage}},
   _type == "faq" => {${faq}},
+  _type == "appsGrid" => {${appsGrid}},
   _type == "rawContent" => {...},
 `
+
 const menu = `
   menu[] {
     _type,
@@ -466,3 +486,7 @@ export const USE_CASES_QUERY = groq`*[_type == "useCase" && language == $languag
     description
   }
 } | order(_updatedAt desc)`
+
+export const APPS_QUERY = groq`*[_type == "app" && language == $language][$from...$to]{
+  ${app},
+} | order($sort desc)`

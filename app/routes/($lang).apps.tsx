@@ -5,8 +5,23 @@ import { useLoaderData } from '@remix-run/react'
 import PageComponent from '~/components/Page'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
-import { PAGE_QUERY } from '~/sanity/queries'
+import { APPS_QUERY, PAGE_QUERY } from '~/sanity/queries'
 import { getLanguage } from '~/utils/language'
+
+export const getSearchParams = ({ request, perPage }) => {
+  const searchParams = new URL(request.url).searchParams
+
+  const page = parseInt(searchParams.get('page'), 10) || 1
+  const sort = searchParams.get('sort') || '_createdAt'
+  const sortDirection = searchParams.get('sortDirection') || 'desc'
+
+  const from = (page - 1) * perPage
+  const to = perPage * page - 1
+
+  console.log({ page, sort, sortDirection, from, to })
+
+  return { sort, sortDirection, from, to }
+}
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { options } = await loadQueryOptions(request.headers)
@@ -21,21 +36,36 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     throw new Response('Not found', { status: 404 })
   }
 
+  const perPage =
+    initial.data.content.find((c) => c._type === 'appsGrid')?.perPage || 12
+
+  const search = getSearchParams({ request, perPage })
+  console.log({ search })
+
+  const { data: appsData } = await loadQuery(
+    APPS_QUERY,
+    { ...search, language },
+    options
+  )
+
+  console.log(JSON.stringify({ appsData }, null, 2))
+
   return json({
     initial,
+    appsData,
     params: queryParams,
   })
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
-    { title: data?.pageData?.seo?.title },
-    { name: 'description', content: data?.pageData?.seo?.description },
+    { title: data?.initial?.data?.seo?.title },
+    { name: 'description', content: data?.initial?.data?.seo?.description },
   ]
 }
 
 export default function Index() {
-  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { initial } = useLoaderData<typeof loader>()
 
   return <PageComponent {...initial.data} />
 }

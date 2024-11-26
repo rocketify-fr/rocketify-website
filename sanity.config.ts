@@ -34,6 +34,7 @@ export default defineConfig({
         'useCaseTag',
         'page',
         'service',
+        'app',
       ],
       // Optional
       // Customizes the name of the language field

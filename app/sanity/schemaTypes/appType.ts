@@ -10,9 +10,9 @@ import { defineField, defineType } from 'sanity'
 
 import { isUniqueOtherThanLanguage } from '~/utils/slug'
 
-export const pageType = defineType({
-  name: 'page',
-  title: 'Page',
+export const appType = defineType({
+  name: 'app',
+  title: 'App',
   type: 'document',
   icon: StickyNote,
   fieldsets: [
@@ -52,8 +52,8 @@ export const pageType = defineType({
       },
     },
     {
-      name: 'similarProjectPosts',
-      title: 'Similar project posts',
+      name: 'similarApps',
+      title: 'Similar apps',
       options: {
         collapsible: true,
       },
@@ -101,8 +101,8 @@ export const pageType = defineType({
       icon: UserIcon,
     },
     {
-      name: 'similarProjectPosts',
-      title: 'Similar project posts',
+      name: 'similarApps',
+      title: 'Similar apps',
       icon: UserIcon,
     },
     {
@@ -126,10 +126,14 @@ export const pageType = defineType({
     defineField({
       name: 'title',
       type: 'string',
+      group: 'details',
+      fieldset: 'details',
     }),
     defineField({
       name: 'publishStatus',
       type: 'publishStatus',
+      group: 'details',
+      fieldset: 'details',
     }),
     defineField({
       name: 'slug',
@@ -138,6 +142,20 @@ export const pageType = defineType({
         source: 'title',
         isUnique: isUniqueOtherThanLanguage,
       },
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
+      name: 'description',
+      type: 'text',
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
+      name: 'image',
+      type: 'customImage',
+      group: 'details',
+      fieldset: 'details',
     }),
     defineField({
       name: 'content',
@@ -150,11 +168,10 @@ export const pageType = defineType({
         { type: 'serviceHighlights' },
         { type: 'projectShowcase' },
         { type: 'methodology' },
+        { type: 'faq' },
+        { type: 'painPoints' },
         { type: 'headingTagline' },
-        { type: 'blogPostsGrid' },
-        { type: 'appsGrid' },
-        { type: 'useCaseGrid' },
-        { type: 'rawContent' },
+        { type: 'textAndImage' },
       ],
       group: 'editorial',
       fieldset: 'editorial',
