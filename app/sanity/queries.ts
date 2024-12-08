@@ -158,6 +158,7 @@ const app = `
   description,
   "slug": slug.current,
   ${image},
+  language,
   ${translations},
   seo {
     title,
@@ -490,3 +491,10 @@ export const USE_CASES_QUERY = groq`*[_type == "useCase" && language == $languag
 export const APPS_QUERY = groq`*[_type == "app" && language == $language][$from...$to]{
   ${app},
 } | order($sort desc)`
+
+export const APP_QUERY = groq`*[_type == "app" && language == $language && slug.current == $slug][0]{
+  ${app},
+  content[] {
+    ${pageAndServiceContent}
+  }
+}`

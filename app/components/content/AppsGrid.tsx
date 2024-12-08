@@ -9,8 +9,6 @@ const AppsGrid = ({ ...gridConfig }) => {
   const navigate = useNavigate()
   const { appsData } = useLoaderData()
 
-  console.log({ appsData })
-
   return (
     <Container>
       {appsData.length > 0 ? (

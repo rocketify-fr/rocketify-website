@@ -18,8 +18,6 @@ export const getSearchParams = ({ request, perPage }) => {
   const from = (page - 1) * perPage
   const to = perPage * page - 1
 
-  console.log({ page, sort, sortDirection, from, to })
-
   return { sort, sortDirection, from, to }
 }
 
@@ -40,15 +38,12 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     initial.data.content.find((c) => c._type === 'appsGrid')?.perPage || 12
 
   const search = getSearchParams({ request, perPage })
-  console.log({ search })
 
   const { data: appsData } = await loadQuery(
     APPS_QUERY,
     { ...search, language },
     options
   )
-
-  console.log(JSON.stringify({ appsData }, null, 2))
 
   return json({
     initial,
