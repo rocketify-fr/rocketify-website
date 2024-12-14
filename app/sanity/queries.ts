@@ -338,6 +338,7 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug && lan
     _type,
     title,
     description,
+    language,
     _updatedAt,
     _createdAt,
     "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
