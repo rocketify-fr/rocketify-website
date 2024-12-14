@@ -1,3 +1,5 @@
+import 'react-toastify/dist/ReactToastify.css'
+
 import type {
   LinksFunction,
   LoaderFunctionArgs,
@@ -18,6 +20,7 @@ import { loadQuery, useQuery } from '@sanity/react-loader'
 import { VisualEditing } from '@sanity/visual-editing/remix'
 import { useEffect } from 'react'
 import TagManager from 'react-gtm-module'
+import { ToastContainer } from 'react-toastify'
 
 import { themePreferenceCookie } from '~/cookies'
 import { getBodyClassNames } from '~/lib/getBodyClassNames'
@@ -158,6 +161,7 @@ export default function App() {
               <Header theme={theme} data={header} />
 
               <Page>
+                <ToastContainer></ToastContainer>
                 <Outlet />
               </Page>
               <Footer data={footer}></Footer>

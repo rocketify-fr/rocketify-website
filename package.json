@@ -44,6 +44,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-gtm-module": "^2.0.11",
+    "react-toastify": "^10.0.6",
     "rxjs": "^7.8.1",
     "sanity": "^3.64.1",
     "sanity-plugin-asset-source-unsplash": "^3.0.1",
