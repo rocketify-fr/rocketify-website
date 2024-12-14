@@ -56,7 +56,7 @@ const ContactForm = () => {
     <Container>
       <h1 className='mb-16 text-2xl sm:text-6xl'>{t('contact.title')}</h1>
       <p className='text-paragraph'></p>
-      <div className='flex flex-col gap-8 sm:flex-row sm:gap-48'>
+      <div className='flex flex-col gap-8 sm:flex-row lg:gap-48'>
         <fetcher.Form
           className='flex grow flex-col gap-16 sm:w-2/3'
           onSubmit={handleSubmit}
