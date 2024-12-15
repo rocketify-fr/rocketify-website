@@ -58,6 +58,11 @@ const NavLink = ({ menu, sub }) => {
       location.pathname === getLocalizedPath(language, menu.internal?.slug)
     ) {
       setActive(true)
+    } else if (
+      menu.internal.slug === 'blog' &&
+      location.pathname.includes('/blog')
+    ) {
+      setActive(true)
     } else {
       const lastSegment = location.pathname.split('/').reverse()[0]
       setActive(lastSegment === menu.internal.slug)
