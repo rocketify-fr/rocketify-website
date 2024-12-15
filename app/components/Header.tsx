@@ -24,7 +24,7 @@ const BasicLink = ({ menu, sub, active }) => {
       link={menu}
       key={menu.internal.slug}
       className={clsx(
-        active && 'sm:font-bold',
+        active && 'sm:font-semibold',
         'relative flex items-center justify-end  text-nowrap text-black'
       )}
     >
@@ -70,22 +70,13 @@ const NavLink = ({ menu, sub }) => {
 
   return (
     <div className='flex items-center gap-1' data-active={active}>
-      {menu._type !== 'ctaButton' && (
-        <BulletIcon
-          className={clsx(
-            'hidden opacity-0 sm:block',
-            active && 'opacity-100',
-            sub && 'hidden sm:hidden'
-          )}
-        />
-      )}
       {menu._type === 'nav' ? (
         <div className='menu-link group relative w-full '>
           <span
             onClick={() => setOpen(!open)}
             className={clsx(
               'flex cursor-pointer items-center justify-between gap-2 text-nowrap py-2',
-              active && 'sm:font-bold'
+              active && 'sm:font-semibold'
             )}
           >
             <span className='text-nowrap'>{menu.title}</span>
@@ -182,7 +173,7 @@ export function Header({ theme, data }) {
             className='cursor-pointer sm:hidden'
             onClick={() => setMenuOpen(!menuOpen)}
           />
-          <div className='hidden items-center gap-4 sm:flex'>
+          <div className='hidden items-center gap-8 sm:flex'>
             {data.menu.map((entry, i) => {
               return <NavLink key={i} menu={entry} />
             })}
