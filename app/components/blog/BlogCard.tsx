@@ -26,7 +26,7 @@ export default function PostCard({
           alt={post.image.alt}
           className={clsx(
             'aspect-video object-cover',
-            horizontal && 'max-w-[66%] flex-[2]'
+            horizontal && 'flex-[2] lg:max-w-[66%]'
           )}
         />
         <div
