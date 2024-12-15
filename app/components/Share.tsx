@@ -31,12 +31,32 @@ const ShareLinkedin = ({ url, title }) => {
     </a>
   )
 }
+
+const ShareX = ({ url, title }) => {
+  return (
+    <a
+      target='_blank'
+      className='flex size-[32px] cursor-pointer items-center justify-center rounded-full bg-gray-100 p-2 font-bai text-3xl font-bold'
+      href={`https://x.com/share?url=${url}&text=${title}`}
+      rel='noreferrer'
+    >
+      <img
+        width={32}
+        height={32}
+        src={`/img/share-x.svg`}
+        className='size-[32px]'
+        alt=''
+      />
+    </a>
+  )
+}
 export const Share = ({ url, title }) => {
   return (
     <div className='flex gap-x-2'>
       <ShareLink url={url} title={title}></ShareLink>
-      <ShareLinkedin url={url}></ShareLinkedin>
-      {['twitter', 'facebook'].map((name) => (
+      <ShareLinkedin url={url} title={title}></ShareLinkedin>
+      <ShareX url={url} title={title}></ShareX>
+      {['facebook'].map((name) => (
         <div
           key={name}
           title={name}
