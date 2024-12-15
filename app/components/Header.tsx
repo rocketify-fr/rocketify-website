@@ -188,14 +188,16 @@ export function Header({ theme, data }) {
                   .find((lang) => lang.id === language)
                   .id.toUpperCase()}
 
-                <ChevronIcon
-                  className={clsx(
-                    'rotate-180 transition-all group-hover:rotate-0'
-                  )}
-                ></ChevronIcon>
+                {languages.length > 1 && (
+                  <ChevronIcon
+                    className={clsx(
+                      'rotate-180 transition-all group-hover:rotate-0'
+                    )}
+                  ></ChevronIcon>
+                )}
               </div>
               <div className='group-over:h-fit group absolute h-0 divide-y overflow-y-hidden bg-white transition-all group-hover:overflow-y-visible'>
-                {languages
+                {(languages || [])
                   .filter((l) => l.language !== language)
                   .map((l) => (
                     <div

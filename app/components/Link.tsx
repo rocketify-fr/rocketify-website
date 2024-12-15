@@ -15,7 +15,7 @@ export function SimpleLink({
   const path = getLocalizedPath(language, to)
 
   return (
-    <RemixLink className={clsx(className)} to={path}>
+    <RemixLink prefetch='intent' className={clsx(className)} to={path}>
       {children || label}
     </RemixLink>
   )
@@ -61,7 +61,7 @@ export function Link({ children, className = null, link: _link }) {
   const path = getLocalizedPath(language, `${prefix}${link.slug || ''}`)
 
   return (
-    <RemixLink className={clsx(className)} to={path}>
+    <RemixLink prefetch='intent' className={clsx(className)} to={path}>
       {children || label}
     </RemixLink>
   )

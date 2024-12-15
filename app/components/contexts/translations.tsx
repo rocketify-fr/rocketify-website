@@ -22,7 +22,10 @@ export const TranslationsProvider = ({ children }) => {
   const setLanguages = useCallback(
     (langs) => {
       const current = langs.find((l) => l.language === language)
-      const value = [current, ...langs.filter((l) => l.language !== language)]
+      const value = [
+        current,
+        ...langs.filter((l) => l.language !== language),
+      ].filter((l) => !!l)
 
       _setLanguages(value)
     },
