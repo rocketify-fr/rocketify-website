@@ -36,7 +36,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   const metaTags = [
-    { title: data.initial?.data?.seo?.title },
+    { title: data.initial?.data?.seo?.title || 'Rocketify' },
     { name: 'description', content: data.initial?.data?.seo?.description },
   ]
 

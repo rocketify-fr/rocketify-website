@@ -57,12 +57,6 @@ export const loader = async ({
 }: LoaderFunctionArgs) => {
   const url = new URL(request.url)
 
-  // if (url.pathname.startsWith('/fr')) {
-  //   const newPath = url.pathname.split('/fr')[1]
-  //   return redirect(newPath)
-  // }
-
-  // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)
   const cookieHeader = request.headers.get('Cookie')
   const cookieValue = (await themePreferenceCookie.parse(cookieHeader)) || {}
@@ -85,6 +79,7 @@ export const loader = async ({
   initial.data.translations = undefined
 
   const result = {
+    url: url.toString(),
     translations,
     initial,
     query,

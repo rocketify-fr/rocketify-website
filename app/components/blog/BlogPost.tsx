@@ -1,8 +1,10 @@
 import { PortableText } from '@portabletext/react'
 
+import { useRootLoaderData } from '~/lib/useRootLoaderData'
+
 import Container from '../Container'
 import { useTranslations } from '../contexts/translations'
-import { Link, SimpleLink } from '../Link'
+import { SimpleLink } from '../Link'
 import { PreHeader } from '../post/BlogHeader'
 import { Breadcrumbs } from '../post/Breadcrumbs'
 import { Share } from '../Share'
@@ -21,6 +23,8 @@ const BlogPost = ({ post: postData }) => {
   } = postData
 
   const { t } = useTranslations()
+  const { url } = useRootLoaderData()
+
   return (
     <>
       <Container className='flex flex-col'>
@@ -43,7 +47,7 @@ const BlogPost = ({ post: postData }) => {
                 {new Date(_createdAt).toLocaleDateString()}
               </span>
             </div>
-            <Share url={`/blog/${slug}`}></Share>
+            <Share url={url} title={title}></Share>
           </div>
         </div>
         <div className='post-content mx-auto max-w-[870px] py-8'>
