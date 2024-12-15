@@ -179,7 +179,9 @@ export function Header({ theme, data }) {
             })}
             <div className='group cursor-pointer rounded-xl border-gray-200 bg-white hover:divide-y '>
               <div className='flex items-center gap-4 px-4 py-2'>
-                {extendedLanguages.find((lang) => lang.id === language).flag}
+                {extendedLanguages
+                  .find((lang) => lang.id === language)
+                  .id.toUpperCase()}
 
                 <ChevronIcon
                   className={clsx(
@@ -192,17 +194,13 @@ export function Header({ theme, data }) {
                   .filter((l) => l.language !== language)
                   .map((l) => (
                     <div
-                      className={clsx(
-                        l.language === language ? 'font-bold' : '',
-                        'bg-white px-4 py-2'
-                      )}
+                      className={clsx('bg-white px-4 py-2')}
                       key={l?.language}
                       onClick={() => handleLanguageChange(l)}
                     >
-                      {
-                        extendedLanguages.find((lang) => lang.id === l.language)
-                          .flag
-                      }
+                      {extendedLanguages
+                        .find((lang) => lang.id === l.language)
+                        .id.toUpperCase()}
                     </div>
                   ))}
               </div>
