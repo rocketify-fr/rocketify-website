@@ -34,6 +34,7 @@ const tagManagerArgs = {
 
 export const links: LinksFunction = () => {
   return [
+    { rel: 'preload', href: styles, as: 'style' },
     { rel: 'stylesheet', href: styles },
     { rel: 'preconnect', href: 'https://cdn.sanity.io' },
   ]

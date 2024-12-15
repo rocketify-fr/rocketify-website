@@ -28,16 +28,47 @@ const HeroSection = ({ title, description, image, cta }) => {
         </Button>
       </div>
       <img
-          className="aspect-[4/3] rounded-3xl sm:aspect-[21/9] lg:aspect-[4/3] lg:w-2/5"
-          src={urlFor(image._id)
-            .height(432)
-            .width(576)
+        className="aspect-[4/3] rounded-3xl sm:aspect-[21/9] lg:aspect-[4/3] lg:w-2/5"
+        alt={image?.alt ?? ``}
+        fetchpriority="high"
+        src={urlFor(image._id)
+          .width(576)
+          .height(432)
+          .fit('max')
+          .quality(90)
+          .auto('format')
+          .url()}
+        // srcSet avec les 3 tailles
+        srcSet={`
+          ${urlFor(image._id)
+            .width(608)
+            .height(456)
             .fit('max')
-            .quality(100)
+            .quality(90)
             .auto('format')
-            .url()}
-          alt={image?.alt ?? ``}
-        />
+            .url()} 608w,
+          ${urlFor(image._id)
+            .width(736)
+            .height(552)
+            .fit('max')
+            .quality(90)
+            .auto('format')
+            .url()} 736w,
+          ${urlFor(image._id)
+            .width(576)
+            .height(432)
+            .fit('max')
+            .quality(90)
+            .auto('format')
+            .url()} 576w
+        `}
+        sizes="
+          (max-width: 639px) 608px,
+          (max-width: 1023px) 736px,
+          (min-width: 1024px) 576px
+        "
+      />
+
     </Container>
   )
 }
