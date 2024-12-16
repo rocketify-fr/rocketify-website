@@ -59,15 +59,6 @@ export const Share = ({ url, title }) => {
       <ShareLink url={url} title={title}></ShareLink>
       <ShareLinkedin url={url} title={title}></ShareLinkedin>
       <ShareX url={url} title={title}></ShareX>
-      {['facebook'].map((name) => (
-        <div
-          key={name}
-          title={name}
-          className='flex size-[32px] cursor-pointer items-center justify-center rounded-full bg-gray-100 font-bai text-3xl font-bold'
-        >
-          <img src={`/img/share-${name}.svg`} alt='' />
-        </div>
-      ))}
     </div>
   )
 }
