@@ -1,4 +1,5 @@
 import {
+  AppWindow,
   Contact,
   FileBarChart,
   FileCheck,
@@ -18,17 +19,126 @@ import type {
 import OGPreview from '~/sanity/components/OGPreview'
 import { resolveOGUrl } from '~/sanity/structure/resolveOGUrl'
 
+export const languages = [
+  { id: 'fr', title: 'Français', flag: '🇫🇷' },
+  { id: 'en', title: 'English', flag: '🇬🇧' },
+].map((language) => ({
+  ...language,
+  camelId: language.id[0].toUpperCase() + language.id.slice(1),
+}))
+
+const getLocalizedTitle = (title: string, lang: (typeof languages)[0]) => {
+  return `${lang.flag} ${title} ${lang.title}`
+}
+
 export const structure: StructureResolver = (S) =>
   S.list()
     .id('root')
     .title('Content')
     .items([
       // Document lists
-      S.documentTypeListItem('page').title('Pages').icon(FileCheck),
-      S.documentTypeListItem('service').title('Services').icon(FileBarChart),
+      S.listItem()
+        .title('Pages')
+        .icon(FileCheck)
+        .child(
+          S.list()
+            .title('Pages par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Pages', language))
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Pages', language))
+                      .filter('_type == "page" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
+      S.listItem()
+        .title('Services')
+        .icon(FileBarChart)
+        .child(
+          S.list()
+            .title('Services par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Services', language))
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Services', language))
+                      .filter('_type == "service" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
       S.divider(),
-      S.documentTypeListItem('post').title('Posts').icon(Newspaper),
-      S.documentTypeListItem('useCase').title('Use cases').icon(NotebookText),
+      S.listItem()
+        .title('Posts')
+        .icon(Newspaper)
+        .child(
+          S.list()
+            .title('Posts par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Posts', language))
+
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Posts', language))
+                      .filter('_type == "post" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
+      S.listItem()
+        .title('Use cases')
+        .icon(NotebookText)
+        .child(
+          S.list()
+            .title('Use cases par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Use cases', language))
+                  .icon(NotebookText)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('Use cases', language))
+                      .filter('_type == "useCase" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
+      S.listItem()
+        .title('Apps')
+        .icon(AppWindow)
+        .child(
+          S.list()
+            .title('Apps par langue')
+            .items(
+              languages.map((language) =>
+                S.listItem()
+                  .title(getLocalizedTitle('Apps', language))
+                  .icon(AppWindow)
+                  .child(
+                    S.documentList()
+                      .title(getLocalizedTitle('App', language))
+                      .filter('_type == "app" && language == $language')
+                      .params({ language: language.id })
+                  )
+              )
+            )
+        ),
       S.divider(),
       S.documentTypeListItem('heroSection').title('Hero').icon(PanelTopDashed),
       S.documentTypeListItem('testimonial').title('Testimonial').icon(Contact),
@@ -41,24 +151,45 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.list()
             .title('Site Settings')
+            .items(
+              languages.flatMap((lang) => [
+                S.listItem()
+                  .title(getLocalizedTitle('Header Settings', lang))
+                  .icon(PanelTop)
+                  .child(
+                    S.editor()
+                      .id(`header${lang.camelId}`)
+                      .schemaType(`header${lang.camelId}`)
+                      .documentId(`header${lang.camelId}`)
+                  ),
+                S.listItem()
+                  .title(getLocalizedTitle('Footer Settings', lang))
+                  .icon(PanelBottom)
+                  .child(
+                    S.editor()
+                      .id(`footer${lang.camelId}`)
+                      .schemaType(`footer${lang.camelId}`)
+                      .documentId(`footer${lang.camelId}`)
+                  ),
+              ])
+            )
+        ),
+      S.divider(),
+      S.listItem()
+        .title('Translations')
+        .id('translations')
+        .icon(SettingsIcon)
+        .child(
+          S.list()
+            .title('Translations')
             .items([
               S.listItem()
-                .title('Header Settings')
-                .icon(PanelTop)
+                .title('Translations')
                 .child(
                   S.editor()
-                    .id('header')
-                    .schemaType('header')
-                    .documentId('header')
-                ),
-              S.listItem()
-                .title('Footer Settings')
-                .icon(PanelBottom)
-                .child(
-                  S.editor()
-                    .id('footer')
-                    .schemaType('footer')
-                    .documentId('footer')
+                    .id(`translations`)
+                    .schemaType(`translations`)
+                    .documentId(`translations`)
                 ),
             ])
         ),

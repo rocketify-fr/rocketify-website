@@ -8,6 +8,8 @@ import {
 import { StickyNote } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
+import { isUniqueOtherThanLanguage } from '~/utils/slug'
+
 export const serviceType = defineType({
   name: 'service',
   title: 'Services',
@@ -116,6 +118,12 @@ export const serviceType = defineType({
   ],
   fields: [
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'title',
       type: 'string',
       group: 'details',
@@ -132,6 +140,7 @@ export const serviceType = defineType({
       type: 'slug',
       options: {
         source: 'title',
+        isUnique: isUniqueOtherThanLanguage,
       },
       group: 'details',
       fieldset: 'details',

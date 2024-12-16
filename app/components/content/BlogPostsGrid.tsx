@@ -3,6 +3,7 @@ import { useQuery } from '@sanity/react-loader'
 import queryString from 'query-string'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { getLocalizedPath } from '~/utils/language'
 import { updateQuery } from '~/utils/location'
 
 import PostCard from '../blog/BlogCard'
@@ -15,6 +16,7 @@ const BlogPostsGrid = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { initial, params, pageData, query, tagsData } = useLoaderData()
+
   const { data: posts } = useQuery(query, params, {
     initial,
   })
@@ -41,22 +43,25 @@ const BlogPostsGrid = () => {
     (e) => {
       const sortBy = e.target.value
 
-      navigate(`/blog?${updateQuery(location, { sortBy })}`, {
-        preventScrollReset: true,
-      })
+      navigate(
+        `${getLocalizedPath(pageData.language, '/blog')}?${updateQuery(location, { sortBy })}`,
+        {
+          preventScrollReset: true,
+        }
+      )
     },
-    [location.search]
+    [location, navigate, pageData.language]
   )
 
   useEffect(() => {
     const query = queryString.parse(location.search)
     if (query.tag) {
-      const active = tags.findIndex((tag) => tag.title === query.tag)
+      const active = tagsData.findIndex((tag) => tag.title === query.tag)
       if (active !== -1) {
         toggleActive(active, true)
       }
     } else {
-      setTags(tags.map((tag) => ({ ...tag, active: false })))
+      setTags(tagsData.map((tag) => ({ ...tag, active: false })))
     }
   }, [location.search])
 
@@ -64,6 +69,11 @@ const BlogPostsGrid = () => {
     const { sortBy, sortOrder, page } = queryString.parse(location.search)
     return { sortBy, sortOrder, page: +page }
   }, [location.search])
+
+  const basePath = useMemo(
+    () => getLocalizedPath(pageData.language, '/blog'),
+    [pageData.language]
+  )
   return (
     <Container>
       <div className='flex items-center justify-between py-8'>
@@ -102,7 +112,7 @@ const BlogPostsGrid = () => {
             disabled={filters.page === 1 || !filters.page}
           >
             <Link
-              to={`/blog?${updateQuery(location, { page: filters.page - 1 })}`}
+              to={`$${basePath}?${updateQuery(location, { page: filters.page - 1 })}`}
             >
               Précédent
             </Link>

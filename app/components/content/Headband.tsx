@@ -1,11 +1,10 @@
-import { Link as RemixLink } from '@remix-run/react';
-import clsx from 'clsx';
+import clsx from 'clsx'
+import { Fragment } from 'react/jsx-runtime'
 
-import { getColor } from '~/utils/colors';
+import { getColor } from '~/utils/colors'
 
-import RocketIcon from '../icons/Rocket';
-import { Link } from '../Link';
-import { Fragment } from 'react/jsx-runtime';
+import RocketIcon from '../icons/Rocket'
+import { Link, SimpleLink } from '../Link'
 
 const Rockets = () => {
   return (
@@ -14,8 +13,8 @@ const Rockets = () => {
         <RocketIcon key={i} width={52} height={21} />
       ))}
     </div>
-  );
-};
+  )
+}
 
 const Headband = ({
   link = null,
@@ -24,10 +23,10 @@ const Headband = ({
   title = null,
   to = null,
 }) => {
-  const color = getColor(colorName);
+  const color = getColor(colorName)
   const classNames = clsx(
     'headband flex size-full items-center justify-evenly gap-8 text-nowrap pl-16 text-2xl'
-  );
+  )
 
   return (
     <div
@@ -38,26 +37,30 @@ const Headband = ({
       )}
     >
       {title && to ? (
-        <RemixLink to={to} title={title} className={classNames}>
+        <SimpleLink to={to} title={title} className={classNames}>
           {new Array(50).fill(0).map((_, i) => (
-            <Fragment key={i} >
+            <Fragment key={i}>
               <Rockets />
-              <div key={`${title}-${i}`} className='flex items-center text-2xl'>{title}</div>
+              <div key={`${title}-${i}`} className='flex items-center text-2xl'>
+                {title}
+              </div>
             </Fragment>
           ))}
-        </RemixLink>
+        </SimpleLink>
       ) : (
         <Link link={link} className={classNames}>
           {new Array(50).fill(0).map((_, i) => (
             <Fragment key={i}>
               <Rockets />
-              <div key={`${title}-${i}`} className='flex items-center text-2xl'>{title}</div>
+              <div key={`${title}-${i}`} className='flex items-center text-2xl'>
+                {title}
+              </div>
             </Fragment>
           ))}
         </Link>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Headband;
+export default Headband

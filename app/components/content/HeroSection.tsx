@@ -1,16 +1,16 @@
 import { PortableText } from '@portabletext/react'
 import urlBuilder from '@sanity/image-url'
 
-import {dataset, projectId} from '~/sanity/projectDetails'
+import { dataset, projectId } from '~/sanity/projectDetails'
 
 import Container from '../Container'
 import Button from '../layout/Button'
 import { Link } from '../Link'
 
-const builder = urlBuilder({projectId, dataset})
+const builder = urlBuilder({ projectId, dataset })
 
 export function urlFor(source) {
-  return builder.image(source);
+  return builder.image(source)
 }
 
 const HeroSection = ({ title, description, image, cta }) => {
@@ -24,7 +24,7 @@ const HeroSection = ({ title, description, image, cta }) => {
           <PortableText value={description}></PortableText>
         </div>
         <Button className='bg-rGreen'>
-          <Link link={cta.link}>Prendre rendez-vous</Link>
+          <Link link={cta.link}>{cta.label}</Link>
         </Button>
       </div>
       <img

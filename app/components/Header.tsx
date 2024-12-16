@@ -1,12 +1,21 @@
-import { Link as RemixLink, useLocation } from '@remix-run/react'
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useRevalidator,
+  useRouteLoaderData,
+} from '@remix-run/react'
 import clsx from 'clsx'
 import { Fragment, useEffect, useState } from 'react'
 
+import { extendedLanguages, getLocalizedPath } from '~/utils/language'
+
 import Container from './Container'
+import { useTranslations } from './contexts/translations'
 import BulletIcon from './icons/Bullet'
 import ChevronIcon from './icons/Chevron'
 import HamburgerIcon from './icons/Hamburger'
-import { Link } from './Link'
+import { Link, SimpleLink } from './Link'
 
 const BasicLink = ({ menu, sub, active }) => {
   const title = menu.title || menu.internal.title
@@ -14,13 +23,16 @@ const BasicLink = ({ menu, sub, active }) => {
     <Link
       link={menu}
       key={menu.internal.slug}
-      className={clsx('relative flex items-center justify-end  text-black')}
+      className={clsx(
+        active && 'sm:font-semibold',
+        'relative flex items-center justify-end  text-nowrap text-black'
+      )}
     >
       <span
+        data-active={active}
         data-content={title}
         className={clsx(
-          'menu-link border py-2',
-          active && 'sm:font-bold',
+          'menu-link text-nowrap border py-2',
           sub ? 'sm:w-60' : '',
           menu._type === 'ctaButton'
             ? 'rounded-3xl border-black bg-rGreen px-3 hover:bg-rGreenHover '
@@ -37,46 +49,42 @@ const NavLink = ({ menu, sub }) => {
   const location = useLocation()
   const [active, setActive] = useState(false)
   const [open, setOpen] = useState(false)
+  const { language } = useRouteLoaderData('root')
 
   useEffect(() => {
     if (menu._type === 'nav') {
       setActive(location.pathname.includes(menu.menu[0].internal.type))
     } else if (
-      location.pathname === '/' &&
-      menu._type === 'customLink' &&
-      !menu.internal?.slug
+      location.pathname === getLocalizedPath(language, menu.internal?.slug)
+    ) {
+      setActive(true)
+    } else if (
+      menu.internal.slug === 'blog' &&
+      location.pathname.includes('/blog')
     ) {
       setActive(true)
     } else {
-      setActive(location.pathname.includes(menu.internal?.slug))
+      const lastSegment = location.pathname.split('/').reverse()[0]
+      setActive(lastSegment === menu.internal.slug)
     }
-  }, [location.pathname, menu])
+  }, [language, location.pathname, menu])
 
   useEffect(() => {
     setOpen(false)
   }, [location])
 
   return (
-    <div className='flex items-center gap-1'>
-      {menu._type !== 'ctaButton' && (
-        <BulletIcon
-          className={clsx(
-            'hidden opacity-0 sm:block',
-            active && 'opacity-100',
-            sub && 'hidden sm:hidden'
-          )}
-        />
-      )}
+    <div className='flex items-center gap-1' data-active={active}>
       {menu._type === 'nav' ? (
         <div className='menu-link group relative w-full '>
           <span
             onClick={() => setOpen(!open)}
             className={clsx(
-              'flex cursor-pointer items-center justify-between gap-2 py-2',
-              active && 'sm:font-bold'
+              'flex cursor-pointer items-center justify-between gap-2 text-nowrap py-2',
+              active && 'sm:font-semibold'
             )}
           >
-            <span>{menu.title}</span>
+            <span className='text-nowrap'>{menu.title}</span>
             <ChevronIcon
               className={clsx(
                 'transition-all sm:rotate-180 group-hover:sm:rotate-0',
@@ -114,29 +122,100 @@ const NavLink = ({ menu, sub }) => {
 
 export function Header({ theme, data }) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
-
-  const { logo } = data
+  const { languages, language } = useTranslations()
+  const navigate = useNavigate()
+  const revalidator = useRevalidator()
 
   useEffect(() => {
     setMenuOpen(false)
-  }, [location])
+  }, [])
 
+  const handleLanguageChange = (language) => {
+    const currentPath = window.location.pathname
+    let prefix = ''
+    if (currentPath.includes('/blog') && !currentPath.endsWith('/blog')) {
+      prefix = 'blog/'
+    } else if (
+      currentPath.includes('/services') &&
+      !currentPath.endsWith('/services')
+    ) {
+      prefix = 'services/'
+    } else if (
+      currentPath.includes('/apps') &&
+      !currentPath.endsWith('/apps')
+    ) {
+      prefix = 'apps/'
+    } else if (
+      currentPath.includes('/realisations') &&
+      !currentPath.endsWith('/realisations')
+    ) {
+      prefix = 'realisations/'
+    }
+
+    const path = getLocalizedPath(
+      language.language,
+      `${prefix}${language.slug}`
+    )
+
+    setMenuOpen(false)
+    navigate(path)
+    revalidator.revalidate()
+  }
+
+  if (!data) {
+    return null
+  }
+
+  const { logo } = data
   return (
     <>
       <header className='max-w-[100dvw] border-b border-black transition-all duration-1000 ease-in-out dark:border-gray-900'>
         <Container className='m-auto flex h-[80px] items-center justify-between'>
-          <RemixLink to='/' className={clsx('min-h-[42px] min-w-[167px]')}>
+          <SimpleLink to='/' className={clsx('min-h-[42px] min-w-[167px]')}>
             <img src={logo.url} alt={logo.alt} height={42} width={167} />
-          </RemixLink>
+          </SimpleLink>
           <HamburgerIcon
             className='cursor-pointer sm:hidden'
             onClick={() => setMenuOpen(!menuOpen)}
           />
-          <div className='hidden items-center gap-4 sm:flex'>
+          <div className='hidden items-center gap-8 sm:flex'>
             {data.menu.map((entry, i) => {
               return <NavLink key={i} menu={entry} />
             })}
+            <div className='group cursor-pointer rounded-xl border-gray-200 bg-white hover:divide-y '>
+              <div className='flex items-center gap-4 px-4 py-2'>
+                {languages.length > 1 && (
+                  <>
+                    <span>
+                      {extendedLanguages
+                        .find((lang) => lang.id === language)
+                        .id.toUpperCase()}
+                    </span>
+
+                    <ChevronIcon
+                      className={clsx(
+                        'rotate-180 transition-all group-hover:rotate-0'
+                      )}
+                    ></ChevronIcon>
+                  </>
+                )}
+              </div>
+              <div className='group-over:h-fit group absolute h-0 divide-y overflow-y-hidden bg-white transition-all group-hover:overflow-y-visible'>
+                {(languages || [])
+                  .filter((l) => l.language !== language)
+                  .map((l) => (
+                    <div
+                      className={clsx('bg-white px-4 py-2')}
+                      key={l?.language}
+                      onClick={() => handleLanguageChange(l)}
+                    >
+                      {extendedLanguages
+                        .find((lang) => lang.id === l.language)
+                        .id.toUpperCase()}
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </Container>
       </header>

@@ -4,7 +4,14 @@ const logo = '"logo": logo{"url": asset->url, alt}'
 
 const image = '"image": image{"url": asset->url, "_id": asset->_id, alt}'
 
-const getImage = (name) => `"${name}": ${name}{"url": asset->url, alt}`
+const localized = `[_key == $language][0].value`
+
+const translations = `"translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    "slug": slug.current,
+    language
+  }`
+
+// const getImage = (name) => `"${name}": ${name}{"url": asset->url, alt}`
 
 const link = `
   "external": {
@@ -146,6 +153,25 @@ const headbang = `
   ...${ctaButton} { link, colorName }
 `
 
+const app = `
+  title,
+  description,
+  "slug": slug.current,
+  ${image},
+  language,
+  ${translations},
+  seo {
+    title,
+    description
+  },
+  _createdAt,
+  _updatedAt
+`
+
+const appsGrid = `
+  perPage
+`
+
 const pageAndServiceContent = `
   _type,
   _type == "reference" => {
@@ -163,8 +189,10 @@ const pageAndServiceContent = `
   _type == "headingTagline" => {${headingTagline}},
   _type == "textAndImage" => {${textAndImage}},
   _type == "faq" => {${faq}},
+  _type == "appsGrid" => {${appsGrid}},
   _type == "rawContent" => {...},
 `
+
 const menu = `
   menu[] {
     _type,
@@ -185,14 +213,14 @@ const menu = `
   }
 `
 // Rocketify Queries \\
-export const HEADER_QUERY = `*[_type == "header" ]{
+export const HEADER_QUERY = `*[_type == $header ]{
   ...menuHeader-> {
     ${menu}
   },
   ${logo},
 }[0]`
 
-export const FOOTER_QUERY = `*[_type == "footer" ]{
+export const FOOTER_QUERY = `*[_type == $footer ]{
   ${logo},
   description,
   menuTitle,
@@ -214,14 +242,19 @@ export const FOOTER_QUERY = `*[_type == "footer" ]{
 export const LAYOUT_QUERY = groq`{
   "header": ${HEADER_QUERY},
   "footer": ${FOOTER_QUERY},
+  "translations": *[_id == "translations"] { 
+    namespaces[] 
+  }[0]
 }`
 
 export const HOMEPAGE_QUERY = groq`
-*[_type == "page" && title == 'Accueil'][0] {
+*[_type == "page" && slug.current == '/' && language == $language][0] {
 ...,
   _id,
   _type,
   title,
+  language,
+  ${translations},
   publishStatus,
   _createdAt,
   _updatedAt,
@@ -243,17 +276,19 @@ export const POST_TAGS_QUERY = groq`
 }
 `
 
-export const SERVICE_NAMES_QUERY = groq`*[_type == "service"] {
+export const SERVICE_NAMES_QUERY = groq`*[_type == "service" && language == $language] {
   title,
   description,
 }`
 
-export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug][0]{
+export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug && language == $language][0]{
   _id,
   _type,
   _createdAt,
   _updatedAt,
   title,
+  language,
+  ${translations},
   publishStatus,
   description,
   ${image},
@@ -263,12 +298,14 @@ export const SERVICE_QUERY = groq`*[_type == "service" && slug.current == $slug]
   }
 }`
 
-export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
+export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug && language == $language][0]{
   _id,
   _type,
   _createdAt,
   _updatedAt,
   title,
+  language,
+  ${translations},
   publishStatus,
   "slug": slug.current,
   ${seo},
@@ -277,10 +314,12 @@ export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
   }
 }`
 
-export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
+export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug && language == $language][0]{
   _id,
   _type,
   title,
+  language,
+  ${translations},
   publishStatus,
   _createdAt,
   _updatedAt,
@@ -299,6 +338,7 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
     _type,
     title,
     description,
+    language,
     _updatedAt,
     _createdAt,
     "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 ),
@@ -325,6 +365,8 @@ export const POST_CARD = `
   _id,
   _type,
   title,
+  language,
+  ${translations},
   description,
   _updatedAt,
   _createdAt,
@@ -349,16 +391,18 @@ export const POSTS_QUERY_TAG = groq`*
   | order($order) [$from...$to] 
 `
 export const POSTS_QUERY = groq`*
-  [_type == "post"]
+  [_type == "post" && language == $language]
   ${POST_CARD}
   | order($order) [$from...$to] 
 `
 
-export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug][0]{
+export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug && language == $language][0]{
 ...,
   _id,
   _type,
   title,
+  language,
+  ${translations},
   publishStatus,
   url,
   description,
@@ -424,10 +468,12 @@ export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug
   },
 }`
 
-export const USE_CASES_QUERY = groq`*[_type == "useCase"][0...12]|order(title asc){
+export const USE_CASES_QUERY = groq`*[_type == "useCase" && language == $language][0...12]|order(title asc){
   _id,
   _type,
   title,
+  language,
+  ${translations},
   description,
   _updatedAt,
   _createdAt,
@@ -442,3 +488,14 @@ export const USE_CASES_QUERY = groq`*[_type == "useCase"][0...12]|order(title as
     description
   }
 } | order(_updatedAt desc)`
+
+export const APPS_QUERY = groq`*[_type == "app" && language == $language][$from...$to]{
+  ${app},
+} | order($sort desc)`
+
+export const APP_QUERY = groq`*[_type == "app" && language == $language && slug.current == $slug][0]{
+  ${app},
+  content[] {
+    ${pageAndServiceContent}
+  }
+}`

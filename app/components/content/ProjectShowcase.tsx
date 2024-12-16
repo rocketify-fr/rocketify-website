@@ -1,13 +1,15 @@
-import { Link } from '@remix-run/react'
 import clsx from 'clsx'
-
-import Container from '../Container'
-import Button from '../layout/Button'
-import { Tags } from '../post/Tags'
-import Separator from '../Separator'
 import { Fragment } from 'react/jsx-runtime'
 
+import Container from '../Container'
+import { useTranslations } from '../contexts/translations'
+import Button from '../layout/Button'
+import { SimpleLink } from '../Link'
+import { Tags } from '../post/Tags'
+import Separator from '../Separator'
+
 const ProjectShowcase = ({ title, description, projects }) => {
+  const { t } = useTranslations()
   return (
     <Container className='py-16'>
       <h2 className='pb-2 text-2xl sm:text-[38px] sm:text-[56px] sm:leading-[68px] lg:w-1/2 lg:pr-8'>
@@ -33,7 +35,9 @@ const ProjectShowcase = ({ title, description, projects }) => {
                   <p className='text-paragraph'>{description}</p>
                   <Tags tags={tags}></Tags>
                   <Button className='bg-rPurple'>
-                    <Link to={`/realisations/${slug}`}>Voir le projet</Link>
+                    <SimpleLink to={`/realisations/${slug}`}>
+                      {t('project.view')}
+                    </SimpleLink>
                   </Button>
                 </div>
                 <img

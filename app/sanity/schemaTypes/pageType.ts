@@ -8,6 +8,8 @@ import {
 import { StickyNote } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
+import { isUniqueOtherThanLanguage } from '~/utils/slug'
+
 export const pageType = defineType({
   name: 'page',
   title: 'Page',
@@ -116,6 +118,12 @@ export const pageType = defineType({
   ],
   fields: [
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'title',
       type: 'string',
     }),
@@ -128,6 +136,7 @@ export const pageType = defineType({
       type: 'slug',
       options: {
         source: 'title',
+        isUnique: isUniqueOtherThanLanguage,
       },
     }),
     defineField({
@@ -143,6 +152,7 @@ export const pageType = defineType({
         { type: 'methodology' },
         { type: 'headingTagline' },
         { type: 'blogPostsGrid' },
+        { type: 'appsGrid' },
         { type: 'useCaseGrid' },
         { type: 'rawContent' },
       ],

@@ -1167,7 +1167,6 @@ export type Code = {
 }
 export declare const internalGroqTypeReferenceTo: unique symbol
 
-
 // Source: ./app/sanity/queries.ts
 // Variable: RECORDS_QUERY
 // Query: *[_type == "record"][0...12]|order(title asc){    _id,    _type,    title,    releaseDate,    "slug": slug.current,    "artist": artist->name,    image  } | order(releaseDate desc)
@@ -2142,5 +2141,3 @@ export type USE_CASES_QUERYResult = Array<{
     slug: null
   }> | null
 }>
-
-

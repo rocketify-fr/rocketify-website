@@ -2,60 +2,49 @@ import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
-import queryString from 'query-string'
-import BlogPosts from '~/components/blog/BlogPosts'
 
 import { Loading } from '~/components/Loading'
+import PageComponent from '~/components/Page'
 import { loadQuery } from '~/sanity/loader.server'
 import { loadQueryOptions } from '~/sanity/loadQueryOptions.server'
-import { PAGE_QUERY, POST_TAGS_QUERY, POSTS_QUERY, POSTS_QUERY_TAG } from '~/sanity/queries'
+import { HOMEPAGE_QUERY, PAGE_QUERY } from '~/sanity/queries'
+import type { RecordStub } from '~/types/record'
+import { getLanguage, languages } from '~/utils/language'
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const language = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
 
-  const [{ data: pageData }, {data: tagsData}] = await Promise.all([
-    loadQuery(PAGE_QUERY, { slug: 'blog' }, options),
-    loadQuery(POST_TAGS_QUERY)
-  ])
+  let query = HOMEPAGE_QUERY
+  const queryParams = { language }
 
-  const gridConfig = pageData.content.find(item => item._type === "blogPostsGrid")
-
-  const postsPerPage = gridConfig?.perPage || 10
-
-  const { tag, page, sortBy } = queryString.parse(new URL(request.url).search)
-
-  const order = sortBy || 'new'
-
-  const query = tag?.length > 0 ? POSTS_QUERY_TAG : POSTS_QUERY
-
-  const queryParams = {
-    from: postsPerPage * ((+page || 1) - 1),
-    to: postsPerPage * (+page || 1),
-    order,
-    tag
+  if (!languages.includes(params.lang) && Object.keys(params).length) {
+    query = PAGE_QUERY
+    queryParams.slug = params.lang
   }
-
-
-  const initial = await loadQuery(query, queryParams, options).then((res) => ({
-    ...res,
-    data: res.data ? res.data : null,
-  }))
+  const initial = await loadQuery<RecordStub[]>(query, queryParams, options)
 
   if (!initial.data) {
     throw new Response('Not found', { status: 404 })
   }
 
   return json({
-    pageData,
-    tagsData,
     initial,
     query,
     params: queryParams,
   })
 }
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [
+    { title: data.initial.data.seo.title },
+    { name: 'description', content: data.initial.data.seo.description },
+  ]
+}
+
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
+
   const { data, loading, encodeDataAttribute } = useQuery<typeof initial.data>(
     query,
     params,
@@ -72,7 +61,7 @@ export default function Index() {
     return <div>Not found</div>
   }
 
-  return (
-    <BlogPosts />
-  )
+  const pageData = data || initial.data
+
+  return <PageComponent {...pageData} />
 }

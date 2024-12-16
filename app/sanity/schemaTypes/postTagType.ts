@@ -1,5 +1,7 @@
-import {Tags} from 'lucide-react'
-import {defineField, defineType} from 'sanity'
+import { Tags } from 'lucide-react'
+import { defineField, defineType } from 'sanity'
+
+import { isUniqueOtherThanLanguage } from '~/utils/slug'
 
 export const postTagType = defineType({
   name: 'postTag',
@@ -16,6 +18,7 @@ export const postTagType = defineType({
       type: 'slug',
       options: {
         source: 'title',
+        isUnique: isUniqueOtherThanLanguage,
       },
     }),
   ],

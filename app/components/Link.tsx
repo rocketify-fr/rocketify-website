@@ -1,12 +1,35 @@
-import { Link as RemixLink } from '@remix-run/react'
+import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
 import clsx from 'clsx'
+import { useEffect, useState } from 'react'
 
-export function Link({
-  children,
+import { getLocalizedPath } from '~/utils/language'
+
+export function SimpleLink({
   className = null,
-  link: { linkType, label, ...linkData },
+  label = null,
+  to,
+  children = null,
 }) {
+  const { language } = useRouteLoaderData('root')
+
+  const path = getLocalizedPath(language, to)
+
+  return (
+    <RemixLink prefetch='intent' className={clsx(className)} to={path}>
+      {children || label}
+    </RemixLink>
+  )
+}
+export function Link({ children, className = null, link: _link }) {
+  const { linkType, label, ...linkData } = _link
   const link = linkData[linkType]
+
+  const { language } = useRouteLoaderData('root')
+
+  if (!link) {
+    console.log({ _link })
+    return label
+  }
 
   if (linkType === 'external') {
     return (
@@ -22,20 +45,24 @@ export function Link({
   }
 
   const { type } = link
-  let prefix = '/'
+
+  let prefix = ''
 
   if (type === 'post') {
-    prefix = '/blog/'
-  }
-  if (type === 'service') {
-    prefix = '/services/'
+    prefix += 'blog/'
+  } else if (type === 'app') {
+    prefix += 'apps/'
+  } else if (type === 'service') {
+    prefix += 'services/'
+  } else if (type !== 'page') {
+    console.log({ type })
   }
 
-  const path = `${prefix}${link.slug || ''}`
+  const path = getLocalizedPath(language, `${prefix}${link.slug || ''}`)
 
   return (
-    <RemixLink className={clsx(className)} to={path}>
-      {label || children}
+    <RemixLink prefetch='intent' className={clsx(className)} to={path}>
+      {children || label}
     </RemixLink>
   )
 }

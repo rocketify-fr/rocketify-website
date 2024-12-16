@@ -10,6 +10,8 @@ import {
 import { Newspaper } from 'lucide-react'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { isUniqueOtherThanLanguage } from '~/utils/slug'
+
 export const postType = defineType({
   name: 'post',
   title: 'Post',
@@ -94,6 +96,13 @@ export const postType = defineType({
   ],
   fields: [
     defineField({
+      // should match 'languageField' plugin configuration setting, if customized
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'title',
       type: 'string',
       group: 'details',
@@ -111,6 +120,7 @@ export const postType = defineType({
       group: 'details',
       options: {
         source: 'title',
+        isUnique: isUniqueOtherThanLanguage,
       },
       fieldset: 'details',
     }),

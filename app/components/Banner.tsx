@@ -4,6 +4,7 @@ const Rockets = () => (
   <div className={'flex space-x-4'}>
     {new Array(3).fill(0).map((_, i) => (
       <img
+        key={i}
         src='/img/rocket.svg'
         alt='Rocketify rocket'
         height={21}
@@ -21,7 +22,7 @@ export default function Banner({
     <div
       className={clsx(
         'bg-rPurple',
-        'align-center flex h-[80px] w-full justify-evenly space-x-8 overflow-x-scroll border-y border-black '
+        'flex h-[80px] w-full items-center justify-evenly space-x-8 overflow-x-scroll border-y border-black '
       )}
     >
       <Rockets></Rockets>

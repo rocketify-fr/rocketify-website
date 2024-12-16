@@ -1,5 +1,11 @@
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import 'react-toastify/dist/ReactToastify.css'
+
+import type {
+  LinksFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import {
   Links,
   Meta,
@@ -8,23 +14,28 @@ import {
   ScrollRestoration,
   useLoaderData,
   useLocation,
+  useMatches,
 } from '@remix-run/react'
 import { loadQuery, useQuery } from '@sanity/react-loader'
+import { VisualEditing } from '@sanity/visual-editing/remix'
+import { useEffect } from 'react'
+import TagManager from 'react-gtm-module'
+import { ToastContainer } from 'react-toastify'
 
 import { themePreferenceCookie } from '~/cookies'
 import { getBodyClassNames } from '~/lib/getBodyClassNames'
 import styles from '~/tailwind.css?url'
 import { themePreference } from '~/types/themePreference'
+
+import { Page } from './components/Container'
+import { TranslationsProvider } from './components/contexts/translations'
+import { ExitPreview } from './components/ExitPreview'
+import { Footer } from './components/Footer'
+import { Header } from './components/Header'
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
 import { loadQueryOptions } from './sanity/loadQueryOptions.server'
 import { LAYOUT_QUERY } from './sanity/queries'
-import { Header } from './components/Header'
-import { Page } from './components/Container'
-import { Footer } from './components/Footer'
-import { VisualEditing } from '@sanity/visual-editing/remix'
-import { ExitPreview } from './components/ExitPreview'
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
-import TagManager from 'react-gtm-module'
-import { useEffect } from 'react'
+import { extendedLanguages, getLanguage, languages } from './utils/language'
 
 const GTM_ID = 'GTM-T2JXGG9Q'
 
@@ -40,53 +51,40 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const meta: MetaFunction<
-  typeof loader> = ({ data, matches }) => {
-    const layoutData = matches.find(
-      (match) => match.id === `root`,
-    )?.data
+export const loader = async ({
+  request,
+  params: requestParams,
+}: LoaderFunctionArgs) => {
+  const url = new URL(request.url)
 
-    // console.log(JSON.stringify(data.initial, null, 2))
-    const home = layoutData ? layoutData.initial.data : null
-
-    const title = [data?.initial?.data?.title, home?.siteTitle]
-      .filter(Boolean)
-      .join(' | ')
-
-    const ogImageUrl = data ? data.ogImageUrl : null
-
-
-
-    const value = [
-      { title },
-      { name: 'viewport', content: "width=device-width, initial-scale=1.0" },
-      { property: 'twitter:card', content: 'summary_large_image' },
-      { property: 'twitter:title', content: title },
-      { property: 'og:title', content: title },
-      { property: 'og:image:width', content: String(OG_IMAGE_WIDTH) },
-      { property: 'og:image:height', content: String(OG_IMAGE_HEIGHT) },
-      { property: 'og:image', content: ogImageUrl },
-    ]
-
-    return value
-  }
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  // Dark/light mode
   const { preview, options } = await loadQueryOptions(request.headers)
   const cookieHeader = request.headers.get('Cookie')
   const cookieValue = (await themePreferenceCookie.parse(cookieHeader)) || {}
   const theme = themePreference.parse(cookieValue.themePreference) || 'light'
   const bodyClassNames = getBodyClassNames(theme)
 
+  const language = getLanguage(requestParams)
+
+  console.log(requestParams)
+
+  const langSuffix = extendedLanguages.find((l) => l.id === language)?.camelId
+
+  const header = `header${langSuffix}`
+  const footer = `footer${langSuffix}`
   const query = LAYOUT_QUERY
-  const params = {}
+  const params = { language, header, footer }
   const initial = await loadQuery(query, params, options)
 
+  const { translations } = initial?.data
+  initial.data.translations = undefined
 
-  return json({
+  const result = {
+    url: url.toString(),
+    translations,
     initial,
     query,
     params,
+    language,
     sanity: { preview },
     theme,
     bodyClassNames,
@@ -95,52 +93,81 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
       VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
     },
-  })
+  }
+
+  return json(result)
+}
+
+export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
+  const layoutData = matches.find((match) => match.id === `root`)?.data
+
+  const home = layoutData ? layoutData.initial.data : null
+
+  const title = [data?.initial?.data?.title, home?.siteTitle]
+    .filter(Boolean)
+    .join(' | ')
+
+  const ogImageUrl = data ? data.ogImageUrl : null
+
+  const value = [
+    { title },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:title', content: title },
+    { property: 'og:title', content: title },
+    { property: 'og:image:width', content: String(OG_IMAGE_WIDTH) },
+    { property: 'og:image:height', content: String(OG_IMAGE_HEIGHT) },
+    { property: 'og:image', content: ogImageUrl },
+  ]
+
+  return value
 }
 
 export default function App() {
-  const { theme, bodyClassNames, ENV, initial, query, params, sanity } = useLoaderData<typeof loader>()
+  const { theme, bodyClassNames, ENV, initial, query, params, sanity } =
+    useLoaderData<typeof loader>()
   const location = useLocation()
   const isStudio = location.pathname.startsWith('/studio')
   const {
     data: { footer, header },
   } = useQuery<typeof initial.data>(query, params, {
-    // There's a TS issue with how initial comes over the wire
-    // @ts-expect-error
     initial,
   })
 
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)
   }, [])
-  
+
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <Meta />
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="icon" href="/favicon.png" />
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width,initial-scale=1' />
+        <link rel='icon' href='/favicon.png' />
         <Links />
       </head>
       <body className={bodyClassNames}>
         {isStudio ? (
           <Outlet></Outlet>
         ) : (
-          <div className="min-h-dvh flex flex-col justify-between">
-            <Header theme={theme} data={header} />
-            <Page>
-              {/* home?.title && pathname === '/' ? <Title>{home?.title}</Title> : null */}
-              <Outlet />
-            </Page>
+          <TranslationsProvider>
+            <div className='flex min-h-dvh flex-col justify-between'>
+              <Header theme={theme} data={header} />
+
+              <Page>
+                <ToastContainer></ToastContainer>
+                <Outlet />
+              </Page>
               <Footer data={footer}></Footer>
-            {sanity.preview ? (
-              <>
-                <VisualEditing />
-                <ExitPreview />
-              </>
-            ) : null}
-          </div>
+              {sanity.preview ? (
+                <>
+                  <VisualEditing />
+                  <ExitPreview />
+                </>
+              ) : null}
+            </div>
+          </TranslationsProvider>
         )}
         <ScrollRestoration />
         <script

@@ -1,10 +1,17 @@
 import { defineField, defineType } from 'sanity'
 
-export const footer = defineType({
-  name: 'footer',
+export const footerFr = defineType({
+  name: 'footerFr',
   title: 'Footer',
   type: 'document',
   fields: [
+    defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+      initialValue: 'fr',
+    }),
     defineField({
       name: 'logo',
       type: 'customImage',
