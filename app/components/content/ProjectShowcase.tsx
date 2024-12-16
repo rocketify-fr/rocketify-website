@@ -23,8 +23,8 @@ const ProjectShowcase = ({ title, description, projects }) => {
             <Fragment key={`${slug}-${i}`}>
               <div
                 className={clsx(
-                  'flex flex-col gap-6 sm:flex-row sm:gap-12',
-                  i % 2 !== 0 && 'sm:flex-row-reverse'
+                  'flex flex-col gap-6 lg:flex-row lg:gap-12',
+                  i % 2 !== 0 && 'lg:flex-row-reverse'
                 )}
               >
                 <div className='flex flex-col items-start gap-4 sm:my-auto sm:w-3/5'>
@@ -43,7 +43,7 @@ const ProjectShowcase = ({ title, description, projects }) => {
                 <img
                   src={image.url}
                   alt={image.alt}
-                  className='aspect-square w-full rounded-3xl border border-black object-cover sm:w-2/5'
+                  className='aspect-square w-full rounded-3xl border border-black object-cover lg:w-2/5'
                 />
               </div>
               {i + 1 < projects.length && <Separator />}
