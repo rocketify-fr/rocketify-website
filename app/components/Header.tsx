@@ -184,16 +184,20 @@ export function Header({ theme, data }) {
             })}
             <div className='group cursor-pointer rounded-xl border-gray-200 bg-white hover:divide-y '>
               <div className='flex items-center gap-4 px-4 py-2'>
-                {extendedLanguages
-                  .find((lang) => lang.id === language)
-                  .id.toUpperCase()}
-
                 {languages.length > 1 && (
-                  <ChevronIcon
-                    className={clsx(
-                      'rotate-180 transition-all group-hover:rotate-0'
-                    )}
-                  ></ChevronIcon>
+                  <>
+                    <span>
+                      {extendedLanguages
+                        .find((lang) => lang.id === language)
+                        .id.toUpperCase()}
+                    </span>
+
+                    <ChevronIcon
+                      className={clsx(
+                        'rotate-180 transition-all group-hover:rotate-0'
+                      )}
+                    ></ChevronIcon>
+                  </>
                 )}
               </div>
               <div className='group-over:h-fit group absolute h-0 divide-y overflow-y-hidden bg-white transition-all group-hover:overflow-y-visible'>
