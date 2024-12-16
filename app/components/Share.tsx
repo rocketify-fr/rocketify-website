@@ -1,6 +1,8 @@
 import queryString from 'query-string'
 import { toast } from 'react-toastify'
 
+import { sanitize } from '~/utils/string'
+
 import { useTranslations } from './contexts/translations'
 
 const ShareLink = ({ url, title }) => {
@@ -51,6 +53,7 @@ const ShareX = ({ url, title }) => {
   )
 }
 export const Share = ({ url, title }) => {
+  title = sanitize(title)
   return (
     <div className='flex gap-x-2'>
       <ShareLink url={url} title={title}></ShareLink>
