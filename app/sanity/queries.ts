@@ -6,7 +6,7 @@ const image = '"image": image{"url": asset->url, "_id": asset->_id, alt}'
 
 const localized = `[_key == $language][0].value`
 
-const translations = `"translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+export const translations = `"translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     "slug": slug.current,
     language
   }`
