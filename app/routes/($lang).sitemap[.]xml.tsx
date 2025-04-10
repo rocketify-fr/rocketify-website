@@ -10,7 +10,6 @@ const baseUrl = 'https://rocketify.io'
 export const loader = async ({ params }) => {
   try {
     const language = getLanguage(params)
-    console.log({ language })
     const data = await fetchDataFromSanity({ language })
     const allItems = [
       ...data.pages,
