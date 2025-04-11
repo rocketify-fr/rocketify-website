@@ -69,7 +69,7 @@ const noSeparator = ['useCaseIntro', 'faq', 'headband', 'headingTagline']
 
 export const PostContent = ({ content }) => {
   let lastType = null
-  return content.map((item, i) => {
+  return (content || []).map((item, i) => {
     const even = i % 2 === 0
     const firstOfType = item._type !== lastType
     const lastOfType = item._type !== content[i + 1]?._type

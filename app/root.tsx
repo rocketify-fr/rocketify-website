@@ -65,7 +65,7 @@ export const loader = async ({
 
   const language = getLanguage(requestParams)
 
-  console.log(requestParams)
+  // console.log(requestParams)
 
   const langSuffix = extendedLanguages.find((l) => l.id === language)?.camelId
 
@@ -85,7 +85,7 @@ export const loader = async ({
     query,
     params,
     language,
-    sanity: { preview },
+    sanity: { preview: false },
     theme,
     bodyClassNames,
     ENV: {

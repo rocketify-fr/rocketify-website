@@ -402,6 +402,7 @@ export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug
   _type,
   title,
   language,
+  offline,
   ${translations},
   publishStatus,
   url,
@@ -490,8 +491,8 @@ export const USE_CASES_QUERY = groq`*[_type == "useCase" && language == $languag
 } | order(_updatedAt desc)`
 
 export const APPS_QUERY = groq`*[_type == "app" && language == $language][$from...$to]{
-  ${app},
-} | order($sort desc)`
+  ${app}
+} | order($sortDirection desc)`
 
 export const APP_QUERY = groq`*[_type == "app" && language == $language && slug.current == $slug][0]{
   ${app},

@@ -153,6 +153,12 @@ export const useCaseType = defineType({
       fieldset: 'details',
     }),
     defineField({
+      name: 'offline',
+      type: 'boolean',
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
       name: 'description',
       type: 'text',
       group: 'details',

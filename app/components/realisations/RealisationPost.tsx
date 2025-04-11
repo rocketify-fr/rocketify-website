@@ -16,6 +16,7 @@ const RealisationPost = ({ post: postData }) => {
     title,
     tags,
     url,
+    offline,
     description,
     image,
     intro,
@@ -49,11 +50,13 @@ const RealisationPost = ({ post: postData }) => {
         </div>
         <div className='flex flex-col items-start xl:w-2/3'>
           <p className='py-2 text-lg'>{description}</p>
-          <Button className='mt-4 bg-rPurple'>
-            <a target='_blank' href={url} rel='noreferrer'>
-              {t('project.visit')}
-            </a>
-          </Button>
+          {!offline && (
+            <Button className='mt-4 bg-rPurple'>
+              <a target='_blank' href={url} rel='noreferrer'>
+                {t('project.visit')}
+              </a>
+            </Button>
+          )}
         </div>
         <img
           src={image.url}

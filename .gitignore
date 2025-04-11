@@ -8,3 +8,5 @@ audit.json
 .env
 !.env.template
 .vercel
+dev.tar.gz
+production.tar.gz

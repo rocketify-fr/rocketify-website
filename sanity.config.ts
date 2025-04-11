@@ -61,33 +61,33 @@ export default defineConfig({
       },
     }),
     structureTool({ structure, defaultDocumentNode }),
-    presentationTool({
-      previewUrl: {
-        previewMode: {
-          enable: '/resource/preview',
-        },
-      },
-      resolve: {
-        locations: {
-          record: defineLocations({
-            select: {
-              title: 'title',
-              slug: 'slug.current',
-            },
-            resolve: (doc) => ({
-              locations: [
-                {
-                  title: doc?.title || 'Untitled',
-                  href: `/services/${doc?.slug}`,
-                },
-                { title: 'Home', href: `/` },
-              ],
-            }),
-          }),
-        },
-      },
-    }),
-    visionTool(),
+    // presentationTool({
+    //   previewUrl: {
+    //     previewMode: {
+    //       enable: '/resource/preview',
+    //     },
+    //   },
+    //   resolve: {
+    //     locations: {
+    //       record: defineLocations({
+    //         select: {
+    //           title: 'title',
+    //           slug: 'slug.current',
+    //         },
+    //         resolve: (doc) => ({
+    //           locations: [
+    //             {
+    //               title: doc?.title || 'Untitled',
+    //               href: `/services/${doc?.slug}`,
+    //             },
+    //             { title: 'Home', href: `/` },
+    //           ],
+    //         }),
+    //       }),
+    //     },
+    //   },
+    // }),
+    // visionTool(),
     unsplashImageAsset(),
   ],
   basePath: STUDIO_BASEPATH,
