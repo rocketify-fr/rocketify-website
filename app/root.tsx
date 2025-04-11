@@ -13,7 +13,6 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useLocation,
 } from '@remix-run/react'
 import { loadQuery, useQuery } from '@sanity/react-loader'
 import { VisualEditing } from '@sanity/visual-editing/remix'
@@ -118,10 +117,9 @@ export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
 }
 
 export default function App() {
-  const { theme, bodyClassNames, ENV, initial, query, params, sanity } =
+  const { theme, bodyClassNames, initial, query, params, sanity } =
     useLoaderData<typeof loader>()
-  const location = useLocation()
-  const isStudio = location.pathname.startsWith('/studio')
+
   const {
     data: { footer, header },
   } = useQuery<typeof initial.data>(query, params, {
@@ -137,38 +135,28 @@ export default function App() {
       <head>
         <Meta />
         <meta charSet='utf-8' />
-        <meta name='viewport' content='width=device-width,initial-scale=1' />
         <link rel='icon' href='/favicon.png' />
         <Links />
       </head>
       <body className={bodyClassNames}>
-        {isStudio ? (
-          <Outlet></Outlet>
-        ) : (
-          <TranslationsProvider>
-            <div className='flex min-h-dvh flex-col justify-between'>
-              <Header theme={theme} data={header} />
+        <TranslationsProvider>
+          <div className='flex min-h-dvh flex-col justify-between'>
+            <Header theme={theme} data={header} />
 
-              <Page>
-                <ToastContainer></ToastContainer>
-                <Outlet />
-              </Page>
-              <Footer data={footer}></Footer>
-              {sanity.preview ? (
-                <>
-                  <VisualEditing />
-                  <ExitPreview />
-                </>
-              ) : null}
-            </div>
-          </TranslationsProvider>
-        )}
+            <Page>
+              <ToastContainer></ToastContainer>
+              <Outlet />
+            </Page>
+            <Footer data={footer}></Footer>
+            {sanity.preview ? (
+              <>
+                <VisualEditing />
+                <ExitPreview />
+              </>
+            ) : null}
+          </div>
+        </TranslationsProvider>
         <ScrollRestoration />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(ENV)}`,
-          }}
-        />
         {/* GTM script fallback if js is disabled */}
         <noscript>
           <iframe
