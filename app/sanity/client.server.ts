@@ -1,8 +1,6 @@
 import { createClient } from '@sanity/client'
 
-const projectId = process.env.VITE_SANITY_PROJECT_ID
-const dataset = process.env.VITE_SANITY_DATASET
-const apiVersion = process.env.VITE_SANITY_API_VERSION
+import { apiVersion, dataset, projectId } from './projectDetails'
 
 export const viewClient = createClient({
   projectId,

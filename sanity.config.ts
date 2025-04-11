@@ -10,19 +10,12 @@ import { internationalizedArray } from 'sanity-plugin-internationalized-array'
 import { media } from 'sanity-plugin-media'
 
 // import { STUDIO_BASEPATH } from '~/sanity/constants'
+import { projectDetails } from './app/sanity/projectDetails'
 import schema from './app/sanity/schemaTypes'
 import { defaultDocumentNode, structure } from './app/sanity/structure'
 
-const projectId = process.env.VITE_SANITY_PROJECT_ID
-const dataset = process.env.VITE_SANITY_DATASET
-const apiVersion = process.env.VITE_SANITY_API_VERSION
-
-console.log({projectId, dataset, apiVersion})
-
 export default defineConfig({
-  projectId,
-  dataset,
-  apiVersion,
+  ...projectDetails(),
   name: 'rocketify-web',
   title: 'Rocketify Web',
   plugins: [

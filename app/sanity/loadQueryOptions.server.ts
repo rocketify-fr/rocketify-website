@@ -2,9 +2,8 @@ import type { loadQuery } from '@sanity/react-loader'
 
 import { client } from '~/sanity/client'
 import { STUDIO_BASEPATH } from '~/sanity/constants'
+import { projectId } from '~/sanity/projectDetails'
 import { getSession } from '~/sessions'
-
-const projectId = process.env.VITE_SANITY_PROJECT_ID
 
 // I wish I could do this in middleware
 // Or move this to server.ts
