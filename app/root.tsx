@@ -5,7 +5,7 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from '@remix-run/node'
-import { json, redirect } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Links,
   Meta,
@@ -14,7 +14,6 @@ import {
   ScrollRestoration,
   useLoaderData,
   useLocation,
-  useMatches,
 } from '@remix-run/react'
 import { loadQuery, useQuery } from '@sanity/react-loader'
 import { VisualEditing } from '@sanity/visual-editing/remix'
@@ -35,7 +34,7 @@ import { Header } from './components/Header'
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
 import { loadQueryOptions } from './sanity/loadQueryOptions.server'
 import { LAYOUT_QUERY } from './sanity/queries'
-import { extendedLanguages, getLanguage, languages } from './utils/language'
+import { extendedLanguages, getLanguage } from './utils/language'
 
 const GTM_ID = 'GTM-T2JXGG9Q'
 

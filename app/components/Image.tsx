@@ -25,7 +25,6 @@ export default function Image({ image, className, width = 500, height = 500 }) {
     <img
       className={className}
       alt={image?.alt ?? ``}
-      fetchPriority='auto'
       src={urlFor(image._id)
         .size(width, height)
         .auto('format')
