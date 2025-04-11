@@ -89,7 +89,7 @@ const ContactForm = () => {
               {t('contact.budget.options')
                 .split(';')
                 .map((option) => (
-                  <option value={option}>{option}</option>
+                  <option value={option} key={option}>{option}</option>
                 ))}
             </Input>
             <Input name='delay' label={t('contact.deadline')} type='select'>
@@ -97,7 +97,7 @@ const ContactForm = () => {
               {t('contact.deadline.options')
                 .split(';')
                 .map((option) => (
-                  <option value={option}>{option}</option>
+                  <option value={option} key={option}>{option}</option>
                 ))}
             </Input>
           </div>
