@@ -10,3 +10,4 @@ audit.json
 .vercel
 dev.tar.gz
 production.tar.gz
+.sanity
