@@ -4,9 +4,6 @@ import groq from 'groq'
 import { generatePngFromDocument } from '../lib/og.server'
 import { viewClient } from '../sanity/client.server'
 
-export const OG_IMAGE_WIDTH = 1200
-export const OG_IMAGE_HEIGHT = 630
-
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { origin, searchParams } = new URL(request.url)
   const id = searchParams.get('id')

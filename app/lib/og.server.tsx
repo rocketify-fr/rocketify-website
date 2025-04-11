@@ -4,7 +4,8 @@ import urlBuilder from '@sanity/image-url'
 import type { SatoriOptions } from 'satori'
 import satori from 'satori'
 
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../routes/resource.og'
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '~/utils/opengraph'
+
 import { dataset, projectId } from '../sanity/projectDetails'
 
 // Load the font from the "public" directory

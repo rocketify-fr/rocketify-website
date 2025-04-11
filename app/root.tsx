@@ -31,10 +31,10 @@ import { TranslationsProvider } from './components/contexts/translations'
 import { ExitPreview } from './components/ExitPreview'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './routes/resource.og'
 import { loadQueryOptions } from './sanity/loadQueryOptions.server'
 import { LAYOUT_QUERY } from './sanity/queries'
 import { extendedLanguages, getLanguage } from './utils/language'
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from './utils/opengraph'
 
 const GTM_ID = 'GTM-T2JXGG9Q'
 
@@ -87,11 +87,6 @@ export const loader = async ({
     sanity: { preview: false },
     theme,
     bodyClassNames,
-    ENV: {
-      VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
-      VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
-      VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
-    },
   }
 
   return json(result)
