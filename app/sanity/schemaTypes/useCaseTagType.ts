@@ -1,7 +1,7 @@
 import { Tags } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
-import { isUniqueOtherThanLanguage } from '~/utils/slug'
+import { isUniqueOtherThanLanguage } from '../../utils/slug'
 
 export const useCaseTagType = defineType({
   name: 'useCaseTag',

@@ -8,7 +8,7 @@ import {
 import { Newspaper } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
-import { isUniqueOtherThanLanguage } from '~/utils/slug'
+import { isUniqueOtherThanLanguage } from '../../utils/slug'
 
 export const useCaseType = defineType({
   name: 'useCase',

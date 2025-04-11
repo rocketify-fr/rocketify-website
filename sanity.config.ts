@@ -9,15 +9,22 @@ import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { internationalizedArray } from 'sanity-plugin-internationalized-array'
 import { media } from 'sanity-plugin-media'
 
-import { STUDIO_BASEPATH } from '~/sanity/constants'
-import { projectDetails } from '~/sanity/projectDetails'
-import schema from '~/sanity/schemaTypes'
-import { defaultDocumentNode, structure } from '~/sanity/structure'
+// import { STUDIO_BASEPATH } from '~/sanity/constants'
+import schema from './app/sanity/schemaTypes'
+import { defaultDocumentNode, structure } from './app/sanity/structure'
+
+const projectId = process.env.VITE_SANITY_PROJECT_ID
+const dataset = process.env.VITE_SANITY_DATASET
+const apiVersion = process.env.VITE_SANITY_API_VERSION
+
+console.log({projectId, dataset, apiVersion})
 
 export default defineConfig({
-  ...projectDetails(),
-  name: 'sanity-remix',
-  title: 'Sanity Remix',
+  projectId,
+  dataset,
+  apiVersion,
+  name: 'rocketify-web',
+  title: 'Rocketify Web',
   plugins: [
     documentInternationalization({
       // ...or a function that takes the client and returns a promise of an array of supported languages
@@ -90,7 +97,6 @@ export default defineConfig({
     // visionTool(),
     unsplashImageAsset(),
   ],
-  basePath: STUDIO_BASEPATH,
   schema: {
     types: schema,
   },

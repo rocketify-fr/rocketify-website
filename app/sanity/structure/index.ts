@@ -16,8 +16,8 @@ import type {
   StructureResolver,
 } from 'sanity/structure'
 
-import OGPreview from '~/sanity/components/OGPreview'
-import { resolveOGUrl } from '~/sanity/structure/resolveOGUrl'
+import OGPreview from '../components/OGPreview'
+import { resolveOGUrl } from '../structure/resolveOGUrl'
 
 export const languages = [
   { id: 'fr', title: 'Français', flag: '🇫🇷' },

@@ -1,4 +1,4 @@
-import { apiVersion } from '~/sanity/projectDetails'
+import { apiVersion } from '../sanity/projectDetails'
 
 export async function isUniqueOtherThanLanguage(slug, context) {
   const { document, getClient } = context

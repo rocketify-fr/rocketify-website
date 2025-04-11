@@ -1,5 +1,5 @@
-import {Users} from 'lucide-react'
-import {defineField, defineType} from 'sanity'
+import { Users } from 'lucide-react'
+import { defineField, defineType } from 'sanity'
 
 export const authorType = defineType({
   name: 'author',
@@ -14,7 +14,7 @@ export const authorType = defineType({
     defineField({
       name: 'slug',
       type: 'slug',
-      options: {source: 'name'},
+      options: { source: 'name' },
     }),
     defineField({
       name: 'image',

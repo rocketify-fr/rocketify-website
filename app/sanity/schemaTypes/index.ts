@@ -1,15 +1,14 @@
-import { customSchemaTypes } from '~/sanity/customSchemaTypes' // customSchemaTypes
-import { documents } from '~/sanity/documents' // documents
-import { objects } from '~/sanity/objects' // objects
-import { authorType } from '~/sanity/schemaTypes/authorType'
-import { pageType } from '~/sanity/schemaTypes/pageType'
-import { postTagType } from '~/sanity/schemaTypes/postTagType'
-import { postType } from '~/sanity/schemaTypes/postType'
-import { useCaseTagType } from '~/sanity/schemaTypes/useCaseTagType'
-import { useCaseType } from '~/sanity/schemaTypes/useCaseType'
-import { sections } from '~/sanity/sections' // sections
-import { singletons } from '~/sanity/singletons'
-
+import { customSchemaTypes } from '../customSchemaTypes' // customSchemaTypessche
+import { documents } from '../documents' // documents
+import { objects } from '../objects' // objects
+import { authorType } from '../schemaTypes/authorType'
+import { pageType } from '../schemaTypes/pageType'
+import { postTagType } from '../schemaTypes/postTagType'
+import { postType } from '../schemaTypes/postType'
+import { useCaseTagType } from '../schemaTypes/useCaseTagType'
+import { useCaseType } from '../schemaTypes/useCaseType'
+import { sections } from '../sections' // sections
+import { singletons } from '../singletons'
 import { appType } from './appType'
 import { serviceType } from './serviceType'
 

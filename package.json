@@ -1,10 +1,11 @@
 {
-  "name": "sanity-remix-template",
+  "name": "rocketify-website",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "remix vite:dev",
+    "dev": "remix vite:dev --host",
+    "dev-sanity": "sanity dev --host",
     "build": "remix vite:build",
     "lint": "eslint . --fix",
     "sanity": "sanity",
