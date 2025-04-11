@@ -14,7 +14,7 @@ export default function Image({ image, className, width = 500, height = 500 }) {
         `${urlFor(image._id)
           .width(w)
           .height(h)
-          .quality(90)
+          .quality(100)
           .fit('clip')
           .auto('format')
           .url()} ${w}w`
