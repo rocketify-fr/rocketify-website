@@ -5,7 +5,8 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "remix vite:dev --host",
+    "dev": "concurrently --names app,sanity \"npm run dev-app\" \"npm run dev-sanity\"",
+    "dev-app": "remix vite:dev --host",
     "dev-sanity": "sanity dev --host",
     "build": "remix vite:build",
     "lint": "eslint . --fix",
@@ -66,6 +67,7 @@
     "@types/react-dom": "^18.2.22",
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
+    "concurrently": "^9.1.2",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-react": "^7.34.1",

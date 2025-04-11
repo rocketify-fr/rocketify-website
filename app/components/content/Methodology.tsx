@@ -1,4 +1,7 @@
+import { urlFor } from '~/utils/image'
+
 import Container from '../Container'
+import Image from '../Image'
 
 const Methodology = ({ title, description, image, summary }) => {
   return (
@@ -12,10 +15,11 @@ const Methodology = ({ title, description, image, summary }) => {
         </div>
       </div>
       <div className='my-16 grid gap-16 sm:grid-cols-2'>
-        <img
-          src={image.url}
+        <Image
+          image={image}
+          width={700}
+          height={700}
           className='aspect-square h-auto w-full rounded-3xl border border-black bg-gray-50 object-cover'
-          alt={image.alt}
         />
         <div className='my-auto flex flex-col gap-8'>
           {summary.map((item, i) => (

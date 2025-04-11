@@ -8,4 +8,5 @@ export const viewClient = createClient({
   apiVersion,
   useCdn: false,
   token: process.env.SANITY_READ_TOKEN,
+  stega: false,
 })

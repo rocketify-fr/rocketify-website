@@ -1,17 +1,11 @@
 import { PortableText } from '@portabletext/react'
-import urlBuilder from '@sanity/image-url'
 
-import { dataset, projectId } from '~/sanity/projectDetails'
+import { urlFor } from '~/utils/image'
 
 import Container from '../Container'
+import Image from '../Image'
 import Button from '../layout/Button'
 import { Link } from '../Link'
-
-const builder = urlBuilder({ projectId, dataset })
-
-export function urlFor(source) {
-  return builder.image(source)
-}
 
 const HeroSection = ({ title, description, image, cta }) => {
   return (
@@ -27,48 +21,13 @@ const HeroSection = ({ title, description, image, cta }) => {
           <Link link={cta.link}>{cta.label}</Link>
         </Button>
       </div>
-      <img
-        className="aspect-[4/3] rounded-3xl sm:aspect-[21/9] lg:aspect-[4/3] lg:w-2/5"
-        alt={image?.alt ?? ``}
-        fetchpriority="high"
-        src={urlFor(image._id)
-          .width(576)
-          .height(432)
-          .fit('max')
-          .quality(90)
-          .auto('format')
-          .url()}
-        // srcSet avec les 3 tailles
-        srcSet={`
-          ${urlFor(image._id)
-            .width(608)
-            .height(456)
-            .fit('max')
-            .quality(90)
-            .auto('format')
-            .url()} 608w,
-          ${urlFor(image._id)
-            .width(736)
-            .height(552)
-            .fit('max')
-            .quality(90)
-            .auto('format')
-            .url()} 736w,
-          ${urlFor(image._id)
-            .width(576)
-            .height(432)
-            .fit('max')
-            .quality(90)
-            .auto('format')
-            .url()} 576w
-        `}
-        sizes="
-          (max-width: 639px) 608px,
-          (max-width: 1023px) 736px,
-          (min-width: 1024px) 576px
-        "
-      />
 
+      <Image
+        className='aspect-[4/3] rounded-3xl sm:aspect-[21/9] lg:aspect-[4/3] lg:w-2/5'
+        image={image}
+        width={560}
+        height={420}
+      />
     </Container>
   )
 }

@@ -12,14 +12,14 @@ import { PAGE_QUERY } from '~/sanity/queries'
 import { getLanguage } from '~/utils/language'
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  console.log({ params })
+  // console.log({ params })
   const language = getLanguage(params)
   const { options } = await loadQueryOptions(request.headers)
   const slug = params['*']
   const query = PAGE_QUERY
   const queryParams = { slug, language }
 
-  console.log({ pageLoader: queryParams })
+  // console.log({ pageLoader: queryParams })
 
   const initial = await loadQuery(query, queryParams, options)
 

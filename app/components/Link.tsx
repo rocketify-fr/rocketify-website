@@ -27,7 +27,7 @@ export function Link({ children, className = null, link: _link }) {
   const { language } = useRouteLoaderData('root')
 
   if (!link) {
-    console.log({ _link })
+    // console.log({ _link })
     return label
   }
 
@@ -55,7 +55,7 @@ export function Link({ children, className = null, link: _link }) {
   } else if (type === 'service') {
     prefix += 'services/'
   } else if (type !== 'page') {
-    console.log({ type })
+    // console.log({ type })
   }
 
   const path = getLocalizedPath(language, `${prefix}${link.slug || ''}`)

@@ -1,5 +1,6 @@
 import Container from '../Container'
 import { PostContent } from '../content/PostContent'
+import Image from '../Image'
 import Separator from '../Separator'
 
 const ServicePost = ({ post: postData }) => {
@@ -13,10 +14,11 @@ const ServicePost = ({ post: postData }) => {
           </div>
           <div className='text-lg sm:w-1/2'>{description}</div>
         </div>
-        <img
-          src={image.url}
-          alt={image.alt}
+        <Image
+          image={image}
           className='aspect-[4/3] h-[350px] w-full rounded-3xl object-cover'
+          width={1452}
+          height={350}
         />
       </Container>
       <Separator />

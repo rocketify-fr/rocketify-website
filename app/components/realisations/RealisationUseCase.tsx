@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react'
 
 import Container from '../Container'
+import Image from '../Image'
 
 export const UseCaseIntro = ({ title, description, image, summary }) => {
   return (
@@ -14,10 +15,9 @@ export const UseCaseIntro = ({ title, description, image, summary }) => {
         </div>
       </div>
       <div className='my-16 grid gap-16 sm:grid-cols-2'>
-        <img
-          src={image.url}
+        <Image
+          image={image}
           className='aspect-square size-full rounded-3xl border border-black bg-gray-50 object-cover'
-          alt={image.alt}
         />
         <div className='my-auto flex flex-col gap-8'>
           {summary.map((item) => (

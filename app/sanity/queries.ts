@@ -1,6 +1,6 @@
 import groq from 'groq'
 
-const logo = '"logo": logo{"url": asset->url, alt}'
+const logo = '"logo": logo{"url": asset->url, alt, "_id": asset->_id}'
 
 const image = '"image": image{"url": asset->url, "_id": asset->_id, alt}'
 
@@ -415,6 +415,7 @@ export const USE_CASE_QUERY = groq`*[_type == "useCase" && slug.current == $slug
     description,
     gallery[] {
       "url": asset-> url,
+      "_id": asset-> _id,
       alt
     },
   },

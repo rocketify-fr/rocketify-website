@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import Container from './Container'
 import Headband from './content/Headband'
 import { useTranslations } from './contexts/translations'
+import Image from './Image'
 import { Link } from './Link'
 
 export function Footer({ data }) {
@@ -28,7 +29,7 @@ export function Footer({ data }) {
       ></Headband>
       <Container className='flex flex-col items-start justify-between gap-8 pt-12 sm:flex-row'>
         <div className='flex flex-1 flex-col gap-4'>
-          <img src={logo.url} alt={logo.alt} width={140} />
+          <img src={logo.url} alt={logo.alt} width={140} height={42} />
           <p className='text-md'>{description}</p>
         </div>
         <div className='flex flex-1 flex-col gap-8 sm:flex-row'>
@@ -66,12 +67,11 @@ export function Footer({ data }) {
               key={cert.description}
               className='flex flex-1 flex-col items-start justify-start rounded-xl border border-black p-4 sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-6'
             >
-              <img
-                src={cert.logo.url}
-                width={64}
-                height={64}
-                className='size-[40px] sm:size-[64px]'
-                alt='Certification'
+              <Image
+                image={cert.logo}
+                width={80}
+                height={90}
+                className='h-[45px] w-[40px] sm:h-[67px] sm:w-[60px]'
               />
               <div className='flex flex-col gap-2 sm:items-end sm:text-right'>
                 <p className='font-bai text-paragraph font-bold uppercase'>

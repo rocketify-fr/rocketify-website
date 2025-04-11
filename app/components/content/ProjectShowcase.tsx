@@ -3,6 +3,7 @@ import { Fragment } from 'react/jsx-runtime'
 
 import Container from '../Container'
 import { useTranslations } from '../contexts/translations'
+import Image from '../Image'
 import Button from '../layout/Button'
 import { SimpleLink } from '../Link'
 import { Tags } from '../post/Tags'
@@ -40,9 +41,8 @@ const ProjectShowcase = ({ title, description, projects }) => {
                     </SimpleLink>
                   </Button>
                 </div>
-                <img
-                  src={image.url}
-                  alt={image.alt}
+                <Image
+                  image={image}
                   className='aspect-square w-full rounded-3xl border border-black object-cover lg:w-2/5'
                 />
               </div>

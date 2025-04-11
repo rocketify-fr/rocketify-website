@@ -2,6 +2,7 @@ import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
 
 import Container from '../Container'
+import Image from '../Image'
 import Separator from '../Separator'
 
 const UseCaseItem = ({ description, image, reverse, separator }) => {
@@ -23,9 +24,10 @@ const UseCaseItem = ({ description, image, reverse, separator }) => {
         </div>
 
         <div className='pt-8 sm:w-1/2 sm:pt-0'>
-          <img
-            src={image?.url}
-            alt={image?.alt}
+          <Image
+            width={725}
+            height={485}
+            image={image}
             className='aspect-[4/3] rounded-3xl border border-black bg-gray-50 object-cover'
           />
         </div>

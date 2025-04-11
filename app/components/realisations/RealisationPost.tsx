@@ -4,6 +4,7 @@ import HeroSection from '../content/HeroSection'
 import { PostContent } from '../content/PostContent'
 import Testimonials from '../content/Testimonials'
 import { useTranslations } from '../contexts/translations'
+import Image from '../Image'
 import Button from '../layout/Button'
 import { Breadcrumbs } from '../post/Breadcrumbs'
 import { Tags } from '../post/Tags'
@@ -58,9 +59,10 @@ const RealisationPost = ({ post: postData }) => {
             </Button>
           )}
         </div>
-        <img
-          src={image.url}
-          alt={image.alt}
+        <Image
+          image={image}
+          width={1200}
+          height={500}
           className='my-16 aspect-[4/3] rounded-3xl border border-black object-cover lg:aspect-[21/9]'
         />
       </Container>

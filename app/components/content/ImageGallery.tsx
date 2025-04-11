@@ -2,6 +2,7 @@ import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
 
 import Container from '../Container'
+import Image from '../Image'
 
 const ImageGallery = ({ gallery }) => {
   return (
@@ -17,15 +18,16 @@ const ImageGallery = ({ gallery }) => {
                 fullWidth ? 'sm:col-span-2' : 'sm:col-span-1'
               )}
             >
-              <img
-                src={image.url}
-                alt={image.alt}
+              <Image
+                image={image}
                 className={clsx(
                   'w-full object-cover',
                   fullWidth
                     ? 'aspect-[4/3] sm:aspect-video'
                     : 'aspect-[4/3] sm:aspect-square'
                 )}
+                width={fullWidth ? 1200 : 585}
+                height={fullWidth ? 670 : 585}
               />
             </div>
           )

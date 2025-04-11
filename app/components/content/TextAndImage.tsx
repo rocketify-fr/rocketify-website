@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 
 import Container from '../Container'
+import Image from '../Image'
 import Separator from '../Separator'
 
 const TextAndImage = ({ title, description, image, reverse, separator }) => (
@@ -22,9 +23,8 @@ const TextAndImage = ({ title, description, image, reverse, separator }) => (
       </div>
 
       <div className='flex sm:w-1/2'>
-        <img
-          src={image?.url}
-          alt={image?.alt}
+        <Image
+          image={image}
           className='aspect-[4/3] rounded-3xl border border-black bg-gray-50 object-cover'
         />
       </div>
