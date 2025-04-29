@@ -20,7 +20,7 @@ export const loader = async ({ params }) => {
     const sitemapXml = createSitemapXml({ allItems, language })
 
     return new Response(sitemapXml, {
-      headers: { 'Content-Type': 'application/xml' },
+      headers: { 'Content-Type': 'application/xml; charset=utf-8' },
     })
   } catch (error) {
     console.error(error)
@@ -93,10 +93,8 @@ async function fetchDataFromSanity({ language }) {
 const createSitemapXml = ({ allItems, language }) => {
   let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.w3.org/TR/xhtml11/xhtml11_schema.html http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd" 
-    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
-    xmlns:xhtml="http://www.w3.org/TR/xhtml11/xhtml11_schema.html">
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml">
 `
 
   const languagePrefix = language === 'fr' ? '' : `/${language}`
@@ -115,7 +113,7 @@ const createSitemapXml = ({ allItems, language }) => {
     sitemapXml += `
   <url>
     <loc>${pageUrl}</loc>
-    <lastmod>${sanityDocument._updatedAt}</lastmod>
+    <lastmod>${new Date(sanityDocument._updatedAt).toISOString()}</lastmod>
     <priority>${isHome ? '1.00' : '0.80'}</priority>
     ${otherTranslations
         .map((t) => {
